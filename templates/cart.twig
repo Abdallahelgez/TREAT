@@ -67,17 +67,9 @@
     <div class="container mb-5">
         <div class="cart-view">
             <div class="row cart-products-with-totals {% if cart.products_count <= 0 %}d-none{% endif %}">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-8 cart-products-side">
                     <div class="section-cart-products">
-                        <h2 class="section-title ">{{ locals.cart_products_title }}</h2>
-                        <div class="header-wrapper">
-                            <div class="section-cart-products-row d-flex">
-                                <div class="section-cart-products-col-1"></div>
-                                <div class="section-cart-products-col-2 flex-grow-1">{{ locals.cart_header_product }}</div>
-                                <div class="section-cart-products-col-3">{{ locals.cart_header_quantity }}</div>
-                                <div class="section-cart-products-col-4">{{ locals.cart_header_price }}</div>
-                            </div>
-                        </div>
+                        
 
                         <div class="template_for_cart_products_list">
                             {{ template_for_cart_products_list }}
@@ -103,7 +95,7 @@
 
                     </div>
                 </div>
-                <div class="col-12 col-lg-4">
+                <div class="col-12 col-lg-4 cart-totals-side">
 
                     <h2 class="section-title ">{{ locals.cart_break_down_summary }}</h2>
                     <div class="header-wrapper">
@@ -257,6 +249,8 @@
 
 {% block footer_scripts %}
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
+    <script type="text/javascript" src="{{ assetUrl('cart-card.js?v=1.101010') }}"></script>
+
 
     {{ cart_view_scripts|raw }}
 
