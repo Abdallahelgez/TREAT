@@ -11,20 +11,25 @@
     --gray-400: #666666;
     --gray-500: #444444;
     --gray-600: #333333;
+    --gray-eee: #eeeeee;
     --Background-color: #1D1F1F;
+    --1A-black: #1A1A1A;
     
 }
 
 body{
 
 }
-
+.container-sec{
+    padding: 0 100px;
+}
 // @media (max-width: 768px) {   }
         .cart-product-row-wrapper {
             background: white;
             border-radius: 8px;
             // padding: 15px;
             margin-bottom: 15px;
+            border: 1px solid var(--gray-eee);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             .cart-product-error-messages{
                 .message{
@@ -36,7 +41,7 @@ body{
                 display: flex;
                 justify-content: space-between;
                 gap: 20px;
-                align-items: flex-start;
+                align-items: center;
                 position: relative;
                 .item-img-name-price{
                     display: flex;
@@ -62,7 +67,10 @@ body{
                         gap: 8px;
                         flex: 1;
                         .cart-product-col-details{
+                            padding: 0;
                             h1{
+                                font-size: unset;
+                                margin-bottom: 0;
                                a{
                                     color: var(--gray-600);
                                     font-size: 18px;
@@ -90,14 +98,6 @@ body{
                             }
                         }
                         .cart-product-price-each{
-                            &:not(:has(span)){
-                                color: var(--gray-400);
-                                font-size: 20px;
-                                font-style: normal;
-                                font-weight: 500;
-                                line-height: normal;
-                            }
-
                             span{
                                 font-style: normal;
                                 line-height: normal;
@@ -107,9 +107,10 @@ body{
                                     font-weight: 500;
                                 }
                                 &.price-discounted{
-                                    color: var(--gray-200);
+                                    color: #999999;
                                     font-size: 18px;
                                     font-weight: 400;
+                                    text-decoration: line-through;
                                  }
                             }
                             
@@ -156,14 +157,76 @@ body{
                     }
                 }
                 .item-total-quantity{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 32px;
                     .quantity-actions{
                         .cart-product-quantity-dropdown{
                             .quantity-controls-wrapper{
+                                border: 1px solid var(--gray-eee);
+                                height: 50px;
+                                border-radius: 4px;
                                 .quantity-btn{
+                                    padding: 16px;
+                                    display: flex;
+                                    align-items: center;
+                                    border: 0;
+                                    background: transparent;
+                                    position: relative;
+
+                                    svg{
+                                        width: 16px;
+                                        height: 16px;
+                                        min-width: 16px;
+                                        color: var(--gray-600);
+                                    }
+                                    &.qty-increase{
+
+                                        &::after{
+                                            content: '';
+                                            position: absolute;
+                                            left: 0;
+                                            top: 33%;
+                                            bottom: 33%;
+                                            width: 1px;
+                                            background-color: var(--gray-eee);
+                                        }
+                                    }
+                                    &.qty-decrease{
+
+                                        &::after{
+                                            content: '';
+                                            position: absolute;
+                                            right: 0;
+                                            top: 33%;
+                                            bottom: 33%;
+                                            width: 1px;
+                                            background-color: var(--gray-eee);
+                                        }
+                                    }
+                                    &:disabled {
+                                        opacity: 0.5;
+                                        cursor: not-allowed;
+                                    }
+                                    &:focus-visible{
+                                        outline: none;
+                                    }
+                                    &:focus{
+                                        outline: none;
+                                    }
 
                                 }
                                 .quantity-display{
-
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    font-size: 16px;
+                                    font-weight: 400;
+                                    line-height: 25px;
+                                    color: var(--gray-400);
+                                    min-width: 50px;
+                                    padding: 0 12px;
                                 }
                             }
                             select{
@@ -176,17 +239,31 @@ body{
                             display: none;
                         }
                         .cart-product-total-price{
-
+                            color: var(--1A-black);
+                            font-size: 18px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 100%;
+                             @media (max-width: 768px) { font-size: 16px;  }
+                            svg{
+                                --size-sm: 18px;
+                                 @media (max-width: 768px) { --size-sm: 16px;  }
+                                
+                                width:var(--size-sm);
+                                height:var(--size-sm);
+                                min-width:var(--size-sm);
+                            }
                         }
                     }
                 }
-                body.rtl &{
+                
+            }
+            body.rtl &{
                     direction: rtl;
                 }
                 body.ltr &{
                     direction: ltr;
                 }
-            }
         }
 
         
@@ -208,26 +285,8 @@ body{
         
        
        
-        .cart-product-price-each {
-            font-size: 14px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
         
-        .cart-product-price-each .price-original {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 13px;
-        }
-        
-        .cart-product-price-each .price-discounted {
-            color: #e74c3c;
-            font-weight: 600;
-        }
-        
+       
         /* رسائل الخصم */
         .cart-product-discount-messages {
             font-size: 13px;
@@ -289,46 +348,9 @@ body{
             gap: 8px;
         }
         
-        .quantity-btn {
-            width: 34px;
-            height: 34px;
-            border: 1px solid #ddd;
-            background: white;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            user-select: none;
-        }
         
-        .quantity-btn:hover:not(:disabled) {
-            background: #f0f0f0;
-            border-color: #999;
-            transform: translateY(-1px);
-        }
         
-        .quantity-btn:active:not(:disabled) {
-            transform: translateY(0);
-        }
-        
-        .quantity-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-        
-        .quantity-display {
-            min-width: 40px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-            color: #333;
-        }
-        
+       
        
         
         body.rtl .cart-product-row {

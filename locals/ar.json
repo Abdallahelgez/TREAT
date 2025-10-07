@@ -232,5 +232,6 @@
   "product_question_empty": "لا يوجد أسئلة سابقة،",
   "product_question_empty_note": "يمكنك إضافة سؤالك لمعرفة المزيد حول المنتج",
   "product_questions_view_all" : "عرض جميع الأسئلة", 
-  "common_requried_email_input_error": "البريد الإلكتروني غير صحيح"
+  "common_requried_email_input_error": "البريد الإلكتروني غير صحيح",
+  "order_summary":"ملخص الطلب"
 }
