@@ -1,0 +1,35 @@
+<section section-id="{{ sectionId }}"
+         data-lg-scroll-offset="130"
+         data-md-scroll-offset="130"
+         data-sm-scroll-offset="94" class="product-section">
+  {% if settings.key %}
+ {% set product = attribute(all_products, settings.key) %}
+
+
+    <div class="product-container">
+          {% include 'product-d.twig' with {'product' : settings.key} %}
+       
+    </div>
+
+    {% endif %}
+
+{% schema %}
+{
+  "name": {
+    "ar": "سيكشن المنتج",
+    "en": "product section"
+  },
+  "icon": "fal fa-images",
+  "display": true,
+  "settings": {
+        "key": {
+            "type": "product",
+            "label": {
+                "ar": "العنوان",
+                "en": "text"
+            }
+        }
+
+  }
+}
+{% endschema %}

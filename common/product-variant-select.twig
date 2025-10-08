@@ -1,0 +1,33 @@
+{% if variant and variant.attributes is defined and variant.attributes|length > 0 %}
+    {% for attribute in variant.attributes %}
+        <div class="form-group">
+            <div>
+                <label>{{ attribute.name }}</label>
+                <ul name="{{ attribute.name }}" index="{{ loop.index0 }}">
+                    {% for v in selected_product.variants %}
+                        {% if v.attributes is defined and v.attributes|length > loop.parent.loop.index0 %}
+                            {% set is_first_occurrence = true %}
+                            {% for prev_v in selected_product.variants %}
+                                {% if loop.index < loop.parent.loop.index %}
+                                    {% if prev_v.attributes is defined and prev_v.attributes|length > loop.parent.loop.parent.loop.index0 %}
+                                        {% if prev_v.attributes[loop.parent.loop.parent.loop.index0].value == v.attributes[loop.parent.loop.parent.loop.index0].value %}
+                                            {% set is_first_occurrence = false %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if is_first_occurrence %}
+                                <li value="{{ v.attributes[loop.parent.loop.index0].value }}" 
+                                    onclick="productOptionListItemClicked(event)" 
+                                    class="{% if v.attributes[loop.parent.loop.index0].value == attribute.value %}active{% endif %}">
+                                    <span>{{ v.attributes[loop.parent.loop.index0].value }}</span>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

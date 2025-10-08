@@ -1,0 +1,42 @@
+<style>
+   /* CSS */
+    .image-banner {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .image-banner img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+</style>
+
+<section
+        section-id="{{ sectionId }}"
+        data-lg-scroll-offset="130"
+        data-md-scroll-offset="130"
+        data-sm-scroll-offset="94" class="image-banner">
+  <img src="{{ settings.image }}" alt="{{store.name}}" />
+</section>
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "سيكشن البانر",
+    "en": "banner section"
+  },
+  "icon": "fal fa-images",
+  "display": true,
+  "settings": {
+        "image":  {
+            "type": "image",
+            "label": {
+                    "ar": "الصورة",
+                    "en": "Image"
+            }
+        }
+  }
+}
+{% endschema %}

@@ -1,0 +1,231 @@
+<style>
+    .hero-sec {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.rtl .swap{
+
+}
+.hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+    /*****************/
+.hero-content {
+    position: absolute;
+    bottom: 120px;
+    left: 100px;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: fit-content;
+    align-self: stretch;
+    max-width: 280px;
+    width: max-content;
+
+}   
+.rtl .swap .hero-content{
+    right: 100px;
+}
+
+
+@media (max-width: 1201px) {
+    .hero-content{
+        left: 80px;
+        bottom: 100px;
+        gap: 18px;
+    }
+    .rtl .swap .hero-content{
+        right: 80px;
+    }
+
+}
+@media (max-width: 993px) {
+    .hero-content{
+        left: 60px;
+        bottom: 80px;
+        gap: 16px;
+    }
+    .rtl .swap .hero-content{
+        right: 60px;
+    }  
+}
+@media (max-width: 769px) {
+    .hero-content{
+        left: 40px;
+        bottom: 60px;
+        gap: 13px;
+    }
+    .rtl .swap .hero-content{
+        right: 40px;
+    }  
+}
+@media (max-width: 577px) {
+    .hero-content{
+        left: 20px;
+        bottom: 40px;
+        gap: 10px;
+    }
+    .rtl .swap .hero-content{
+        right: 20px;
+    }     
+}
+@media (max-width: 450px) {
+    .hero-content{
+            left: 16px;
+            bottom: 20px;
+    }   
+    .rtl .swap .hero-content{
+        right: 16px;
+    }  
+}
+    /*****************/
+.hero-content h2 {
+    margin: 0;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+}
+@media (max-width: 1201) {
+    .hero-content h2 {
+        font-size: 36px;
+    } 
+}
+@media (max-width: 993px) {
+    .hero-content h2 {
+        font-size: 32px;
+    } 
+}
+@media (max-width: 769px) {
+    .hero-content h2 {
+        font-size: 28px;
+    } 
+}
+@media (max-width: 577px) {
+    .hero-content h2 {
+        font-size: 24px;
+    } 
+}  
+@media (max-width: 450px) {
+    .hero-content h2 {
+        font-size: 18px;
+    } 
+}  
+
+    /*****************/
+.shop-button {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #07594F;
+    text-decoration: none;
+    color: #090909;
+    background: white;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-align: center;
+    font-size:20px;
+    border-radius: 2px;
+}
+@media (max-width: 993px) {
+    .shop-button{ 
+        font-size: 18px;
+        padding: 8px;
+    }   
+} 
+@media (max-width: 769px) {
+    .shop-button{
+        padding: 6px;
+        font-size: 16px;
+    }   
+}
+@media (max-width: 577px) {
+    .shop-button{
+        padding: 4px;
+    }   
+}
+</style>
+
+<section section-id="{{ sectionId }}"
+         data-lg-scroll-offset="130"
+         data-md-scroll-offset="130"
+         data-sm-scroll-offset="94"
+         class="hero-sec  {% if settings.display_more %} swap {% endif %}">
+  <img src="{{ settings.image }}" loading="lazy" alt="Lip Treatment" class="hero-img" />
+  <div class="hero-content">
+    <h2>{{ settings.title }}</h2>
+    <a href="{{ settings.url }}" class="shop-button">{{ settings.button_text }}</a>
+  </div>
+</section>
+
+
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "السيكشن الرئيسي",
+    "en": "hero section"
+  },
+  "icon": "fal fa-images",
+  "display": true,
+  "settings": {
+        "image":  {
+            "type": "image",
+            "label": {
+                    "ar": "الصورة",
+                    "en": "Image"
+            },
+            "info": {
+                    "ar": "ارفع صورة بحجم 1440 * 732 ",
+                    "en": "Upload an image with a size of 1440 * 732"
+            }
+        },
+        "url": {
+            "type": "url",
+            "label": {
+                "ar": "رابط الزرار",
+                "en": "Link button"
+            }
+        },
+        "button_text": {
+            "type": "text",
+            "label": {
+                "ar": "نص الزرار",
+                "en": "text button"
+            }
+        },
+        "title": {
+            "type": "text",
+            "label": {
+                "ar": "النص ",
+                "en": "text"
+            }
+        },
+        "display_more": {
+            "type": "checkbox",
+            "label": {
+                "ar": "",
+                "en": ""
+            },
+            "noLabel": true,
+            "option": {
+                "ar": " عرض النصوص فى الجهتين",
+                "en": "Display text on both sides"
+            }
+        }
+
+  }
+}
+{% endschema %}
