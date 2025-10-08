@@ -1,19 +1,14 @@
-{% extends "layout.twig" %}
+
 
 
 {% block top_links %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
-
-    <link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
+    
 {% endblock %}
 
 
 {% block main_content %}
-{{product|json_encode}}
 <section class="product products-details-page">
-        <div class="container pb-5">
-            <section class="products-details mb-5">
+            <div class="products-details mb-5">
                 <div>
                     <div class="row">
 
@@ -121,7 +116,7 @@
                                 {% if product.badge %}
                                    {{ template_for_product_badge }}
                                 {% endif %}
-                                <h1>{{ product.name | raw }}</h1>
+                                <a hred="{{product.html_url}}">{{ product.name | raw }}</a>
                                 <div class="d-flex flex-column flex-lg-row product-features">
                                     {% if product.rating %}
                                         <div>
@@ -170,7 +165,7 @@
                                 {% if product.short_description is not empty %}
                                     <p class="text-short-description">
                                         {{ product.short_description | raw }}
-                                        &nbsp;<a id="product-description-a" href="#product-description" class="text-color-primary">{{ locals.product_description_more }}</a>
+                                       
                                     </p>
                                 {% endif %}
                                 <div class="d-flex">
@@ -195,24 +190,13 @@
 
 
                             <div class="border-product"></div>
-                            <div style="margin-bottom: 25px" class="div-product-sku {% if not product.selected_product.sku %}d-none{% endif %}">
-                                <h4 class="product-title">{{ locals.product_sku }}</h4>
-                                <div class="product-sku">
-                                    {{ product.selected_product.sku }}
-                                </div>
-                            </div>
-
-                            <div style="margin-bottom: 25px" class="div-product-weight {% if not product.selected_product.weight.value %}d-none{% endif %}">
-                                <h4 class="product-title">{{ locals.product_weight }}</h4>
-                                <div class="product-weight">
-                                    {{ product.selected_product.weight.value }}&nbsp;{{ product.selected_product.weight.unit }}
-                                </div>
-                            </div>
+                           
 
                             <form id="product-form">
                                 <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
 
                                 <div class="size-box">
+                                <input id="product-parent-id" type="hidden" value="{{ product.id }}">
                                     {% if product.variants %}
                                         <div id="product-variants-options">
                                             {% include 'product-variant-select.twig' with {'variant': product.selected_product, 'selected_product': product} %}
@@ -326,405 +310,6 @@
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
-
-        
-    </section>
-{% endblock %}
-
-
-
-
-
-{% block footer_scripts %}
-
-    <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
-    <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
-    <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
-
-    {{ product_view_scripts|raw }}
-
-    <script>
-        var productImages = {{  product.selected_product.media | json_encode() | raw }};
-        var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
-
-        function productAddToCart() {
-            if(!$('.add-to-cart-progress').hasClass('d-none'))
-                return;
-
-            $('.add-to-cart-progress').removeClass('d-none');
-
-            zid.store.cart.addProduct({ formId:'product-form' }).then(function (response) {
-                if(response.status  === 'success'){
-
-                    if(response.data)
-                        setCartTotalAndBadge(response.data.cart);
-
-                    $('.added-notification').addClass("show");
-                    setTimeout(function () {
-                        $('.added-notification').removeClass("show");
-                    }, 5000);
-
-                    var image = $('#product-images-slick .slick-slide.slick-active img');
-                    var cart = $('.a-shopping-cart');
-
-                    if(image.length && cart.length){
-                        addToCartAnimation(cart, image);
-                    }
-
-                }else{
-                    toastr.error(response.data.message, '{{ locals.sorry }}')
-                }
-                $('.add-to-cart-progress').addClass('d-none');
-            })
-        }
-
-        function productOptionsChanged(selected_product) {
-            if (selected_product) {
-                $('#product-id').val(selected_product.id)
-                $('.send-notify-product-id').val(selected_product.id)
-
-                if (!selected_product.unavailable) {
-                    // Selected a valid variant that is available.
-                    if(selected_product.formatted_sale_price){
-                        $('.product-formatted-price').html(selected_product.formatted_sale_price)
-                        $('.product-formatted-price-old').html(selected_product.formatted_price)
-                        $('.product-formatted-price-discount').html('{{ locals.product_discount }}'+' '+selected_product.discount_percentage+'%')
-
-                    }else{
-                        $('.product-formatted-price').html(selected_product.formatted_price)
-                        $('.product-formatted-price-old').html('')
-                        $('.product-formatted-price-discount').html('')
-                    }
-
-                    if(selected_product.weight.value){
-                        $('.div-product-weight').removeClass('d-none');
-                        $('.div-product-weight .product-weight').html(selected_product.weight.value+' '+selected_product.weight.unit)
-                    }else{
-                        $('.div-product-weight').addClass('d-none')
-                    }
-
-                    if(selected_product.sku){
-                        $('.div-product-sku').removeClass('d-none');
-                        $('.div-product-sku .product-sku').html(selected_product.sku)
-                    }else{
-                        $('.div-product-sku').addClass('d-none');
-                    }
-
-
-                    {% if store.is_low_stock_label_enabled %}
-                    var store_low_stock_limit = {{ store.low_stock_quantity_limit }};
-                    var low_stock_message = '{{ locals.product_cart_quantity_low_stock }}';
-
-                    if(!selected_product.is_infinite &&  selected_product.quantity < store_low_stock_limit){
-                        $('.low-quantity-section').addClass('d-inline-block');
-                        $('.low-quantity-section .low-quantity').html(low_stock_message.replace('%s', selected_product.quantity))
-                    }else{
-                        $('.low-quantity-section').addClass('none');
-                    }
-                    {% endif %}
-
-                    var sold_product_count_message = '{{ locals.product_sold_more_than_x_times }}';
-                    if (selected_product.sold_products_count) {
-                        $('.product-count').removeClass('d-none');
-                        $('.product-count .lang').html(sold_product_count_message.replace('%s', selected_product.sold_products_count))
-                    } else {
-                        $('.product-count').removeClass('d-flex');
-                        $('.product-count').addClass('d-none');
-                    }
-                    var selectQuantity = ''
-
-                    if(selected_product.is_infinite)
-                        selected_product.quantity = 100;
-
-                    if(selected_product.quantity > 0) {
-                        $('.select-quantity-div').removeClass('d-none')
-                        var quantityMax = (selected_product.quantity > 100) ? 100 : selected_product.quantity;
-                        selectQuantity = '<option value="1"selected>1</option>'
-                        for(var i=2; i <= quantityMax; i++){
-                            selectQuantity += '<option value="'+i+'">'+i+'</option>';
-                        }
-                    }else{
-                        $('.select-quantity-div').addClass('d-none')
-                    }
-
-                    $('.select-quantity').html(selectQuantity);
-
-                    $('.product-buttons').removeClass('d-none');
-                    $('.section-out-of-stock-notify-me').addClass('d-none');
-
-                    $('.btn-add-to-cart span').html('{{ locals.add_to_cart }}');
-
-                    updateProductImages(selected_product);
-                } else {
-                    // Variant is sold out.
-                    if(selected_product.formatted_sale_price){
-                        $('.product-formatted-price').html(selected_product.formatted_sale_price)
-                        $('.product-formatted-price-old').html(selected_product.formatted_price)
-                        $('.product-formatted-price-discount').html('{{ locals.product_discount }}'+' '+selected_product.discount_percentage+'%')
-
-                    } else{
-                        $('.product-formatted-price').html(selected_product.formatted_price)
-                        $('.product-formatted-price-old').html('')
-                        $('.product-formatted-price-discount').html('')
-                    }
-                    $('.select-quantity-div').addClass('d-none')
-                    $('.product-buttons').addClass('d-none');
-                    $('.section-out-of-stock-notify-me').removeClass('d-none');
-
-                    $('.btn-add-to-cart span').html('{{ locals.error_item_unavailable }}');
-
-                    if(selected_product.sku){
-                        $('.div-product-sku').removeClass('d-none');
-                        $('.div-product-sku .product-sku').html(selected_product.sku)
-                    } else {
-                        $('.div-product-sku').addClass('d-none');
-                    }
-                    updateProductImages(selected_product);
-                }
-
-            } else {
-                // variant doesn't exist.
-                $('.select-quantity-div').addClass('d-none')
-                $('.product-buttons').addClass('d-none');
-                $('.section-out-of-stock-notify-me').removeClass('d-none');
-
-                $('.btn-add-to-cart span').html('{{ locals.error_item_unavailable }}');
-
-                updateProductImages(selected_product);
-            }
-        }
-
-        function updateProductImages(selected_product) {
-            if(selected_product && selected_product.media && selected_product.media.length > 0){
-                $('.product-images-carousel').removeClass('d-none');
-                $('.product-images-carousel-thumbs').removeClass('d-none-important');
-                $('.product-images-empty').addClass('d-none');
-                $('#product-images-slick').slick('unslick');
-                $('.product-images-carousel').addClass('product-images-carousel-init');
-
-                productImages = selected_product.media;
-
-                $('#product-images-slick').html('');
-                $('.product-images-carousel-thumbs').html('');
-
-                for(var z = 0; z < productImages.length; z++){
-                    var prImage = productImages[z];
-                    $('#product-images-slick').append('' +
-                        '<div>\n' +
-                        '                                                                    <div class="box-1-1">\n' +
-                        '                                                                        <div class="content">\n' +
-                        '                                                                            <a class="image-link"\n' +
-                        '                                                                               style="display:block; width: 100%; height: 100%;">\n' +
-                        '                                                                                <img src="'+ prImage.image.full_size +'" class="carousel-img" alt="'+ selected_product.name +'">\n' +
-                        (prImage.provider && prImage.link ? '<img id="main-video-icon" class="play-icon" src="{{ assetUrl('video-play.svg') }}" alt="play"'+
-                        '                                   onclick="showIframe(this, \''+ prImage.link +'\')"/>' : '' ) +
-                        '                                                                            </a>\n' +
-                        '                                                                          <div class="iframe-video pt-1 d-none">\n' +
-                        '                                                                             <a id="iframe-close-btn" type="button" class="text-white btn btn-none grow"'+
-                        '                                                                                onClick="hideIframe(this)">X</a>\n' +
-                        '                                                                            <iframe width="100%" height="100%" src="" frameborder="0"' +
-                        '                                                                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"' +
-                        '                                                                              allowfullscreen style="max-width: 100%">' +
-                        '                                                                            </iframe>\n' +
-                        '                                                                          </div>\n' +
-                        '                                                                        </div>\n' +
-                        '                                                                    </div>\n' +
-                        '                                                                </div>');
-
-
-                    $('.product-images-carousel-thumbs').append('<div class="col-3">\n' +
-                        '                                                         <div class="box-1-1">\n' +
-                        '                                                                <div class="content">\n' +
-                        '                                                                    <a class="d-flex align-items-center justify-content-center thumb-image-a" data-index="{{ key }}"\n' +
-                        '                                                                       style="width: 100%; height: 100%;" >\n' +
-                        '                                                                        <img src="'+ prImage.image.medium +'" data-index="'+ z +'">\n' +
-                        (prImage.provider && prImage.link ?                 '<img id="video-play-icon" class="play-icon"'+
-                        '                                                     src="{{ assetUrl('video-play.svg') }}" alt="play"'+
-                        '                                                     data-index="'+ z +'">\n' : '') +
-                        '                                                                    </a>\n' +
-                        '                                                                </div>\n' +
-                        '                                                            </div>\n' +
-                        '                                                        </div>');
-
-                }
-
-                initSlick(productImages);
-
-            }else{
-                $('.product-images-carousel').addClass('d-none');
-                $('.product-images-carousel-thumbs').addClass('d-none-important');
-                $('.product-images-empty').removeClass('d-none');
-            }
-        }
-
-        function sendProductNotifyMe() {
-            if(!$('.send-notify-progress').hasClass('d-none'))
-                return;
-
-            $('.send-notify-progress').removeClass('d-none');
-            let inputVal = $('.send-notify-country-key').val() || '966';
-
-            if (inputVal.startsWith('00')) {
-                inputVal = inputVal.replace(/^00+/, ''); // or inputVal = '966' to reset
-            }
-
-            const countryCode = '+' + inputVal;
-
-            zid.store.product.setAvailabilityNotificationEmail(
-                $('.send-notify-product-id').val(),
-                $('.send-notify-email').val(),
-                $('.send-notify-name').val(),
-                 countryCode + $('.send-notify-phone').val(),
-                ).then(function (response) {
-                if(response.status  === 'success'){
-                    toastr.success('{{ locals.sent_successfully }}', null)
-                }else{
-                    if(response && response.data && response.data.message) {
-                        toastr.error(JSON.stringify(response.data.message), '{{ locals.sorry }}')
-                    }else {
-                        toastr.error('{{ locals.notify_me_failed }}', '{{ locals.sorry }}')
-                    }
-                }
-                $('.send-notify-progress').addClass('d-none');
-            })
-        }
-
-
-        $('#product-description-a ').click(function(){
-            event.preventDefault();
-
-            $('html, body').animate({
-                scrollTop: $($.attr(this, 'href')).offset().top - ((window.matchMedia('(max-width: 768px)').matches) ? 15 :  150)
-            }, 500);
-
-        });
-
-        function addReviewButtonChecks() {
-            if (!customer){
-                $('#add-review-btn').css('display','none');
-                $('#add-review-link').removeClass('d-none');
-                $('#add-review-link').attr('href', `/auth/login?redirect_to=${window.location.pathname.replace('/','')}`);
-            }
-        }
-
-        $(document).ready(function() {
-            initSlick(productImages);
-            if (customerWishlistIds) {
-              fillWishlistItems(customerWishlistIds.map(id => ({ id })));
-            }
-        });
-
-        $(document).on('click','.thumb-image-a, #video-play-icon',function(event){
-            var tarr = event.target;
-
-            if ($('#product-images-slick')) {
-                $('#product-images-slick').slick('slickGoTo',$(tarr).attr('data-index'),true);
-            }
-        });
-
-
-        $(document).on('click','#product-images-slick .image-link :not(#main-video-icon)',function(event){
-            $('.pswp').removeClass('d-hide');
-            $('.app').addClass('d-hide');
-
-            openPhotoSwiper(productImages.map(function (image) {
-                return image.image.full_size
-            }), $('#product-images-slick .slick-active').attr('data-slick-index'));
-
-        });
-
-        $(document).on('click','.variant-image-wrapper a',function(event){
-            $('.pswp').removeClass('d-hide');
-            $('.app').addClass('d-hide');
-            var elm = event.currentTarget;
-            var varId = $(elm).attr('data-link-var-id');
-
-            var images = [];
-
-            $("div[data-var-id='"+varId+"']  img").each(function(iElm){
-                images.push($( this ).attr('data-image-url'))
-            });
-
-            openPhotoSwiper(images, $(elm).attr('data-index'));
-        });
-
-
-        var initSlick = function(productImages) {
-            var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right': 'icon-keyboard_arrow_left';
-            var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
-
-            $('#product-images-slick').slick({
-                infinite: false,
-                autoplay: false,
-                arrows: false,
-                dots: true,
-                rtl: !(window.appDirection === 'ltr')
-            });
-        }
-
-        $('#product-images-slick').on('init', function(event, slick){
-            $('.product-images-carousel').removeClass('product-images-carousel-init');
-        });
-
-        
-       
-
-
-        
-
-        // Product Image Video  
-        const getIframeLink = (videoLink) => {
-          const videoIdMatch = videoLink.match(
-            /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?|.*[?&]v=)|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-          );
-
-          if (videoIdMatch && videoIdMatch[1]) {
-            const videoLinkId = videoIdMatch[1];
-            return `https://www.youtube.com/embed/${videoLinkId}?autoplay=1&enablejsapi=1&mute=1&rel=0`;
-          }
-
-          return null;
-        };
-
-        const showIframe = (elm, imageVideoSrc) => {
-          const iframeLink = getIframeLink(imageVideoSrc);
-          const iframeElem = $(elm).parent(".image-link").siblings(".iframe-video").children("iframe");
-          $(elm).parent(".image-link").siblings(".iframe-video").removeClass("d-none");
-          if ($(iframeElem).attr("src") !== iframeLink) {
-            $(iframeElem).attr("src", iframeLink);
-          }
-        };
-
-        const hideIframe = (elm) => {
-          $(elm).parent(".iframe-video").addClass("d-none");
-          $(elm).siblings("iframe").attr("src", "");
-        };
-
-        $('#product-images-slick').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-          const iframeContainers = slick.$slides[currentSlide].querySelector(".iframe-video");
-          $(iframeContainers).addClass("d-none");
-          $(iframeContainers).children("iframe").attr("src", "");
-        });
-
-        $('#product-images-slick').on('afterChange', function(event, slick, currentSlide, nextSlide) {
-          const iframeContainers = slick.$slides[currentSlide].querySelector(".iframe-video");
-          const playIcon = $(iframeContainers).siblings(".image-link").children("#main-video-icon");
-          if (playIcon) {
-            $(playIcon).click();
-          }
-        });
-
-        document.addEventListener("DOMContentLoaded", () => {
-          setTimeout(() => {
-            const activeSlide = $("#product-images-slick .slick-slide.slick-active .image-link");
-            const playIcon = $(activeSlide).children("#main-video-icon");
-            if (playIcon) {
-              $(playIcon).click();
-            }
-          }, 250);
-        });
-    </script>
-
+            </div>
+</section>
 {% endblock %}

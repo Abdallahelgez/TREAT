@@ -10,7 +10,10 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
 
+    <link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
   <link rel="shortcut icon" type="image/jpg" href={{ store.icon }}/>
     {#<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Changa">#}
     <!--jquery UI -->
@@ -70,7 +73,9 @@
           font-display: block;
         }
     </style>
-
+<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
+<link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
   <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'icomoon.css?v=1.0.2' }}"  />
 
     {% if session.lang.code == 'ar' %}
@@ -262,7 +267,7 @@
           "menu_text_color": {
             "type": "color",
             "label": {
-              "ar": "لون نص القائممة الرئيسية (اختياري)",
+              "ar": "لون نص القائمة الرئيسية (اختياري)",
               "en": "Text color"
             }
           }
