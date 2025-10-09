@@ -1,6 +1,6 @@
-{# <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
+<link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
-<link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" /> #}
+<link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
 <section section-id="{{ sectionId }}"
          data-lg-scroll-offset="130"
          data-md-scroll-offset="130"
@@ -16,11 +16,9 @@
 
     {% endif %}
 </section>
-
-    {# <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
+    <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
-    <script type="text/javascript" src="{{ assetUrl('product-d.js?v=1.101010') }}"></script>
 
     {{ product_view_scripts|raw }}
 
@@ -480,9 +478,8 @@
           }, 250);
         });
     </script>
-        <script" src="{{ assetUrl('product-d.js?v=1.101010') }}"></script> #}
 
-   
+    <script type="text/javascript" src="{{ assetUrl('product-d.js?v=1.101010') }}"></script>
 {% schema %}
 {
   "name": {

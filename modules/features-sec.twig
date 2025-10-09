@@ -1,0 +1,246 @@
+<style>
+/* الألوان المستخدمة من Figma أو مقاربة لها: */
+:root {
+    --color-dark-green: #23544f; /* الخلفية الخضراء الداكنة للميزات */
+    --color-light-green-bg: #f5f8f5; /* خلفية الدوائر الفاتحة للأيقونات */
+    --color-text-dark: #333333;
+    --color-text-light: #ffffff;
+}
+
+.treat-features-section {
+    display: flex;
+    max-width: 1200px;
+    margin: 50px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* 1. تنسيق الجزء الجانبي (الصورة) */
+.features-hero {
+    flex: 0 0 35%; 
+    background: 
+        linear-gradient(to right, var(--green-color) 66.83%, rgba(30, 16, 60, 0.00) 118.84%),
+        var(--img) center center / cover no-repeat; 
+    
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    min-height: 250px;
+}
+
+.features-text-content {
+    color: var(--color-text-light);
+}
+
+/* التعديل الجديد: تنسيق صورة اللوجو */
+.treat-logo-hero {
+    /* ضبط الحجم ليتناسب مع تصميم "Treat" النصي السابق */
+    max-width: 100px; /* مثال لحجم مناسب */
+    height: auto;
+    opacity: 0.9;
+    /* تأكد من أن اللوجو أبيض أو فاتح ليتناسب مع الخلفية المظلمة */
+    margin-bottom: 5px; /* تباعد عن العنوان */
+}
+
+/* تم حذف التنسيقات الخاصة بـ .brand-name-light هنا */
+
+.section-title-light {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-top: 5px;
+}
+
+/* 2. تنسيق شبكة الميزات (4 بطاقات) */
+.features-grid-container {
+    flex: 1; 
+    background-color: var(--color-dark-green);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 10px;
+    gap: 10px; 
+}
+
+.feature-card {
+    background-color: var(--color-text-light);
+    border-radius: 8px;
+    padding: 20px 5px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    min-height: 180px; 
+}
+
+.icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: var(--color-light-green-bg);
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-icon {
+    width: 35px;
+    height: 35px;
+}
+
+.feature-description {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-dark);
+    line-height: 1.4;
+}
+
+/* 3. الاستجابة (Media Queries) */
+@media (max-width: 992px) {
+    .features-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .treat-features-section {
+        flex-direction: column;
+        margin: 30px 15px;
+    }
+    
+    .features-hero {
+        flex: auto;
+        padding: 30px 20px;
+    }
+    
+    .features-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .features-grid-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+{# <div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="features-sec container-sec ">
+    <div class="features-inner">
+
+        {% for key, galler in settings.store_features %}
+            <div class="feature d-flex flex-column justify-content-center align-items-center">
+                <img class="features-section-img" src="{{ imageUrl(galler.image,{ w: 350, q: 100, f:'auto' }) }}" loading="lazy" alt=""  />
+                <p class="px-2 theme-text-for-primary-bg features-section-title">{{ galler.title }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div> #}
+<section class="treat-features-section">
+    <div class="features-hero" style="--img:url('{{settings.image}}')">
+        <div class="features-text-content">
+            <img src="{{settings.logo}}" class="treat-logo-hero" alt="Treat Logo" loading="lazy">
+            <h2 class="section-title-light">{{settings.title}}</h2>
+        </div>
+    </div>
+    
+    <div class="features-grid-container">
+        {% for key, feature in settings.store_features %}
+              <div class="feature-card">
+                <div class="icon-wrapper">
+                  <img 
+                    class="features-section-img feature-icon" 
+                    src="{{ imageUrl(feature.image) }}" 
+                    loading="lazy" 
+                    alt="{{ feature.description }}" 
+                  />
+                </div>
+                <p class="feature-description">{{ feature.description }}</p>
+              </div> 
+        {% endfor %}
+    </div>
+</section>
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "المميزات",
+    "en": "features"
+  },
+  "icon": "fal fa-sparkles",
+  "display": true,
+  "settings": {
+    "title": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "text"
+          }
+        },
+        "logo": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 200 * 120 ",
+            "en": "Upload an image with a size of 120 * 200"
+          }
+        },
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 881 * 1780 ",
+            "en": "Upload an image with a size of 1780 * 881"
+          }
+        },
+    "store_features": {
+      "type": "list",
+      "noLabel": true,
+      "maxItems": 4,
+      "info": {
+        "ar": "",
+        "en": "This is an info text sample here"
+      },
+      "settings_label":{
+        "ar": "الصورة",
+        "en": "Picture"
+      },
+      "settings": {
+        "description": {
+          "type": "text",
+          "label": {
+            "ar": "العنوان",
+            "en": "text"
+          }
+        },
+        "image": {
+          "type": "image",
+          "label": {
+            "ar": "الصورة",
+            "en": "Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 80 * 80 ",
+            "en": "Upload an image with a size of 80 * 80"
+          }
+        }
+      }
+    }
+  }
+}
+{% endschema %}
