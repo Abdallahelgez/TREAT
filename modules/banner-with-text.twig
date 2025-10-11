@@ -1,0 +1,100 @@
+<section class="s-block s-block--banner-with-images" style="background-image: url('{{settings.background}}');">
+  <div class="container-fluid">
+    <div class="flex-banner">
+      <div class="images">
+        <img class="img-1" src="{{settings.img_1}}" alt="image1">
+        {% if settings.img_2 %}
+        <img class="img-2" src="{{settings.img_2}}" alt="image2">
+        {% endif %}
+      </div>
+      <div class="banner-text">
+        <h3>{{settings.title}}</h3>
+        <p>{{settings.description}}</p>
+        {% if settings.btn_text %}
+          <a href="{{settings.url}}" class="btn-custom-svg">
+            <span>{{settings.btn_text}}</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% schema %}
+{
+  "name": {
+    "ar": " بانر فاخر",
+    "en": "special banner"
+  },
+  "icon": "fa fa-text",
+  "display": true,
+  "settings": {
+    "background": {
+          "type": "image",
+            "label": {
+              "ar": "صورة الخلفية",
+              "en": "background image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 1440 * 500",
+            "en": "Upload an image with size 1440 * 500"
+          }
+          
+        },
+         "img_1": {
+          "type": "image",
+            "label": {
+              "ar": "الصورة الاولى",
+              "en": "First Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 500 * 500",
+            "en": "Upload an image with size 500 * 500"
+          }
+          
+        },
+         "img_2": {
+          "type": "image",
+            "label": {
+              "ar": " الصورة الثانية",
+              "en": "Second Image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 500 * 500",
+            "en": "Upload an image with size 500 * 500"
+          }
+          
+        },
+     "title": {
+      "type": "text",
+      "label": {
+        "ar": "النص الرئيسي ",
+        "en": "Message Title"
+      }
+    },
+    "description": {
+      "type": "text",
+      "label": {
+        "ar": "الوصف ",
+        "en": "description"
+      }
+    },
+    "url":{
+              "type":"url",
+              "label":{
+                "ar":"لينك الزر",
+                "en":"Button Link"
+              }
+            },
+    "btn_text": {
+      "type": "text",
+      "label": {
+        "ar": "نص الزر",
+        "en": "Button Text"
+      }
+    }
+  }
+}
+{% endschema %}

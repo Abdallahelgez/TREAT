@@ -1,0 +1,139 @@
+<style>
+.about-section {
+    background-color: #64776D; 
+    position: relative;
+    z-index: 1; 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px 0;
+    color: #ffffff; 
+}
+
+.about-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    background-image: url({{settings.image}});
+    background-repeat: repeat;
+    background-size: auto; 
+    
+    opacity: 0.05; 
+    z-index: 0; 
+}
+
+.content-container {
+     
+    text-align: center;
+    position: relative; 
+    z-index: 2; 
+    padding: 0 20px;
+    max-width:700px;
+    width:100%;
+    margin:auto;
+}
+
+.title {
+    color: #EBEDF0;
+                    text-align: center;
+                    font-size: 18px;
+                    font-weight: 800;
+                    line-height: 100%;
+                    margin: 0;
+}
+
+.quote-text {
+    color: #EBEDF0;
+                    text-align: center;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 173.1%; 
+                    margin:16px 0 24px 0;
+}
+
+.founder-name {
+    color: #EBEDF0;
+                    text-align: center;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 173.1%; 
+                    margin: 0;
+}
+</style>
+{# <section class="founder-message">
+  <div class="founder-message-box"  style="    background: url({{settings.image}}) lightgray 0px 0px / 100% 132.353% no-repeat;">
+    <div class="founder-message-inner">
+    <h2 class="title">{{settings.title}}</h2>
+    <p class="quote">{{settings.sub_title}}
+    </p>
+    <p class="founder-name">{{settings.founder}}</p>
+  </div>
+  </div>
+</section> #}
+
+<section class="about-section">
+    <div class="content-container">
+        <h2 class="title">{{settings.title}}</h2>
+        
+        <p class="quote-text">
+            {{settings.sub_title}}
+        </p>
+        <p class="founder-name">
+            {{settings.founder}}
+        </p>
+    </div>
+    
+    </section>
+
+{% schema %}
+{
+  "name": {
+    "ar": " رسالة المؤسس",
+    "en": "Founder Message"
+  },
+  "icon": "fa fa-text",
+  "display": true,
+  "settings": {
+    "image": {
+          "type": "image",
+            "label": {
+              "ar": "صورة الخلفية",
+              "en": "background image"
+          },
+          "info": {
+            "ar": "ارفع صورة بحجم 2000 * 2000",
+            "en": "Upload an image with size 2000 * 2000"
+          }
+          
+        },
+     "title": {
+      "type": "text",
+      "label": {
+        "ar": "عنوان الرسالة ",
+        "en": "Message Title"
+      }
+    },
+    "sub_title": {
+      "type": "text",
+      "label": {
+        "ar": "محتوى الرساله",
+        "en": "Message Content"
+      }
+    },
+    "founder": {
+      "type": "text",
+      "label": {
+        "ar": "اسم المؤسس",
+        "en": "Founder Name"
+      }
+    }
+  }
+}
+{% endschema %}

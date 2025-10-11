@@ -1,0 +1,94 @@
+<div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="video-section video-section-custom app-section-magin ">
+    
+    <div class="video-box">
+      <video width="100%" height="auto" loop playsinline {% if settings.controls %}controls{% endif %}  {% if settings.autoplay %}autoplay muted{% endif %}>
+        <source src="{{ settings.video }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="video-desc-content">
+      <h3 class="title">{{settings.title}}</h3>
+      <p class="desc">{{settings.sub_title}}</p>
+      <a class="btn-product-card" href="{{settings.url}}">{{settings.link_text}}</a>
+      </div>
+    </div>
+</div>
+
+{% schema %}
+{
+  "name": {
+    "ar": " فيديو تريت",
+    "en": "Treat Video"
+  },
+  "icon": "fa fa-play",
+  "display": true,
+  "settings": {
+     "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان الرئيسي",
+        "en": "main title"
+      }
+    },
+    "sub_title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان الفرعي",
+        "en": "explain"
+      }
+    },
+    "url":{
+          "type":"url",
+          "label":{
+            "ar":"اللينك",
+            "en":"url"
+          }
+        },
+   "link_text": {
+      "type": "text",
+      "label": {
+        "ar": "نص الزرار",
+        "en": "text"
+      }
+       },
+    "video": {
+      "type": "video",
+      "label": {
+        "ar": "الفيديو",
+        "en": "Video"
+      },
+      "info": {
+        "ar": "mp4 اقصى حجم 10MB",
+        "en": ""
+      }
+    },
+    "controls": {
+      "type": "checkbox",
+      "label": {
+        "ar": "",
+        "en": ""
+      },
+      "noLabel": true,
+      "option": {
+        "ar": "عرض ازرار التحكم",
+        "en": "Controls"
+      }
+    },
+    "autoplay": {
+      "type": "checkbox",
+      "label": {
+        "ar": "",
+        "en": ""
+      },
+      "noLabel": true,
+      "option": {
+        "ar": "تشغيل الفيديو  بشكل مباشر",
+        "en": "autoplay"
+      }
+    }
+  }
+}
+{% endschema %}
