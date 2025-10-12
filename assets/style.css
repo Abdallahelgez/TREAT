@@ -1584,9 +1584,9 @@ flex-banner .banner-text a span {
   font-weight: lighter; /* جعل كلمة SALE أرفع كما في الصورة */
   display: block; /* للتأكد من أنها على سطر جديد */
   /* إذا أردت أن تكون مفرغة بخط أسود */
-  /* -webkit-text-stroke: 1px #000;
-     -webkit-text-fill-color: transparent;
-     color: transparent; */
+  -webkit-text-stroke: 1px #484848;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .new-collection-text {

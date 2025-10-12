@@ -5,27 +5,27 @@
 
 <section class="promotional-section">
     <div class="column left-column">
-        <img src="path/to/product_left.png" alt="Product Left" class="product-image">
+        <img src="{{settings.image1}}" alt="Product Left" class="product-image">
     </div>
 
     <div class="column center-column">
         <div class="center-image-top">
-            <img src="path/to/top_banner_image.png" alt="Cosmetics Products Top" class="banner-image">
+            <img src="{{settings.image3}}" alt="Cosmetics Products Top" class="banner-image">
         </div>
         
         <div class="center-content-text">
-            <h2 class="main-promo-title">ULTIMATE <br> SALE</h2>
-            <p class="new-collection-text">NEW COLLECTION</p>
-            <a href="#shop-now" class="promo-cta-button">SHOP NOW</a>
+            <h2 class="main-promo-title">{{settings.title1}} <br> <span class="sale-word">{{settings.title2}}</span></h2>
+            <p class="new-collection-text">{{settings.title}}</p>
+            <a href="{{settings.url}}" class="promo-cta-button">{{settings.button_text}}</a>
         </div>
 
         <div class="center-image-bottom">
-            <img src="path/to/bottom_banner_image.png" alt="Cosmetics Products Bottom" class="banner-image">
+            <img src="{{settings.image4}}" alt="Cosmetics Products Bottom" class="banner-image">
         </div>
     </div>
 
     <div class="column right-column">
-        <img src="path/to/product_right.png" alt="Product Right" class="product-image">
+        <img src="{{settings.image2}}" alt="Product Right" class="product-image">
     </div>
 </section>
 
@@ -39,15 +39,48 @@
   "icon": "fal fa-images",
   "display": true,
   "settings": {
-        "image":  {
+        "image1":  {
             "type": "image",
             "label": {
                     "ar": "الصورة",
                     "en": "Image"
             },
             "info": {
-                    "ar": "ارفع صورة بحجم 1440 * 732 ",
-                    "en": "Upload an image with a size of 1440 * 732"
+                    "ar": "ارفع صورة بحجم 756 * 400 ",
+                    "en": "Upload an image with a size of 75 * 732"
+            }
+        },
+        "image2":  {
+            "type": "image",
+            "label": {
+                    "ar": "الصورة",
+                    "en": "Image"
+            },
+            "info": {
+                    "ar": "ارفع صورة بحجم 756 * 400 ",
+                    "en": "Upload an image with a size of 756 * 4000"
+            }
+        },
+        "image3":  {
+            "type": "image",
+            "label": {
+                    "ar": "الصورة",
+                    "en": "Image"
+            },
+            "info": {
+                    "ar": "ارفع صورة بحجم 388 * 170 ",
+                    "en": "Upload an image with a size of 388 * 732"
+            }
+        },
+        "image4":  {
+            "type": "image",
+            "label": {
+                    "ar": "الصورة",
+                    "en": "Image"
+            },
+            "info": {
+                    "ar": "ارفع صورة بحجم 388 * 170 ",
+                    "en": "Upload an image with a size of 388 * 732"
             }
         },
         "url": {
@@ -69,6 +102,20 @@
             "label": {
                 "ar": "النص ",
                 "en": "text"
+            }
+        },
+        "title1": {
+            "type": "text",
+            "label": {
+                "ar": "الكلمة الاولى  ",
+                "en": "first word"
+            }
+        }
+        ,"title2": {
+            "type": "text",
+            "label": {
+                "ar": "الكلمة الثانية ",
+                "en": "second word"
             }
         }
 
