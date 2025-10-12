@@ -1,0 +1,77 @@
+
+
+
+
+
+<section class="promotional-section">
+    <div class="column left-column">
+        <img src="path/to/product_left.png" alt="Product Left" class="product-image">
+    </div>
+
+    <div class="column center-column">
+        <div class="center-image-top">
+            <img src="path/to/top_banner_image.png" alt="Cosmetics Products Top" class="banner-image">
+        </div>
+        
+        <div class="center-content-text">
+            <h2 class="main-promo-title">ULTIMATE <br> SALE</h2>
+            <p class="new-collection-text">NEW COLLECTION</p>
+            <a href="#shop-now" class="promo-cta-button">SHOP NOW</a>
+        </div>
+
+        <div class="center-image-bottom">
+            <img src="path/to/bottom_banner_image.png" alt="Cosmetics Products Bottom" class="banner-image">
+        </div>
+    </div>
+
+    <div class="column right-column">
+        <img src="path/to/product_right.png" alt="Product Right" class="product-image">
+    </div>
+</section>
+
+
+{% schema %}
+{
+  "name": {
+    "ar": "السيكشن الترويجى",
+    "en": "promotional section"
+  },
+  "icon": "fal fa-images",
+  "display": true,
+  "settings": {
+        "image":  {
+            "type": "image",
+            "label": {
+                    "ar": "الصورة",
+                    "en": "Image"
+            },
+            "info": {
+                    "ar": "ارفع صورة بحجم 1440 * 732 ",
+                    "en": "Upload an image with a size of 1440 * 732"
+            }
+        },
+        "url": {
+            "type": "url",
+            "label": {
+                "ar": "رابط الزرار",
+                "en": "Link button"
+            }
+        },
+        "button_text": {
+            "type": "text",
+            "label": {
+                "ar": "نص الزرار",
+                "en": "text button"
+            }
+        },
+        "title": {
+            "type": "text",
+            "label": {
+                "ar": "النص ",
+                "en": "text"
+            }
+        }
+
+  }
+}
+{% endschema %}

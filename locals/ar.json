@@ -197,8 +197,9 @@
   "cart_back_to_store":"العودة للتسوق",
 
   "coupon_discount":"كوبون الخصم",
+  "coupon_discount_question":"هل لديك كود خصم ؟",
   "coupon_discount_enter": "ادخل كود الخصم",
-  "coupon_discount_submit": "إرسال",
+  "coupon_discount_submit": "أضف",
   "coupon_discount_free_shipping": "شحن مجاني",
   "enjoy_free_shipping_cities": "تمتع بالشحن المجاني للمدن التالية",
 
@@ -235,5 +236,7 @@
   "product_question_empty_note": "يمكنك إضافة سؤالك لمعرفة المزيد حول المنتج",
   "product_questions_view_all" : "عرض جميع الأسئلة", 
   "common_requried_email_input_error": "البريد الإلكتروني غير صحيح",
-  "order_summary":"ملخص الطلب"
+  "order_summary":"ملخص الطلب",
+  "total_products":"إجمالى المنتجات"
+
 }

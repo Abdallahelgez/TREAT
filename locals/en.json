@@ -120,7 +120,7 @@
     "reviews_rating_4": "Excellent",
     "reviews_rating_5": "Great",
 
-    "product_price_vat_inclusive":"Price incl. VAT",
+    "product_price_vat_inclusive":"Prices include VAT",
     "product_price_vat_exclusive":"Price Not incl. VAT",
 
     "product_weight": "Weight",
@@ -195,8 +195,9 @@
     "cart_list_empty":"Cart is empty",
 
     "coupon_discount":"Discount coupon",
-    "coupon_discount_enter": "Enter discount coupon",
-    "coupon_discount_submit": "Send",
+    "coupon_discount_question":"Have a discount code ?",
+    "coupon_discount_enter": "Enter Discount Code",
+    "coupon_discount_submit": "Add",
     "coupon_discount_free_shipping": "Free Shipping",
     "enjoy_free_shipping_cities": "Enjoy free shipping for the cities",
 
@@ -233,5 +234,7 @@
     "product_question_empty": "There is no questions,",
     "product_question_empty_note": "you can ask for this product",
     "product_questions_view_all": "View all questions",
-    "common_requried_email_input_error": "Email is incorrect"
+    "common_requried_email_input_error": "Email is incorrect",
+    "order_summary":"Order Summary",
+    "total_products":"Total Products"
 }
