@@ -12,16 +12,41 @@
 
 {% block main_content %}
 
-    <section class="product products-details-page">
-        <div class="container pb-5">
-            <section class="products-details mb-5">
-                <div>
+
+    <section class="product products-details-page custom-products-details ">
+        <div class="container-sec ">
+            <section class="products-details ">
+                <div class="products-details-inner">
                     <div class="row">
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 image-container">
 
                             <!--GALLERY-->
                             <div id="wrap">
+                                {% if store.is_wishlist_enabled == true %}
+                                    <span class="add-to-wishlist " data-wishlist-id="{{ product.id }}">
+                                        <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>      
+                                        <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
+                                      <img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+                                    </span>
+                                  {% endif %}
+                                <div class="share-container">
+                                    <button class="share-btn" onclick="socialBtn()">
+                                        <svg width="24" height="24" class="icon-share" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.75 6.5C15.75 5.25736 16.7574 4.25 18 4.25C19.2426 4.25 20.25 5.25736 20.25 6.5C20.25 7.74264 19.2426 8.75 18 8.75C16.7574 8.75 15.75 7.74264 15.75 6.5ZM18 2.75C15.9289 2.75 14.25 4.42893 14.25 6.5C14.25 6.78627 14.2821 7.06505 14.3428 7.33293L9.02696 9.78597C8.34465 8.85471 7.24294 8.25 6 8.25C3.92893 8.25 2.25 9.92893 2.25 12C2.25 14.0711 3.92893 15.75 6 15.75C7.2429 15.75 8.34458 15.1453 9.0269 14.2141L14.3428 16.6672C14.2821 16.935 14.25 17.2138 14.25 17.5C14.25 19.5711 15.9289 21.25 18 21.25C20.0711 21.25 21.75 19.5711 21.75 17.5C21.75 15.4289 20.0711 13.75 18 13.75C16.7504 13.75 15.6436 14.3612 14.9621 15.301L9.65301 12.851C9.71646 12.5776 9.75 12.2927 9.75 12C9.75 11.7073 9.71647 11.4225 9.65304 11.1491L14.9622 8.69913C15.6436 9.63884 16.7504 10.25 18 10.25C20.0711 10.25 21.75 8.57107 21.75 6.5C21.75 4.42893 20.0711 2.75 18 2.75ZM3.75 12C3.75 10.7574 4.75736 9.75 6 9.75C7.24264 9.75 8.25 10.7574 8.25 12C8.25 13.2426 7.24264 14.25 6 14.25C4.75736 14.25 3.75 13.2426 3.75 12ZM18 15.25C16.7574 15.25 15.75 16.2574 15.75 17.5C15.75 18.7426 16.7574 19.75 18 19.75C19.2426 19.75 20.25 18.7426 20.25 17.5C20.25 16.2574 19.2426 15.25 18 15.25Z" fill="#161616"/>
+                                        </svg>
+                                    </button>
+                                    
+                                    <div class="product-social d-flex">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ product.html_url }}" target="_blank"><i class="icon-facebook-f"></i></a>
+                                        <a href="https://www.pinterest.com/pin/create/button/?url={{ product.html_url }}" target="_blank"><i class="icon-pinterest"></i></a>
+                                        <a href="https://twitter.com/intent/tweet?text={{ product.name }}: {{ product.html_url }}" target="_blank"><i class="icon-twitter"></i></a>
+                                        <a href="https://api.whatsapp.com/send?text={{ locals.check_out_this_product }}:{{ product.name }} {{ product.html_url }}" target="_blank"><i class="icon-whatsapp"></i></a>
+                                    </div>  
+                                </div>
+                                {% if product.selected_product.formatted_sale_price %}
+                                        <span class="product-formatted-price-discount discount-rate" style="color:#fff; background-color:#EC5550">{% if product.selected_product.formatted_sale_price %}  &nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%{% endif %}</span>
+                                    {% endif %}
                                 <div class="row">
                                     <div class="col-12 col-product-image-wrapper">
 
@@ -78,7 +103,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row lg-thumbs d-lg-flex product-images-carousel-thumbs {% if product.selected_product.media | length <= 1 %}d-none-important{% endif %}">
+                                        <div class="row lg-thumbs d-none d-lg-flex product-images-carousel-thumbs {% if product.selected_product.media | length <= 1 %}d-none-important{% endif %}">
                                             {% for key, image in product.selected_product.media %}
                                                 <div class="col-3">
                                                     <div class="box-1-1">
@@ -114,22 +139,42 @@
 
                         </div>
 
-                        <div class="col-lg-6  col-product-info {% if product.selected_product.media | length <= 1 %}col-product-info-single-image{% endif %}">
+                        <div class="col-lg-6 details-container  col-product-info {% if product.selected_product.media | length <= 1 %}col-product-info-single-image{% endif %}">
 
 
 
-                            <section>
+                            <section class="details-container-inner">
                                 {% if product.badge %}
                                    {{ template_for_product_badge }}
                                 {% endif %}
-                                <h1>{{ product.name | raw }}</h1>
-                                <div class="d-flex flex-column flex-lg-row product-features">
+                                <h1 class="product-name">{{ product.name | raw }}</h1>
+                                <div class="price-rate">
+                                    <div class="d-flex flex-row price-rate-inner">
+                                        <h2 class="product-formatted-price ">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
+                                        <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
+                                    </div>
                                     {% if product.rating %}
-                                        <div>
+                                        <div class="rating-stars">
                                             {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
                                             <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
                                         </div>
                                     {% endif %}
+                                </div>
+                                {% if product.description %}
+                                    <section id="product-description" class="">
+                                        <div class="d-flex align-items-center product-short-description">
+                                            
+                                            <span class="description-title">
+                                                {{ locals.product_description }}
+                                            </span>
+                                        </div>
+                                        <div class="description-paragrah text-short-description text-justify description-text-clear">
+                                            {{ product.description | raw }}
+                                        </div>
+                                    </section>
+                                {% endif %}
+                                <div class="d-flex flex-column flex-lg-row product-features">
+                                    
 
                                     {% if product.sold_products_count %}
                                         <div class="product-count d-flex align-items-center">
@@ -194,16 +239,16 @@
                                 </div>
                             </section>
 
-
+                            {# <div>{{product|json_encode}}</div> #}
                             <div class="border-product"></div>
-                            <div style="margin-bottom: 25px" class="div-product-sku {% if not product.selected_product.sku %}d-none{% endif %}">
+                            <div style="margin-bottom: 25px" class="div-product-sku d-none {% if not product.selected_product.sku %}d-none{% endif %}">
                                 <h4 class="product-title">{{ locals.product_sku }}</h4>
                                 <div class="product-sku">
                                     {{ product.selected_product.sku }}
                                 </div>
                             </div>
 
-                            <div style="margin-bottom: 25px" class="div-product-weight {% if not product.selected_product.weight.value %}d-none{% endif %}">
+                            <div style="margin-bottom: 25px" class="div-product-weight d-none {% if not product.selected_product.weight.value %}d-none{% endif %}">
                                 <h4 class="product-title">{{ locals.product_weight }}</h4>
                                 <div class="product-weight">
                                     {{ product.selected_product.weight.value }}&nbsp;{{ product.selected_product.weight.unit }}
@@ -286,13 +331,7 @@
                                       <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
                                       <span>{{ locals.add_to_cart }}</span>
                                   </button>
-                                  {% if store.is_wishlist_enabled == true %}
-                                    <span class="add-to-wishlist position-relative my-2" data-wishlist-id="{{ product.id }}">
-                                        <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>      
-                                        <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
-                                      <img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
-                                    </span>
-                                  {% endif %}
+                                  
                                 </div>
 
                                 <div>
@@ -306,7 +345,7 @@
                             </div>
 
                             <div class="border-product"></div>
-                            <div class="border-product">
+                            <div class="border-product d-none">
                                 <h4 class="product-title">{{ locals.product_share }}</h4>
                                 <div class="product-icon">
                                     <div class="product-social d-flex">
@@ -319,12 +358,20 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>
             </section>
+            <div class="tick-all">
+                
 
+                {% for meta in product.metafields %}
+                    {% if meta.slug == "Features" %}
+                        <div>{{meta.value}}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
             {% include 'product-bundle-offers.twig' %}
 
             {{ template_for_product_grouped }}
@@ -566,7 +613,7 @@
             </section>
              {% endif %}
 
-            {% if (product.related_products | length) >  0 %}
+            {# {% if (product.related_products | length) >  0 %}
                 <section class="mt-5 mb-5">
                     <div class="d-flex align-items-center">
                         <div class="description-icon" style="font-size: 24px; height: 24px">
@@ -598,11 +645,11 @@
                         showRelatedProducts();
                     });
                 </script>
-            {% endif %}
+            {% endif %} #}
 
         </div>
 
-        {% if product.bundle_offer.products.results | length > 5 %}
+        {# {% if product.bundle_offer.products.results | length > 5 %}
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable bundle-offer-products-dialog">
                 <div class="modal-content">
@@ -625,7 +672,7 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+        {% endif %} #}
     </section>
 {% endblock %}
 
@@ -640,6 +687,7 @@
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
+    <script type="text/javascript" src="{{ assetUrl('product-d2.js?v=1.101010') }}"></script>
 
     {{ product_view_scripts|raw }}
 

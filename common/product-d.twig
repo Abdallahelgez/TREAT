@@ -18,74 +18,45 @@
                                 </span>
                             {% endif %}
                     <!--GALLERY-->
-                    <div id="wrap">
-                        <div class="row">
-                            <div class="col-12 col-product-image-wrapper">
-
-                                <!-- Carousel -->
-                                <div class="box-1-1 product-images-carousel product-images-carousel-init {% if product.selected_product.media | length <= 0 %}d-none{% endif %}">
-                                    <div class="content">
-                                        <div id="product-images" class="product-images slide gallery">
-                                            <div id="product-images-slick">
-                                                {% for key, image in product.selected_product.media %}
-                                                    <div>
-                                                        <div class="box-1-1">
-                                                            <div class="content">
-                                                                <a class="image-link"
-                                                                    style="display:block; width: 100%; height: 100%;">
-                                                                    <img src="{{ image.image.full_size }}" class="carousel-img" alt="{{ image.alt_text }}">
-                                                                    {% if image.provider and image.link %}
-                                                                        <img id="main-video-icon"
-                                                                            class="play-icon"
-                                                                            src="{{ assetUrl('video-play.svg') }}"
-                                                                            alt="play"
-                                                                            width="25"
-                                                                            onClick="showIframe(this, '{{ image.link }}')"
-                                                                        />
-                                                                    {% endif %}
-                                                                </a>
-                                                                {% if image.provider and image.link %}
-                                                                    <div class="iframe-video pt-1 d-none">
-                                                                        <a
-                                                                            id="iframe-close-btn"
-                                                                            type="button"
-                                                                            class="text-white btn btn-none grow"
-                                                                            onClick="hideIframe(this)"
-                                                                        >
-                                                                            X
-                                                                        </a>
-                                                                        <iframe
-                                                                            width="100%"
-                                                                            height="100%"
-                                                                            src=""
-                                                                            frameborder="0"
-                                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                                                            allowfullscreen
-                                                                            style="max-width: 100%"
-                                                                        >
-                                                                        </iframe>
-                                                                    </div>
-                                                                {% endif %}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        </div>
+                    <div class="image-inner">
+                        {% set firstImage = product.selected_product.media|first %}
+                            <div class="image-inner-inner">
+                                <a class="image-link"
+                                    style="display:block; width: 100%; height: 100%;">
+                                    <img src="{{ firstImage.image.full_size }}" class="carousel-img" alt="{{ firstImage.alt_text }}">
+                                    {% if firstImage.provider and firstImage.link %}
+                                        <img id="main-video-icon"
+                                            class="play-icon"
+                                            src="{{ assetUrl('video-play.svg') }}"
+                                            alt="play"
+                                            width="25"
+                                            onClick="showIframe(this, '{{ firstImage.link }}')"
+                                        />
+                                    {% endif %}
+                                </a>
+                                {% if firstImage.provider and firstImage.link %}
+                                    <div class="iframe-video pt-1 d-none">
+                                        
+                                            id="iframe-close-btn"
+                                            type="button"
+                                            class="text-white btn btn-none grow"
+                                            onClick="hideIframe(this)"
+                                        >
+                                            X
+                                        </a>
+                                        <iframe
+                                            width="100%"
+                                            height="100%"
+                                            src=""
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                            allowfullscreen
+                                            style="max-width: 100%"
+                                        >
+                                        </iframe>
                                     </div>
-                                </div>
-                     
-                                <!-- No image -->
-                                <div class="box-1-1 product-images-empty {% if product.selected_product.media | length > 0 %}d-none{% endif %}">
-                                    <div class="content">
-                                        <div class="d-flex" style="width: 100%; height: 100%;">
-                                            <img src="{{ asset_url ~ 'product-img.svg' }}" width="100%" height="auto" />
-                                        </div>
-                                    </div>
-                                </div>
-
+                                {% endif %}     
                             </div>
-                        </div>
                     </div>
 
                 </div>
@@ -165,7 +136,7 @@
                     </form>
                     <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                         
-                        <div class="d-inline-flex align-center btn-add">
+                        <div class="align-center btn-add">
                             <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
                                 <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
                                 <span>{{ locals.add_to_cart }}</span>
