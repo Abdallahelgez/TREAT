@@ -1,3 +1,9 @@
+{% set products_page_image = settings.products_settings_image %}
+{% set products_page_essentials = settings.products_settings_essentials %}
+{% set products_page_product = settings.products_settings_key %}
+
+
+
 <!doctype html>
 <html class="no-js" lang="{{ session.lang.code }}" dir="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}">
 
@@ -160,7 +166,9 @@
     </div>
     <div class="main flex-grow-1 app-content"
             {% if settings.colors_background_image %} style="background-repeat: repeat; background-image: url('{{ settings.colors_background_image }}');" {% endif %}>
-        {% block main_content %}{% endblock %}
+
+        
+            {% block main_content %}{% endblock %}
     </div>
     <div class="footer">
         {% block footer %}{% endblock %}
@@ -226,14 +234,14 @@
 
 {% schema %}
 {
-  "colors":{
+  "colors": {
     "name": {
       "ar": "الالوان",
       "en": "Colors"
     },
     "icon": "fa fa-paint-brush",
     "display": true,
-    "settings":{
+    "settings": {
       "header": {
         "type": "fieldset",
         "label": {
@@ -322,7 +330,7 @@
       }
     }
   },
-  "fonts":{
+  "fonts": {
     "name": {
       "ar": "الخطوط",
       "en": "fonts"
@@ -535,6 +543,37 @@
           }
         ],
         "default": "Changa"
+      }
+    }
+  },
+  "products_settings": {
+    "name": {
+      "ar": "صفحة المنتجات",
+      "en": "Products Page"
+    },
+    "icon": "fa fa-paint-brush",
+    "display": true,
+    "settings": {
+      "key": {
+        "type": "product",
+        "label": {
+          "ar": "المنتج المميز",
+          "en": "special product"
+        }
+      },
+      "image": {
+        "type": "image",
+        "label": {
+          "ar": "الصورة",
+          "en": "Image"
+        }
+      },
+      "essentials": {
+        "type": "textarea",
+        "label": {
+          "ar": "نص الأساسيات",
+          "en": "Essentials Text"
+        }
       }
     }
   }

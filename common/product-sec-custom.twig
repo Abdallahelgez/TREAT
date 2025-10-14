@@ -1,21 +1,16 @@
 <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'toastr.min.css' }}" />
 <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
 <link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
-<section section-id="{{ sectionId }}"
-         data-lg-scroll-offset="130"
-         data-md-scroll-offset="130"
-         data-sm-scroll-offset="94" class="product-section">
-  {% if settings.key %}
- {% set product = attribute(all_products, settings.key) %}
 
-    
-    <div class="product-container container-sec">
-          {% include 'product-d.twig' with {'product' : settings.key} %}
-       
-    </div>
+  {% if productid %}
+        {% set product = attribute(all_products, productid) %}
+        <div class="product-container container-sec">
+            {% include 'product-d2.twig' with {'product' : productid} %}
+        
+        </div>
 
     {% endif %}
-</section>
+
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
@@ -23,6 +18,7 @@
     {{ product_view_scripts|raw }}
 
     <script>
+        
         var productImages = {{  product.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
 
@@ -480,23 +476,4 @@
     </script>
 
     <script type="text/javascript" src="{{ assetUrl('product-d.js?v=1.101010') }}"></script>
-{% schema %}
-{
-  "name": {
-    "ar": "سيكشن المنتج",
-    "en": "product section"
-  },
-  "icon": "fal fa-images",
-  "display": true,
-  "settings": {
-        "key": {
-            "type": "product",
-            "label": {
-                "ar": "العنوان",
-                "en": "text"
-            }
-        }
 
-  }
-}
-{% endschema %}

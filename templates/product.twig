@@ -103,7 +103,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="row lg-thumbs d-none d-lg-flex product-images-carousel-thumbs {% if product.selected_product.media | length <= 1 %}d-none-important{% endif %}">
+                                        {# <div class="row lg-thumbs d-none d-lg-flex product-images-carousel-thumbs {% if product.selected_product.media | length <= 1 %}d-none-important{% endif %}">
                                             {% for key, image in product.selected_product.media %}
                                                 <div class="col-3">
                                                     <div class="box-1-1">
@@ -122,7 +122,7 @@
                                                     </div>
                                                 </div>
                                             {% endfor %}
-                                        </div>
+                                        </div> #}
 
                                         <!-- No image -->
                                         <div class="box-1-1 product-images-empty {% if product.selected_product.media | length > 0 %}d-none{% endif %}">
@@ -363,15 +363,12 @@
                     </div>
                 </div>
             </section>
-            <div class="tick-all">
-                
+        </div> 
+            {% include 'Features.twig' %}
 
-                {% for meta in product.metafields %}
-                    {% if meta.slug == "Features" %}
-                        <div>{{meta.value}}</div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+               
+        <div class="container-sec ">
+           
             {% include 'product-bundle-offers.twig' %}
 
             {{ template_for_product_grouped }}
@@ -613,7 +610,7 @@
             </section>
              {% endif %}
 
-            {# {% if (product.related_products | length) >  0 %}
+            {% if (product.related_products | length) >  0 %}
                 <section class="mt-5 mb-5">
                     <div class="d-flex align-items-center">
                         <div class="description-icon" style="font-size: 24px; height: 24px">
@@ -645,11 +642,11 @@
                         showRelatedProducts();
                     });
                 </script>
-            {% endif %} #}
+            {% endif %}
 
         </div>
 
-        {# {% if product.bundle_offer.products.results | length > 5 %}
+        {% if product.bundle_offer.products.results | length > 5 %}
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-scrollable bundle-offer-products-dialog">
                 <div class="modal-content">
@@ -672,7 +669,7 @@
                 </div>
             </div>
         </div>
-        {% endif %} #}
+        {% endif %}
     </section>
 {% endblock %}
 

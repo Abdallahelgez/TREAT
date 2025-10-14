@@ -237,6 +237,8 @@
   "product_questions_view_all" : "عرض جميع الأسئلة", 
   "common_requried_email_input_error": "البريد الإلكتروني غير صحيح",
   "order_summary":"ملخص الطلب",
-  "total_products":"إجمالى المنتجات"
+  "total_products":"إجمالى المنتجات",
+  "tick_all":"اختر الكل /",
+  "our_products":"منتجاتنا"
 
 }

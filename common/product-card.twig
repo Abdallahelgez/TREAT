@@ -97,13 +97,19 @@
 						<a href="/products/{{ product.slug }}" class="product-title">
 							{{ product.name | raw }}
 						</a>
-
+						{% if product.rating %}
+							<div class="rate-div">
+								{% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
+								<span class="product-card-rating-count">({{ product.rating.total_count }})</span>
+							</div>
+						{% endif %}
 						{% if product.short_description is not empty %}
 							<div class="text-description">
 								{{ product.short_description | raw }}
 								
 							</div>
 						{% endif %}
+						
 					</div>
 					<div class=" product-price-section">
 						{% if product.formatted_sale_price is not null %}
@@ -127,6 +133,15 @@
 						{% endif %} #}
 
 					</div>
+						{% if product.short_description is not empty %}
+							<div class="product-short-description">
+                                <label>{{ locals.description }} :</label>
+                                <div class="text-short-description">
+                                    {{ product.short_description | raw }}
+                                </div>
+                            </div>
+							
+						{% endif %}
 				</div>
 				<div class="product-card-actions-wrapper">
 					{% if product.is_infinite == false and product.quantity <= 0 %}

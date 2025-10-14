@@ -1,0 +1,77 @@
+{# <div class="tick-all">              
+    {% for meta in product.metafields %}
+        {% if meta.slug == "Features" %}
+            {% if meta.value is iterable %}
+                <div>
+                    {% for item in meta.value %}
+                        {{ item | raw }}{% if not loop.last %} {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div>{{ meta.value |raw }}</div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</div> #}
+{# {% set features = null %}
+
+{% for meta in product.metafields %}
+    {% if meta.slug == "Features" %}
+        {% set features = meta.value %}
+    {% endif %}
+{% endfor %}
+
+{% if features %}
+<div class="tick-all "> 
+    <div class="container-sec ">
+        <h3 class="tick-all-head">
+                {{locals.tick_all}}
+        </h3>             
+        {% if features is iterable %}
+            <div class="tick-all-inner">
+                {% for item in features %}
+                    {{ item |raw  }}{% if not loop.last %}{% endif %}
+
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="tick-all-inner">{{ features |raw  }}</div>
+        {% endif %}
+    </div>
+</div>
+
+
+<div>{{features|json_encode}}</div>
+{% endif %} #}
+{% set features = null %}
+
+{% for meta in product.metafields %}
+    {% if meta.slug == "Features" %}
+        {% set features = meta.value %}
+    {% endif %}
+{% endfor %}
+
+{% if features %}
+<div class="tick-all "> 
+    <div class="container-sec ">
+        <h3 class="tick-all-head">
+                {{locals.tick_all}}
+        </h3>             
+        <div class="tick-all-inner">
+            {% if features.ar %}
+                <div class="feature-ar feature-div">
+                    {{ features.ar|raw }}
+                </div>
+            {% endif %}
+            
+            {% if features.en %}
+                <div class="feature-en feature-div">
+                    {{ features.en|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endif %}
