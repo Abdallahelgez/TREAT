@@ -366,129 +366,23 @@
         </div> 
             {% include 'Features.twig' %}
 
+            
                
+
+
+
         <div class="container-sec ">
-           
+           <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
+                {% include 'Uses.twig' %}
+                {% include 'key-ingredients.twig' %}
+                {% include 'Application.twig' %}
+            </div>
             {% include 'product-bundle-offers.twig' %}
+            
 
-            {{ template_for_product_grouped }}
+            
 
-            {% if product.metafields %}
-                <section id="product-description" class="mt-5">
-                    <div class="d-flex align-items-center">
-                        <div class="description-icon">
-                            <span class="icon-fact_check_black"></span>
-                        </div>
-                        <div class="description-title">
-                           {{ locals.product_properties }}
-                        </div>
-                    </div>
-                    <div class="description-paragrah text-justify description-text-clear">
-                        {{ template_for_product_metafields }}
-                    </div>
-                </section>
-            {% endif %}
-
-            {% if product.description %}
-                <section id="product-description" class="mt-5">
-                    <div class="d-flex align-items-center">
-                        <div class="description-icon">
-                            <span class="icon-fact_check_black"></span>
-                        </div>
-                        <div class="description-title">
-                            {{ locals.product_description }}
-                        </div>
-                    </div>
-                    <div class="description-paragrah text-justify description-text-clear">
-                        {{ product.description | raw }}
-                    </div>
-                </section>
-            {% endif %}
-
-            {% if product.has_variants %}
-                <section class="product-selection mt-5">
-                    <div>
-                        <div class="d-flex align-items-center">
-                            <div class="description-icon">
-                                <span class="icon-format_list_bulleted"></span>
-                            </div>
-                            <div class="description-title">
-                                {{ locals.product_options }}
-                            </div>
-                        </div>
-
-                        <div class="card-table d-none d-lg-block">
-                            <div class="card">
-                                <div class="card-body card-table-header">
-                                    <div class="row">
-                                        {% for option in product.options %}
-                                            <div class="col">{{option.name}}</div>
-                                        {% endfor %}
-                                        <div class="col col-price">{{ locals.product_images }}</div>
-                                        <div class="col col-price">{{ locals.product_price }}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {% for variant in product.variants %}
-                            {% if not variant.unavailable %}
-                                <div  class="card-table options-table">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="row flex-column flex-lg-row align-items-start align-items-lg-center">
-
-
-                                                {% for key, attribute in variant.attributes %}
-                                                    <div class="col m-col">
-                                                        <span class="variant-name-sm d-inline-block d-lg-none">{{ product.options[key].name }}</span>
-                                                        <span>{{ attribute.value }}</span>
-                                                    </div>
-                                                {% endfor %}
-
-                                                <div class="col">
-                                                    {% if variant.images | length > 0 %}
-                                                        <div class="d-flex m-col">
-                                                            {% for key, image in variant.images %}
-                                                                <div class="variant-image-wrapper" data-var-id="{{ variant.id }}">
-                                                                    <div class="box-1-1">
-                                                                        <div class="content">
-                                                                            <a data-index="{{ key }}" data-link-var-id="{{ variant.id }}" class="d-flex align-items-center justify-content-center" style="width: 100%; height: 100%;" >
-                                                                                <img src="{{ image.image.medium }}" data-image-url="{{ image.image.full_size }}">
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            {% endfor %}
-                                                        </div>
-                                                    {% else %}
-                                                        <span class="d-none d-lg-inline">{{ locals.variants_no_image }}</span>
-                                                    {% endif %}
-                                                </div>
-
-                                                <div class="col m-col">
-                                                    <span class="variant-name-sm d-inline-block d-lg-none">{{ locals.product_price }}</span>
-                                                    {% if variant.formatted_sale_price %}
-                                                        <h4 style="font-size: 1.2rem" class="price-detail d-inline-block">{{ variant.formatted_sale_price }}
-                                                            <del>{{ variant.formatted_price }}</del>
-                                                        </h4>
-                                                    {% else %}
-                                                        <h4 class="d-inline-block" style="font-size: 1.2rem">{{ variant.formatted_price }}</h4>
-                                                    {% endif %}
-                                                </div>
-
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-
-                    </div>
-                </section>
-            {% endif %}
+           
 
             {% if store.is_product_reviews_enabled %}
                 <section class="mt-5 review-details">
@@ -518,9 +412,54 @@
                                 {% if product.rating %}
                                 <h4 class="rating-average">{{ product.rating.average }}</h4>
                                 <div class="d-flex flex-column">
+                                    <div class="rating-row">
+                                        <span class="rating-count">{{ product.rating['5_ratings'].count }}</span>
+                                        <div class="rating-bar">
+                                            
+                                            <div class="rating-fill" style="width: {{ (product.rating['5_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                        </div>
+                                        <span class="rating-stars">
+                                            ⭐ <span>5</span>
+                                        </span>
+                                    </div>
+                                    <div class="rating-row">
+                                            <span class="rating-count">{{ product.rating['4_ratings'].count }}</span>
+                                        <div class="rating-bar">
+                                            <div class="rating-fill" style="width: {{ (product.rating['4_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                        </div>
+                                        <span class="rating-stars">
+                                            ⭐ <span>4</span>
+                                        </span>
+                                    </div>
+                                    <div class="rating-row">
+                                            <span class="rating-count">{{ product.rating['3_ratings'].count }}</span>
+                                        <div class="rating-bar">
+                                            <div class="rating-fill" style="width: {{ (product.rating['3_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                        </div>
+                                        <span class="rating-stars">
+                                            ⭐ <span>3</span>
+                                        </span>
+                                    </div>
+                                    <div class="rating-row">
+                                            <span class="rating-count">{{ product.rating['2_ratings'].count }}</span>
+                                        <div class="rating-bar">
+                                            <div class="rating-fill" style="width: {{ (product.rating['2_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                        </div>
+                                        <span class="rating-stars">
+                                            ⭐ <span>2</span>
+                                        </span>
+                                    </div>
+                                    <div class="rating-row">
+                                            <span class="rating-count">{{ product.rating['1_ratings'].count }}</span>
+                                        <div class="rating-bar">
+                                            <div class="rating-fill" style="width: {{ (product.rating['1_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                        </div>
+                                        <span class="rating-stars">
+                                            ⭐ <span>1</span>
+                                        </span>
+                                    </div>
 
-
-                                    <div class="row card-rate">
+                                    {# <div class="card-rate d-flex gap-2">
                                         <span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
                                         <span class="icon-star1"></span>
                                         <span class="icon-star1"></span>
@@ -529,7 +468,7 @@
                                         <span class="icon-star1"></span> &nbsp;  &nbsp;
                                         <span>{{ locals.reviews_rating_5 }}</span>
                                     </div>
-                                    <div class="row card-rate">
+                                    <div class="card-rate d-flex gap-2">
                                         <span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
                                         <span class="icon-star1"></span>
                                         <span class="icon-star1"></span>
@@ -538,7 +477,7 @@
                                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                                         <span>{{ locals.reviews_rating_4 }}</span>
                                     </div>
-                                    <div class="row card-rate">
+                                    <div class="card-rate d-flex gap-2">
                                         <span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
                                         <span class="icon-star1"></span>
                                         <span class="icon-star1"></span>
@@ -547,7 +486,7 @@
                                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                                         <span>{{ locals.reviews_rating_3 }}</span>
                                     </div>
-                                    <div class="row card-rate">
+                                    <div class="card-rate d-flex gap-2">
                                         <span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
                                         <span class="icon-star1"></span>
                                         <span class="icon-star1"></span>
@@ -556,7 +495,7 @@
                                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                                         <span>{{ locals.reviews_rating_2 }}</span>
                                     </div>
-                                    <div class="row card-rate">
+                                    <div class="card-rate d-flex gap-2">
                                         <span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
                                         <span class="icon-star1"></span>
                                         <span class="icon-star1 deactive"></span>
@@ -564,7 +503,7 @@
                                         <span class="icon-star1 deactive"></span>
                                         <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                                         <span>{{ locals.reviews_rating_1 }}</span>
-                                    </div>
+                                    </div> #}
                                 </div>
                                 {% endif %}
                             </div>
@@ -591,58 +530,26 @@
                 </section>
             {% endif %}
             {% if store.is_product_question_and_answer_enabled %}
-            <section class="mt-5 review-details">
-                <div>
-                    <div class="d-flex flex-wrap align-items-center" style="width: 100%">
-                        <div class="description-icon">
-                            <span class="icon-reviews_black"></span>
+                <section class="mt-5 review-details">
+                    <div>
+                        <div class="d-flex flex-wrap align-items-center" style="width: 100%">
+                            <div class="description-icon">
+                                <span class="icon-reviews_black"></span>
+                            </div>
+                            <div class="description-title">
+                                {{ locals.product_questions }}
+                            </div>
+                            {% if product.questions is not empty %}
+                            <button type="button" class="btn btn-primary add-review-btn" id="addQuestionButton"><span class="icon-add_circle"></span>{{ locals.add_product_question}} </button>
+                            {% endif %}
                         </div>
-                        <div class="description-title">
-                            {{ locals.product_questions }}
-                        </div>
-                          {% if product.questions is not empty %}
-                          <button type="button" class="btn btn-primary add-review-btn" id="addQuestionButton"><span class="icon-add_circle"></span>{{ locals.add_product_question}} </button>
-                          {% endif %}
                     </div>
-                </div>
-                {% include 'product-questions.twig' with {'questions' : product.questions} %}
-                {% include 'product-question-add.twig' with {'product' : product} %}
-            </section>
+                    {% include 'product-questions.twig' with {'questions' : product.questions} %}
+                    {% include 'product-question-add.twig' with {'product' : product} %}
+                </section>
              {% endif %}
 
-            {% if (product.related_products | length) >  0 %}
-                <section class="mt-5 mb-5">
-                    <div class="d-flex align-items-center">
-                        <div class="description-icon" style="font-size: 24px; height: 24px">
-                            <span class="icon-uniE011"></span>
-                        </div>
-                        <div class="description-title">
-                            <div class="">{{ locals.similar_products_title }}</div>
-                        </div>
-                    </div>
-                    <div class="description-paragrah">
-                        <div class="">
-                            <div class="products-slider-wrapper" style="position: relative">
-
-                                <div id="related-products" class="products-slider s-slider d-block">
-                                    {% for key,rProduct in product.related_products %}
-                                        <div class="prod-col">
-                                            {% include 'product-card.twig' with {'product' : rProduct, 'index': key} %}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function(){
-                        showRelatedProducts();
-                    });
-                </script>
-            {% endif %}
+            
 
         </div>
 

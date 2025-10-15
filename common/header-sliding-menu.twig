@@ -1,100 +1,96 @@
 <div id="sidenav-overlay" onclick="closeSlidingMenu()"></div>
-<nav class="slide-menu menu-header-theme-bg-primary menu-header-theme-bg-primary-brightness-100" id="sliding-menu">
-    <ul class="theme-text-for-primary-bg menu-header-theme-bg-primary menu-header-theme-bg-primary-brightness-100 menu-header-theme-text-for-primary-bg">
-        <li>
-            <div style="height: 50px"></div>
-        </li>
-        {% for menu in main_navigation_menu.items %}
-            {% if menu.url %}
-            <li class="slide-menu-ul-li {% if menu.slug == 'all_categories' %} all-categories {% endif %}"  onclick="scrollToSubMenu(this)">
-                <a href="{{ menu.url }}" title="{{ menu.name }}" class="menu-link">
-                    <span class="px-1 clickable-span">{{ menu.name }}</span>
-                </a>
-                {% if menu.items | length > 0 %}
-                    <ul>
-                        {% for menu_sub in menu.items %}
-                            <li class="slide-menu-ul-li">
-                                <a href="{{ menu_sub.url }}">{{ menu_sub.name }}</a>
-                                {% if menu_sub.items | length > 0 %}
-                                    <ul>
-                                        {% for menu_sub_sub in menu_sub.items %}
-                                            <li class="slide-menu-ul-li">
-                                                <a href="{{ menu_sub_sub.url }}">
-                                                    {{ menu_sub_sub.name }}
-                                                </a>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </li>
-            {% endif %}
-        {% endfor %}
-        <li class="slide-menu-ul-li">
-            <a href="/shipping-and-payment"><span>{{ locals.header_delivery_and_payment_options }}</span></a>
-        </li>
-        <li>
-            <div class="slide-menu-static">
-                <div class="account-lang-currency upper-bar">
-                    <div class="container d-flex flex-wrap">
-                        <div class="account-area">
-                           
-                            <button zid-visible-customer="true" type="button" onclick="window.location.href='/account-profile'" class="btn btn-dark account-btn">
-                                <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
-                                <span style="position: relative; bottom: 2px">{{ locals.hello }}&nbsp; <zid-store-customer get="name"></zid-store-customer> &nbsp;</span>
-                            </button>
-                            
-                            <button zid-visible-guest="true" type="button" onclick="window.location.href='/auth/login'" class="btn btn-dark account-btn">
-                                <span class="icon-account_circle_black_24dp" style="position: relative; top: 1px"></span>
-                                <span style="position: relative; bottom: 2px">&nbsp;{{ locals.login }}&nbsp;</span>
-                            </button>
-                            
-                        </div>
-
-                        {% if not ('hide_country' in menu_settings.header_options) or not ('hide_language' in menu_settings.header_options)%}
-                            <div class="language-currency language-currency-menu d-flex justify-content-between" data-toggle="modal" data-target="#langCurrecyModal">
-
-                                {% if session.lang.code == 'en' %}
-                                    {% set change_to_lang = 'ar' %}
-                                    {% set change_to_lang_name = 'العربية' %}
-                                {% else %}
-                                    {% set change_to_lang = 'en' %}
-                                    {% set change_to_lang_name = 'English' %}
-                                {% endif %}
-
-
-
-                                {% if not ('hide_country' in menu_settings.header_options) %}
-                                    <div class="currency-button-area d-flex justify-content-center">
-                                        <button class="c-btn currency-btn currency-btn-menu">{{ session.country.name }} {% if session.country.city %} - {{ session.country.city.name }} {% endif %}</button>
-                                    </div>
-                                {% endif %}
-                                {% if not ('hide_country' in menu_settings.header_options) and not ('hide_language' in menu_settings.header_options)%}
-                                    <div class="vertical-line vertical-line-menu"></div>
-                                {% endif %}
-
-                                {% if not ('hide_language' in menu_settings.header_options) %}
-                                    <div class="language-button-area d-flex justify-content-between">
-                                        <button type="submit" class='c-btn language-btn language-btn-menu d-flex justify-content-between align-items-center'>
-                                            <span class="px-2">{{ change_to_lang_name }}</span>&nbsp;
-                                            <span class="icon-language_white icon-language_white-menu"></span>
-                                        </button>
-                                    </div>
-                                {% endif %}
-                            </div>
+    <nav class="menu-header-slider-custom slide-menu menu-header-theme-bg-primary menu-header-theme-bg-primary-brightness-100" id="sliding-menu">
+        <ul class="theme-text-for-primary-bg  menu-header-theme-bg-primary-brightness-100  custom-sliding-menu">
+            <li class="logo-sliding-menu">
+                <div class="d-flex justify-content-center align-items-center ">
+                                    <a href="/" style="width: auto; height: 100%;">
+                        {% if header_settings.header_logo %}
+                            {% set logoUrl = header_settings.header_logo %}
+                        {% else %}
+                            {% set logoUrl = store.logo %}
                         {% endif %}
-                    </div>
+
+                        <img class="image-logo {% if header_settings.header_logo_mobile %} d-none d-lg-block {% endif %}" src="{{ imageUrl(logoUrl,{ h: 175, q: 100 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+
+                        {% if header_settings.header_logo_mobile %}
+                            {% set logoUrlMobile = header_settings.header_logo_mobile %}
+                            <img class="image-logo d-block d-lg-none" src="{{ imageUrl(logoUrlMobile ,{ h: 175, q: 100 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+                        {% endif %}
+                    </a>
+                        
                 </div>
+                <div class="close-menu" onclick="closeSlidingMenu()" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M0.470097 0.469548C0.76299 0.176655 1.23786 0.176655 1.53076 0.469548L8.00043 6.93922L14.4701 0.469548C14.763 0.176655 15.2379 0.176655 15.5308 0.469548C15.8237 0.762441 15.8237 1.23731 15.5308 1.53021L9.06109 7.99988L15.5308 14.4695C15.8237 14.7624 15.8237 15.2373 15.5308 15.5302C15.2379 15.8231 14.763 15.8231 14.4701 15.5302L8.00043 9.06054L1.53076 15.5302C1.23786 15.8231 0.76299 15.8231 0.470097 15.5302C0.177204 15.2373 0.177204 14.7624 0.470097 14.4695L6.93977 7.99988L0.470097 1.53021C0.177204 1.23731 0.177204 0.762441 0.470097 0.469548Z" fill="#161616"/>
+                    </svg>
+                </div>
+            </li>
+            {% for menu in main_navigation_menu.items %}
+                {% if menu.url %}
+                <li class="slide-menu-ul-li {% if menu.slug == 'all_categories' %} all-categories {% endif %}"  onclick="scrollToSubMenu(this)">
+                    <a href="{{ menu.url }}" title="{{ menu.name }}" class="menu-link">
+                        <span class="px-1 clickable-span">{{ menu.name }}</span>
+                    </a>
+                    {% if menu.items | length > 0 %}
+                        <ul>
+                            {% for menu_sub in menu.items %}
+                                <li class="slide-menu-ul-li">
+                                    <a href="{{ menu_sub.url }}">{{ menu_sub.name }}</a>
+                                    {% if menu_sub.items | length > 0 %}
+                                        <ul>
+                                            {% for menu_sub_sub in menu_sub.items %}
+                                                <li class="slide-menu-ul-li">
+                                                    <a href="{{ menu_sub_sub.url }}">
+                                                        {{ menu_sub_sub.name }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+                {% endif %}
+            {% endfor %}
+            
+            <li>
+                <div style="height: 250px"></div>
+            </li>
+        </ul>
+        {% if session.lang.code == 'en' %}
+                {% set change_to_lang = 'ar' %}
+                {% set change_to_lang_name = 'العربية' %}
+            {% else %}
+                {% set change_to_lang = 'en' %}
+                {% set change_to_lang_name = 'English' %}
+            {% endif %}
+        <div class="lang-currency-sliding" data-toggle="modal" data-target="#langCurrecyModal">
+            <div class="lang-btn-div btn-div">
+                <button type="submit" class='w-100 c-btn language-btn language-btn-menu d-flex justify-content-between align-items-center'>
+                    <div class="lang-btn  d-flex justify-content-between align-items-center w-100"><span>{{ change_to_lang_name }}</span><svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="currentColor">
+                        <path d="M1.5031 1.1294C1.60467 1.26388 1.90793 1.66534 2.08853 1.89676C2.45026 2.36027 2.94452 2.97618 3.47769 3.59026C4.01356 4.20744 4.57648 4.80852 5.07658 5.25039C5.32734 5.47195 5.54762 5.64031 5.72939 5.74989C5.90035 5.85296 6.00134 5.87439 6.00134 5.87439C6.00134 5.87439 6.09936 5.85295 6.27031 5.7499C6.45209 5.64032 6.67237 5.47196 6.92313 5.25039C7.42322 4.80852 7.98615 4.20744 8.52201 3.59025C9.05518 2.97616 9.54944 2.36025 9.91117 1.89673C10.0918 1.66531 10.3946 1.26442 10.4962 1.12994C10.7009 0.852004 11.0925 0.792058 11.3705 0.996751C11.6484 1.20145 11.7078 1.59269 11.5031 1.87063L11.5015 1.87273C11.395 2.01376 11.0809 2.42963 10.8966 2.66577C10.5267 3.13975 10.018 3.77384 9.46589 4.40976C8.91646 5.04257 8.31173 5.69149 7.7508 6.18712C7.47105 6.4343 7.18747 6.65656 6.91567 6.82042C6.66102 6.97393 6.33861 7.125 5.99985 7.125C5.66109 7.125 5.33868 6.97393 5.08404 6.82041C4.81223 6.65656 4.52866 6.4343 4.24891 6.18712C3.68798 5.69149 3.08325 5.04258 2.53382 4.40977C1.98169 3.77386 1.473 3.13978 1.1031 2.6658C0.918709 2.42953 0.60464 2.01371 0.4983 1.87292L0.4969 1.87107C0.292204 1.59313 0.351284 1.20149 0.629218 0.996793C0.907143 0.792105 1.2984 0.851493 1.5031 1.1294Z" fill="#07594F"/>
+                        </svg>
+                    </div>
+
+                </button>
             </div>
-        </li>
-        <li>
-            <div style="height: 250px"></div>
-        </li>
-    </ul>
-</nav>
+            
+
+            <div class="currency-btn-div btn-div">                      
+                    <button class="currency-btn d-flex justify-content-between align-items-center w-100">
+                        <div class="d-flex justify-content-start align-items-center ">
+                            <span>{{ store.currency.code }}</span> 
+                            <span class="px-3">{{store.currency.country.name}}</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1.5031 1.1294C1.60467 1.26388 1.90793 1.66534 2.08853 1.89676C2.45026 2.36027 2.94452 2.97618 3.47769 3.59026C4.01356 4.20744 4.57648 4.80852 5.07658 5.25039C5.32734 5.47195 5.54762 5.64031 5.72939 5.74989C5.90035 5.85296 6.00134 5.87439 6.00134 5.87439C6.00134 5.87439 6.09936 5.85295 6.27031 5.7499C6.45209 5.64032 6.67237 5.47196 6.92313 5.25039C7.42322 4.80852 7.98615 4.20744 8.52201 3.59025C9.05518 2.97616 9.54944 2.36025 9.91117 1.89673C10.0918 1.66531 10.3946 1.26442 10.4962 1.12994C10.7009 0.852004 11.0925 0.792058 11.3705 0.996751C11.6484 1.20145 11.7078 1.59269 11.5031 1.87063L11.5015 1.87273C11.395 2.01376 11.0809 2.42963 10.8966 2.66577C10.5267 3.13975 10.018 3.77384 9.46589 4.40976C8.91646 5.04257 8.31173 5.69149 7.7508 6.18712C7.47105 6.4343 7.18747 6.65656 6.91567 6.82042C6.66102 6.97393 6.33861 7.125 5.99985 7.125C5.66109 7.125 5.33868 6.97393 5.08404 6.82041C4.81223 6.65656 4.52866 6.4343 4.24891 6.18712C3.68798 5.69149 3.08325 5.04258 2.53382 4.40977C1.98169 3.77386 1.473 3.13978 1.1031 2.6658C0.918709 2.42953 0.60464 2.01371 0.4983 1.87292L0.4969 1.87107C0.292204 1.59313 0.351284 1.20149 0.629218 0.996793C0.907143 0.792105 1.2984 0.851493 1.5031 1.1294Z" fill="#07594F"/>
+                        </svg>
+                    </button>
+            </div>
+        </div>
+    </nav>
 
 
 <script>

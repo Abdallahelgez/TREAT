@@ -1,0 +1,61 @@
+
+{% for meta in product.metafields %}
+    {% if meta.slug == "BENEFITS-AND-USES" %}
+        {% set UsesSlug = meta.slug %}
+        {% set UsesName = meta.name %}
+        {% set UsesVal = meta.value %}
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{UsesSlug}}" aria-expanded="true" aria-controls="{{UsesSlug}}">
+                    {% if session.lang.code == 'ar' %}
+                        {{meta.name.ar}}
+                    {% endif %}
+                    {% if session.lang.code == 'en' %}
+                    {{meta.name.en}}
+                    {% endif %}
+                    
+                   
+                
+                </button>
+            </h2>
+            <div id="{{UsesSlug}}" class="accordion-collapse collapse show">
+                <div class="accordion-body benefits-and-uses">
+                    {% for item in meta.value.cells %}
+                        <div class="benfit-item d-flex flex-column gap-3 align-items-center mb-3">
+                        <div class="parent-img">
+                            <img
+                            src="{{ item[0].value.medium ?? item[0].value.small ?? item[0].value.full_size }}"
+                            alt="benefit image"
+                            class="img"
+                            style="max-width: 100px;"
+                            />
+                        </div>
+                        <div class="parent-text">
+                            <p class="text">
+                                {% if session.lang.code == 'ar' %}  
+                                {{ item[1].value.ar }}
+                            {% else %}
+                                {{ item[1].value.en }}
+                            {% endif %}
+
+                            </p>
+                            
+
+                        </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+
+{# {{meta.value.cells}} #}
+ 
+    
+        
+    
+    
+
+

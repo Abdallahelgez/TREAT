@@ -1,0 +1,36 @@
+
+{% for meta in product.metafields %}
+    {% if meta.slug == "KEY-INGREDIENTS" %}
+        {% set KeyIngredientsSlug = meta.slug %}
+        {# {% set KeyIngredientsName = meta.name %}
+        {% set UsesVal = meta.value %} #}
+        
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{KeyIngredientsSlug}}" aria-expanded="false" aria-controls="{{KeyIngredientsSlug}}">
+                    {% if session.lang.code == 'ar' %}
+                        {{meta.name.ar}}
+                    {% endif %}
+                    {% if session.lang.code == 'en' %}
+                        {{meta.name.en}}
+                    {% endif %}
+                    
+                   
+                
+                </button>
+            </h2>
+            <div id="{{KeyIngredientsSlug}}" class="accordion-collapse collapse ">
+                <div class="accordion-body key-ingredients">
+                    <div class="key-ingredients-inner">
+                        {% if session.lang.code == 'ar' %}
+                            {{meta.value.ar|raw}}
+                        {% endif %}
+                        {% if session.lang.code == 'en' %}
+                            {{meta.value.en|raw}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

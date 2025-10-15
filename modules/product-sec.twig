@@ -269,14 +269,7 @@
         }
 
 
-        $('#product-description-a ').click(function(){
-            event.preventDefault();
-
-            $('html, body').animate({
-                scrollTop: $($.attr(this, 'href')).offset().top - ((window.matchMedia('(max-width: 768px)').matches) ? 15 :  150)
-            }, 500);
-
-        });
+      
 
         function addReviewButtonChecks() {
             if (!customer){

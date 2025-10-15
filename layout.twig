@@ -87,7 +87,7 @@
     {% if session.lang.code == 'ar' %}
         <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-rtl.css?v=1.05' }}" />
     {% else %}
-        <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap.min.css?v=1.01' }}" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
     {% endif %}
 
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'bootstrap-fixes.css?v=1.11' }}" />
@@ -175,6 +175,7 @@
     </div>
     {% block footer_sticky %}{% endblock %}
 </div>
+<script src="{{ asset_url ~ 'jquery-3.6.0.min.js?v=1.0.0' }}" ></script>
 
 {{ zidapi_script|raw }}
 
@@ -213,12 +214,11 @@
     }
 </script>
 
-<script src="{{ asset_url ~ 'jquery-3.6.0.min.js?v=1.0.0' }}" ></script>
 
 <script src="{{ asset_url ~ 'jquery-ui.min.js' }}" ></script>
 
 <script src="{{ asset_url ~ 'popper.min.js?v=1.0' }}" ></script>
-<script src="{{ asset_url ~ 'bootstrap.min.js' }}" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" ></script>
 
 <script src="{{ asset_url ~ 'slide-menu.ie.js?v=1.06' }}" ></script>
 <script src="{{ asset_url ~ 'slick.min.js' }}" ></script>
