@@ -1,0 +1,62 @@
+<style>
+
+
+
+
+
+
+
+
+
+
+
+</style>
+{# <section class="founder-message">
+  <div class="founder-message-box"  style="    background: url({{settings.image}}) lightgray 0px 0px / 100% 132.353% no-repeat;">
+    <div class="founder-message-inner">
+    <h2 class="title">{{settings.title}}</h2>
+    <p class="quote">{{settings.sub_title}}
+    </p>
+    <p class="founder-name">{{settings.founder}}</p>
+  </div>
+  </div>
+</section> #}
+
+<section class="philosophy-section">
+    <div class="content-container container-sec">
+        <h2 class="title">{{settings.title}}</h2>
+        
+        <p class="quote-text">
+            {{settings.sub_title}}
+        </p>
+        
+    </div>
+    
+    </section>
+
+{% schema %}
+{
+  "name": {
+    "ar": " الفلسفة",
+    "en": "philosophy section"
+  },
+  "icon": "fa fa-text",
+  "display": true,
+  "settings": {
+     "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان  ",
+        "en": " Title"
+      }
+    },
+    "sub_title": {
+      "type": "text",
+      "label": {
+        "ar": "محتوى ",
+        "en": " Content"
+      }
+    }
+  }
+}
+{% endschema %}

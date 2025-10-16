@@ -7,7 +7,7 @@
     "hello": "Hello",
     "product_is_not_taxable": "Tax free",
     "product_has_options": "Available in several options",
-    "products_title": "All products",
+    "products_title": "Shop All",
     "header_all_categories":"All categories",
     "header_delivery_and_payment_options":"Payment and delivery options",
     "products_list_filter_show_more": "More",
@@ -190,7 +190,7 @@
     "cart_header_price":"Price",
     "cart_totals_title":"name",
     "cart_totals_description":"value",
-    "cart_continue_to_purchase":"Purchase",
+    "cart_continue_to_purchase":"Checkout",
     "cart_back_to_store":"continue shopping",
     "cart_list_empty":"Cart is empty",
 
@@ -238,6 +238,7 @@
     "order_summary":"Order Summary",
     "total_products":"Total Products",
     "tick_all":"TICK ALL /",
-    "our_products":"Our Products"
+    "our_products":"Our Products",
+    "story":"Story"
 
 }

@@ -4,6 +4,51 @@
 
 {% block main_content %}
 
+{% if blog.slug == 'Story' %}
+
+<div class="story">
+    <section class="breadcrumb-section ">
+        <nav aria-label="breadcrumb">
+
+            <ol class="breadcrumb">
+            <div class="container-sec d-flex flex-wrap">
+                <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
+                <li class="breadcrumb-item active " aria-current="page">{{ locals.story }}</li>
+            </div>
+
+            </ol>
+
+        </nav>
+    </section>
+    <div class="container-sec">
+        <div class="text-container-div">
+            {% if story_page_h1 %}
+                <h1>{{story_page_h1}}</h1>
+            {% endif %}
+            <div class="content">
+                {% if story_page_p %}
+                        <p>{{story_page_p}}</p>
+                {% endif %}
+                {% if story_page_span %}      
+                    <span>{{story_page_span}}</span>
+                {% endif %}
+            </div>     
+        </div>
+        {% if story_page_image1 %}
+            <div class="img-parent">
+                <img src="{{story_page_image1}}" alt="Founder Yara Alnamlah " class="img" />
+            </div>
+        {% endif %}
+
+    </div>
+    {% if story_page_image2 %}
+        <div class="img-parent">
+                <img src="{{story_page_image2}}" alt="TREAT" class="img" />
+        </div>  
+    {% endif %}
+</div>
+
+{% else %}
     <div id="loader"class="loader-container-relative"></div>
 
     <section id="blog-post" class="blog mt-5 mb-5 ">
@@ -22,6 +67,8 @@
 
         </div>
     </section>
+
+{% endif %}
 
 {% endblock %}
 

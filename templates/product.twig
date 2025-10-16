@@ -162,7 +162,7 @@
                                 </div>
                                 {% if product.description %}
                                     <section id="product-description" class="">
-                                        <div class="d-flex align-items-center product-short-description">
+                                        <div class="d-flex align-items-start product-short-description">
                                             
                                             <span class="description-title">
                                                 {{ locals.product_description }}
@@ -386,146 +386,154 @@
 
             {% if store.is_product_reviews_enabled %}
                 <section class="mt-5 review-details">
-                    <div>
-                        <div class="d-flex flex-wrap align-items-center" style="width: 100%">
-                            <div class="description-icon">
-                                <span class="icon-reviews_black"></span>
+                    <div class="row">
+                        <div class="col-md-4 col-12" >
+                            <div class="d-flex flex-wrap align-items-center" style="width: 100%">
+                                
+                                <div class="description-title">
+                                    {{ locals.product_reviews }}
+                                </div>
+                                {% if product.rating %}
+                                <div class="rating-section">
+                                        <div>
+                                            {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
+                                            <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
+                                        </div>
+                                </div>
+                                {% endif %}
+
+                                &nbsp;
+                                <!-- Button trigger modal -->
+                                
                             </div>
-                            <div class="description-title">
-                                {{ locals.product_reviews }}
-                            </div>
-                            {% if product.rating %}
-                            <div class="rating-section">
-                                    <div>
-                                        {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
-                                        <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
+                            <div class="reviews-break-down-div description-paragrah">
+                                <div class="d-flex align-items-center mt-3 mb-4">
+                                    {% if product.rating %}
+                                    <h4 class="rating-average">{{ product.rating.average }}</h4>
+                                    <div class="d-flex flex-column">
+                                        <div class="rating-row">
+                                            <span class="rating-count">{{ product.rating['5_ratings'].count }}</span>
+                                            <div class="rating-bar">
+                                                
+                                                <div class="rating-fill" style="width: {{ (product.rating['5_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                            </div>
+                                            <span class="rating-stars">
+                                                ⭐ <span>5</span>
+                                            </span>
+                                        </div>
+                                        <div class="rating-row">
+                                                <span class="rating-count">{{ product.rating['4_ratings'].count }}</span>
+                                            <div class="rating-bar">
+                                                <div class="rating-fill" style="width: {{ (product.rating['4_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                            </div>
+                                            <span class="rating-stars">
+                                                ⭐ <span>4</span>
+                                            </span>
+                                        </div>
+                                        <div class="rating-row">
+                                                <span class="rating-count">{{ product.rating['3_ratings'].count }}</span>
+                                            <div class="rating-bar">
+                                                <div class="rating-fill" style="width: {{ (product.rating['3_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                            </div>
+                                            <span class="rating-stars">
+                                                ⭐ <span>3</span>
+                                            </span>
+                                        </div>
+                                        <div class="rating-row">
+                                                <span class="rating-count">{{ product.rating['2_ratings'].count }}</span>
+                                            <div class="rating-bar">
+                                                <div class="rating-fill" style="width: {{ (product.rating['2_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                            </div>
+                                            <span class="rating-stars">
+                                                ⭐ <span>2</span>
+                                            </span>
+                                        </div>
+                                        <div class="rating-row">
+                                                <span class="rating-count">{{ product.rating['1_ratings'].count }}</span>
+                                            <div class="rating-bar">
+                                                <div class="rating-fill" style="width: {{ (product.rating['1_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
+                                            </div>
+                                            <span class="rating-stars">
+                                                ⭐ <span>1</span>
+                                            </span>
+                                        </div>
+
+                                        {# <div class="card-rate d-flex gap-2">
+                                            <span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span> &nbsp;  &nbsp;
+                                            <span>{{ locals.reviews_rating_5 }}</span>
+                                        </div>
+                                        <div class="card-rate d-flex gap-2">
+                                            <span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                                            <span>{{ locals.reviews_rating_4 }}</span>
+                                        </div>
+                                        <div class="card-rate d-flex gap-2">
+                                            <span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1 deactive"></span>
+                                            <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                                            <span>{{ locals.reviews_rating_3 }}</span>
+                                        </div>
+                                        <div class="card-rate d-flex gap-2">
+                                            <span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1 deactive"></span>
+                                            <span class="icon-star1 deactive"></span>
+                                            <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                                            <span>{{ locals.reviews_rating_2 }}</span>
+                                        </div>
+                                        <div class="card-rate d-flex gap-2">
+                                            <span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
+                                            <span class="icon-star1"></span>
+                                            <span class="icon-star1 deactive"></span>
+                                            <span class="icon-star1 deactive"></span>
+                                            <span class="icon-star1 deactive"></span>
+                                            <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
+                                            <span>{{ locals.reviews_rating_1 }}</span>
+                                        </div> #}
                                     </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                                {% if product.questions is not empty %}
+                            <div class="add-review-btn-div" >
+                                <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </a>
                             </div>
                             {% endif %}
-
-                            &nbsp;
-                            <!-- Button trigger modal -->
-                            <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </a>
+                           
                         </div>
-                        <div class="reviews-break-down-div description-paragrah">
-                            <div class="d-flex align-items-center mt-3 mb-4">
-                                {% if product.rating %}
-                                <h4 class="rating-average">{{ product.rating.average }}</h4>
-                                <div class="d-flex flex-column">
-                                    <div class="rating-row">
-                                        <span class="rating-count">{{ product.rating['5_ratings'].count }}</span>
-                                        <div class="rating-bar">
-                                            
-                                            <div class="rating-fill" style="width: {{ (product.rating['5_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
-                                        </div>
-                                        <span class="rating-stars">
-                                            ⭐ <span>5</span>
-                                        </span>
-                                    </div>
-                                    <div class="rating-row">
-                                            <span class="rating-count">{{ product.rating['4_ratings'].count }}</span>
-                                        <div class="rating-bar">
-                                            <div class="rating-fill" style="width: {{ (product.rating['4_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
-                                        </div>
-                                        <span class="rating-stars">
-                                            ⭐ <span>4</span>
-                                        </span>
-                                    </div>
-                                    <div class="rating-row">
-                                            <span class="rating-count">{{ product.rating['3_ratings'].count }}</span>
-                                        <div class="rating-bar">
-                                            <div class="rating-fill" style="width: {{ (product.rating['3_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
-                                        </div>
-                                        <span class="rating-stars">
-                                            ⭐ <span>3</span>
-                                        </span>
-                                    </div>
-                                    <div class="rating-row">
-                                            <span class="rating-count">{{ product.rating['2_ratings'].count }}</span>
-                                        <div class="rating-bar">
-                                            <div class="rating-fill" style="width: {{ (product.rating['2_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
-                                        </div>
-                                        <span class="rating-stars">
-                                            ⭐ <span>2</span>
-                                        </span>
-                                    </div>
-                                    <div class="rating-row">
-                                            <span class="rating-count">{{ product.rating['1_ratings'].count }}</span>
-                                        <div class="rating-bar">
-                                            <div class="rating-fill" style="width: {{ (product.rating['1_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
-                                        </div>
-                                        <span class="rating-stars">
-                                            ⭐ <span>1</span>
-                                        </span>
-                                    </div>
+                        <div class="col-md-8 col-12">
+                            <div class="reviews-break-down-empty description-paragrah d-none">
+                                <div style="border: 1px solid #ccc; margin: 10px 0px; padding: 10px; border-radius: 3px">
+                                    <span>{{ locals.product_no_reviews }}</span>
+                                </div>
+                            </div>
 
-                                    {# <div class="card-rate d-flex gap-2">
-                                        <span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span> &nbsp;  &nbsp;
-                                        <span>{{ locals.reviews_rating_5 }}</span>
-                                    </div>
-                                    <div class="card-rate d-flex gap-2">
-                                        <span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
-                                        <span>{{ locals.reviews_rating_4 }}</span>
-                                    </div>
-                                    <div class="card-rate d-flex gap-2">
-                                        <span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1 deactive"></span>
-                                        <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
-                                        <span>{{ locals.reviews_rating_3 }}</span>
-                                    </div>
-                                    <div class="card-rate d-flex gap-2">
-                                        <span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1 deactive"></span>
-                                        <span class="icon-star1 deactive"></span>
-                                        <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
-                                        <span>{{ locals.reviews_rating_2 }}</span>
-                                    </div>
-                                    <div class="card-rate d-flex gap-2">
-                                        <span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
-                                        <span class="icon-star1"></span>
-                                        <span class="icon-star1 deactive"></span>
-                                        <span class="icon-star1 deactive"></span>
-                                        <span class="icon-star1 deactive"></span>
-                                        <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
-                                        <span>{{ locals.reviews_rating_1 }}</span>
-                                    </div> #}
+                            <div class="comment-section description-paragrah bg-transparent">
+                                {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
+
+                                {% if product.reviews.next_page > 1 %}
+                                <div class="text-right">
+                                    <a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
+                                        {{ locals.go_all_reviews }}
+                                    </a>
                                 </div>
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="reviews-break-down-empty description-paragrah d-none">
-                            <div style="border: 1px solid #ccc; margin: 10px 0px; padding: 10px; border-radius: 3px">
-                                <span>{{ locals.product_no_reviews }}</span>
-                            </div>
-                        </div>
-
-                        <div class="comment-section description-paragrah bg-transparent">
-                            {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
-
-                            {% if product.reviews.next_page > 1 %}
-                            <div class="text-right">
-                                <a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
-                                    {{ locals.go_all_reviews }}
-                                </a>
-                            </div>
-                            {% endif %}
-                        </div>
-
                     </div>
                 </section>
             {% endif %}
@@ -539,8 +547,10 @@
                             <div class="description-title">
                                 {{ locals.product_questions }}
                             </div>
-                            {% if product.questions is not empty %}
+                             {% if product.questions is not empty %}
+                            <div class="add-review-btn-div" >
                             <button type="button" class="btn btn-primary add-review-btn" id="addQuestionButton"><span class="icon-add_circle"></span>{{ locals.add_product_question}} </button>
+                            </div>
                             {% endif %}
                         </div>
                     </div>

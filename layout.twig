@@ -3,6 +3,14 @@
 {% set products_page_product = settings.products_settings_key %}
 
 
+{% set story_page_image1 = settings.story_image %}
+{% set story_page_image2 = settings.story_image2 %}
+{% set story_page_h1 = settings.story_title %}
+{% set story_page_p = settings.story_desc %}
+{% set story_page_span = settings.story_founder %}
+
+{% set dark_logo = settings.header_darklogo %}
+
 
 <!doctype html>
 <html class="no-js" lang="{{ session.lang.code }}" dir="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}">
@@ -167,7 +175,6 @@
     <div class="main flex-grow-1 app-content"
             {% if settings.colors_background_image %} style="background-repeat: repeat; background-image: url('{{ settings.colors_background_image }}');" {% endif %}>
 
-        
             {% block main_content %}{% endblock %}
     </div>
     <div class="footer">
@@ -573,6 +580,68 @@
         "label": {
           "ar": "نص الأساسيات",
           "en": "Essentials Text"
+        }
+      }
+    }
+  },
+  "story":{
+    "name": {
+      "ar": "صفحة القصة",
+      "en": "Story Page"
+    },
+    "icon": "fa fa-paint-brush",
+    "display": true,
+    "settings": {
+      "image": {
+        "type": "image",
+        "label": {
+          "ar": "الصورة الاولى",
+          "en": "First Image"
+        }
+      },
+      "image2": {
+        "type": "image",
+        "label": {
+          "ar": "الصورة الثانية",
+          "en": "Second Image"
+        }
+      },
+      "title": {
+        "type": "text",
+        "label": {
+          "ar": "العنوان",
+          "en": "Main Title"
+        }
+    },
+      "desc": {
+        "type": "textarea",
+        "label": {
+          "ar": "نص الأساسيات",
+          "en": "Essentials Text"
+        }
+      },
+      "founder": {
+        "type": "text",
+        "label": {
+          "ar": "اسم المؤسس",
+          "en": "Founder name"
+        }
+      }
+    }
+  },
+  "header":{
+    "name": {
+      "ar": "راس الصفحة",
+      "en": "header"
+    },
+    "icon": "fa fa-paint-brush",
+    "display": true,
+    "settings": {
+      "darklogo": {
+        "type": "image",
+        "label": {
+          "ar": "شعار داكن",
+          "en": "dark logo"
         }
       }
     }

@@ -17,27 +17,29 @@
                     <div class="reviews-div">
                         <div class="reviews-container">
                             {% for review in settings.reviews %}
-                                <div class="review-card">
-                                    <div class="quote-icon">
+                                <div class="review-card-outer">
+                                    <div class="review-card">
+                                        <div class="quote-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="28" viewBox="0 0 16 28" fill="none">
+                                        <path d="M0.765122 20.2053C0.765122 24.4124 4.17547 27.8228 8.3826 27.8228C12.5897 27.8228 16.0001 24.4124 16.0001 20.2053C16.0001 15.9982 12.5897 12.5879 8.38254 12.5879C7.51786 12.5879 6.69028 12.7386 5.91548 13.0042C7.62972 3.17257 15.2965 -3.16773 8.18942 2.05046C0.308721 7.83686 0.756618 19.9725 0.765499 20.1949C0.765499 20.1984 0.765122 20.2015 0.765122 20.2053Z" fill="#EEEEEE"/>
+                                        </svg>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="28" viewBox="0 0 16 28" fill="none">
-<path d="M0.765122 20.2053C0.765122 24.4124 4.17547 27.8228 8.3826 27.8228C12.5897 27.8228 16.0001 24.4124 16.0001 20.2053C16.0001 15.9982 12.5897 12.5879 8.38254 12.5879C7.51786 12.5879 6.69028 12.7386 5.91548 13.0042C7.62972 3.17257 15.2965 -3.16773 8.18942 2.05046C0.308721 7.83686 0.756618 19.9725 0.765499 20.1949C0.765499 20.1984 0.765122 20.2015 0.765122 20.2053Z" fill="#EEEEEE"/>
-</svg>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="28" viewBox="0 0 16 28" fill="none">
-<path d="M0.765122 20.2053C0.765122 24.4124 4.17547 27.8228 8.3826 27.8228C12.5897 27.8228 16.0001 24.4124 16.0001 20.2053C16.0001 15.9982 12.5897 12.5879 8.38254 12.5879C7.51786 12.5879 6.69028 12.7386 5.91548 13.0042C7.62972 3.17257 15.2965 -3.16773 8.18942 2.05046C0.308721 7.83686 0.756618 19.9725 0.765499 20.1949C0.765499 20.1984 0.765122 20.2015 0.765122 20.2053Z" fill="#EEEEEE"/>
-</svg>
+                                        <path d="M0.765122 20.2053C0.765122 24.4124 4.17547 27.8228 8.3826 27.8228C12.5897 27.8228 16.0001 24.4124 16.0001 20.2053C16.0001 15.9982 12.5897 12.5879 8.38254 12.5879C7.51786 12.5879 6.69028 12.7386 5.91548 13.0042C7.62972 3.17257 15.2965 -3.16773 8.18942 2.05046C0.308721 7.83686 0.756618 19.9725 0.765499 20.1949C0.765499 20.1984 0.765122 20.2015 0.765122 20.2053Z" fill="#EEEEEE"/>
+                                        </svg>
 
-                                    </div>
-                                    
-                                    <div class="stars" id="starsContainer" data-rating="{{review.number}}" data-max-stars="5"></div>
+                                        </div>
+                                        
+                                        <div class="stars" id="starsContainer" data-rating="{{review.number}}" data-max-stars="5"></div>
 
-                                    <p class="review-text">
-                                        {{review.description}}
-                                    </p>
+                                        <p class="review-text">
+                                            {{review.description}}
+                                        </p>
 
-                                    <div class="reviewer">
-                                        <img src="{{review.personimage}}" alt="{{review.personname}}" class="reviewer-avatar">
-                                        <div class="reviewer-info">
-                                            <div class="reviewer-name">{{review.personname}}</div>
+                                        <div class="reviewer">
+                                            <img src="{{review.personimage}}" alt="{{review.personname}}" class="reviewer-avatar">
+                                            <div class="reviewer-info">
+                                                <div class="reviewer-name">{{review.personname}}</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
