@@ -154,108 +154,10 @@
                                         <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
                                     </div>
                                     {% if product.rating %}
-                                        <div class="rating-stars">
-                                            {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
-                                            <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
-                                        </div>
+                                        <div class="rate-in-price"> <span class="icon-star1"></span> <p>{{ product.rating.average|round(1, 'common') }}</p></div>
                                     {% endif %}
                                 </div>
-                                {% if product.description %}
-                                    <section id="product-description" class="">
-                                        <div class="d-flex align-items-start product-short-description">
-                                            
-                                            <span class="description-title">
-                                                {{ locals.product_description }}
-                                            </span>
-                                        </div>
-                                        <div class="description-paragrah text-short-description text-justify description-text-clear">
-                                            {{ product.description | raw }}
-                                        </div>
-                                    </section>
-                                {% endif %}
-                                <div class="d-flex flex-column flex-lg-row product-features">
-                                    
-
-                                    {% if product.sold_products_count %}
-                                        <div class="product-count d-flex align-items-center">
-                                            <span class="icon-military_tech" style="color: #FFCF57; font-size: 16px"></span>&nbsp;
-                                            <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.sold_products_count) }}</span>
-                                        </div>
-                                    {% elseif product.selected_product.sold_products_count %}
-                                        <div class="product-count d-flex align-items-center">
-                                            <span class="icon-military_tech" style="color: #FFCF57; font-size: 16px"></span>&nbsp;
-                                            <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.selected_product.sold_products_count) }}</span>
-                                        </div>
-                                    {% endif %}
-
-
-                                    {% if product.low_stock_quantity %}
-                                        <div class="low-quantity-section d-inline-block">
-                                            <span class="icon-flag_black" style="color: #EC5550; font-size: 16px"></span>&nbsp;
-                                            <span class="low-quantity">{{ locals.product_cart_quantity_low_stock | format(product.low_stock_quantity) }}</span>
-                                        </div>
-                                    {% endif %}
-
-                                    {% if product.bundle_offer %}
-                                    <div class="bundle-offer-section">
-                                        <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
-                                        <span class="bundle-offer-title">{{ product.bundle_offer.name }}</span>
-                                    </div>
-                                    {% endif %}
-                                    
-                                    {% if product.extra_bundle_offers %}
-                                        {% for key, bundle_offer in product.extra_bundle_offers %}
-                                            <div class="bundle-offer-section">
-                                                <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
-                                                <span class="bundle-offer-title">{{ bundle_offer.name }}</span>
-                                            </div>
-                                        {% endfor %}
-                                    {% endif %}
-                                </div>
-
-                                {% if product.short_description is not empty %}
-                                    <p class="text-short-description">
-                                        {{ product.short_description | raw }}
-                                        &nbsp;<a id="product-description-a" href="#product-description" class="text-color-primary">{{ locals.product_description_more }}</a>
-                                    </p>
-                                {% endif %}
-                                <div class="d-flex">
-                                    <div>
-                                        <h2 class="product-formatted-price theme-text-primary">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
-                                        <p>
-                                            <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
-                                            <span class="product-formatted-price-discount" style="color:#f25f5f;">{% if product.selected_product.formatted_sale_price %}  &nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%{% endif %}</span>
-                                        </p>
-                                    </div>
-
-                                </div>
-
-                                <div>
-                                    {{ template_for_product_loyalty_points_widget }}
-                                </div>
-
-                                <div>
-                                    {{ template_for_product_payments_widget }}
-                                </div>
-                            </section>
-
-                            {# <div>{{product|json_encode}}</div> #}
-                            <div class="border-product"></div>
-                            <div style="margin-bottom: 25px" class="div-product-sku d-none {% if not product.selected_product.sku %}d-none{% endif %}">
-                                <h4 class="product-title">{{ locals.product_sku }}</h4>
-                                <div class="product-sku">
-                                    {{ product.selected_product.sku }}
-                                </div>
-                            </div>
-
-                            <div style="margin-bottom: 25px" class="div-product-weight d-none {% if not product.selected_product.weight.value %}d-none{% endif %}">
-                                <h4 class="product-title">{{ locals.product_weight }}</h4>
-                                <div class="product-weight">
-                                    {{ product.selected_product.weight.value }}&nbsp;{{ product.selected_product.weight.unit }}
-                                </div>
-                            </div>
-
-                            <form id="product-form">
+                                <form id="product-form">
                                 <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
 
                                 <div class="size-box">
@@ -272,10 +174,21 @@
                                 {% if product.selected_product.is_infinite or product.selected_product.quantity > 0 %}
                                     <div class="border-product" style="margin-top: 15px"></div>
                                     <div class="select-quantity-div">
-                                        <h4 class="product-title">{{ locals.product_cart_quantity }}</h4>
-                                        <div class="form-group">
-                                            <div>
-                                                <select  id="product-quantity" name="quantity" class="select-quantity">
+                                        <div class="form-group w-100">
+                                            <div class="quantity-control">
+                                            <div class="quantity-controls-wrapper">
+
+                                                <button type="button" class="quantity-btn minus-btn" data-action="minus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
+</svg></button>
+                                                <span id="quantity-display">1</span>
+                                                <button type="button" class="quantity-btn plus-btn" data-action="plus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+</svg></button>
+                                                
+                                            
+                                            </div>
+                                                <select  id="product-quantity" name="quantity" class="select-quantity d-none">
                                                     {% if product.selected_product.is_infinite or product.selected_product.quantity > 100 %}
                                                         {% set maxQuantity = 100 %}
                                                     {% else %}
@@ -322,6 +235,81 @@
 
 
                             </form>
+                                {% if product.description %}
+                                    <section id="product-description" class="product-description">
+                                        <div class="d-flex align-items-start product-short-description">
+                                            
+                                            <span class="description-title">
+                                                {{ locals.description }}
+                                            </span>
+                                        </div>
+                                        <div class="description-paragrah text-short-description text-justify description-text-clear">
+                                            {{ product.description | raw }}
+                                        </div>
+                                    </section>
+                                {% endif %}
+                                <div class="custom-tags">
+                                
+                                
+                                
+                                </div>
+                                <div class="d-flex flex-column flex-lg-row product-features">
+                                    
+
+                                    {% if product.sold_products_count %}
+                                        <div class="product-count d-flex align-items-center">
+                                            <span class="icon-military_tech" style="color: #FFCF57; font-size: 16px"></span>&nbsp;
+                                            <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.sold_products_count) }}</span>
+                                        </div>
+                                    {% elseif product.selected_product.sold_products_count %}
+                                        <div class="product-count d-flex align-items-center">
+                                            <span class="icon-military_tech" style="color: #FFCF57; font-size: 16px"></span>&nbsp;
+                                            <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.selected_product.sold_products_count) }}</span>
+                                        </div>
+                                    {% endif %}
+
+
+                                    {% if product.low_stock_quantity %}
+                                        <div class="low-quantity-section d-inline-block">
+                                            <span class="icon-flag_black" style="color: #EC5550; font-size: 16px"></span>&nbsp;
+                                            <span class="low-quantity">{{ locals.product_cart_quantity_low_stock | format(product.low_stock_quantity) }}</span>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if product.bundle_offer %}
+                                    <div class="bundle-offer-section">
+                                        <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
+                                        <span class="bundle-offer-title">{{ product.bundle_offer.name }}</span>
+                                    </div>
+                                    {% endif %}
+                                    
+                                    {% if product.extra_bundle_offers %}
+                                        {% for key, bundle_offer in product.extra_bundle_offers %}
+                                            <div class="bundle-offer-section">
+                                                <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
+                                                <span class="bundle-offer-title">{{ bundle_offer.name }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+
+                                
+                                
+
+                                <div>
+                                    {{ template_for_product_loyalty_points_widget }}
+                                </div>
+
+                                <div>
+                                    {{ template_for_product_payments_widget }}
+                                </div>
+                            </section>
+
+                           
+
+                            
+
+                            
                             <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                                 <div class="border-product"></div>
                                 <div class="d-flex align-center">
@@ -386,31 +374,31 @@
 
             {% if store.is_product_reviews_enabled %}
                 <section class="mt-5 review-details">
-                    <div class="row">
-                        <div class="col-md-4 col-12" >
-                            <div class="d-flex flex-wrap align-items-center" style="width: 100%">
+                    <div class="head-sec">
+                        <svg class="right" xmlns="http://www.w3.org/2000/svg" width="50" height="13" viewBox="0 0 50 13" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M49.3738 9.91605C48.7523 10.2786 48.7318 10.3384 49.0142 10.9653C49.5618 12.1818 49.4343 12.5809 48.403 12.8752C47.2234 13.2116 45.2899 12.8431 44.1701 12.0682C43.746 11.7748 42.7708 11.1344 42.0027 10.6453L40.6062 9.75583C16.0678 9.76198 29.1008 9.74652 -1.42214e-07 9.74652L-1.6643e-07 9.19254L-1.90645e-07 8.63855L19.201 8.63855L26.8437 8.63855L27.8171 6.7683C29.3602 3.80337 31.9217 1.52516 35.0127 0.368438C36.4716 -0.17757 36.7786 -0.131476 36.5901 0.605768C36.254 1.92004 34.7352 4.45619 33.5158 5.739C32.5803 6.72316 31.7308 7.81409 30.2297 8.63235L37.9552 8.63545L40.5654 8.63855L41.7495 7.92967C42.4009 7.53989 43.2747 6.94424 43.6911 6.60609C45.3741 5.24019 49.1117 4.93372 49.2925 6.14695C49.3335 6.42195 49.2022 6.96153 49.0007 7.34622C48.7991 7.7309 48.6609 8.05975 48.6934 8.07681C50.1996 8.86812 50.3718 9.33348 49.3738 9.91605ZM44.0854 8.73649C44.8819 8.23968 46.5207 8.08124 47.5425 8.40233C49.2423 8.93659 49.1215 9.50609 47.2052 9.99404C46.3552 10.2105 45.9258 10.2072 45.0657 9.97809C43.6024 9.58787 43.3112 9.21935 44.0854 8.73649ZM47.0683 10.866C47.8059 10.7082 47.9835 10.7433 48.1751 11.0841C48.6595 11.9456 48.4681 12.1843 47.2978 12.1792C46.0361 12.1736 44.5472 11.5975 43.8647 10.851L43.3992 10.3417L43.9811 10.5024C45.6686 10.968 46.2642 11.038 47.0683 10.866ZM43.8647 7.53413C44.5472 6.78758 46.0361 6.21143 47.2978 6.20589C48.2002 6.2019 48.402 6.27237 48.3964 6.58881C48.3806 7.44815 47.9956 7.71739 47.066 7.51862C46.2644 7.34711 45.6672 7.41757 43.9811 7.88269L43.3992 8.04335L43.8647 7.53413ZM31.0223 3.6538C32.1361 2.61031 34.6473 1.10436 35.2734 1.10436C35.6581 1.10436 35.5957 1.29847 34.6922 2.91079C34.2378 3.7216 33.402 4.84641 32.8343 5.41015C31.8198 6.4184 29.853 7.75218 29.3812 7.75218C29.249 7.75218 30.0697 6.86358 31.2053 5.77755C32.7687 4.28201 33.2312 3.7072 33.1111 3.40871C32.9803 3.08452 32.5632 3.38367 30.7507 5.10213C29.5397 6.25021 28.5491 7.10955 28.5491 7.01161C28.5491 6.55069 29.9268 4.68044 31.0223 3.6538Z" fill="#383838"/>
+                        </svg>
+                        <h2 class="title-sec " >{{ locals.product_reviews }}</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="left" width="50" height="13" viewBox="0 0 50 13" fill="none">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.62622 9.91605C1.24767 10.2786 1.26816 10.3384 0.985828 10.9653C0.438158 12.1818 0.565705 12.5809 1.59704 12.8752C2.77664 13.2116 4.71013 12.8431 5.82991 12.0682C6.25399 11.7748 7.22923 11.1344 7.99731 10.6453L9.39384 9.75583C33.9322 9.76198 20.8992 9.74652 50 9.74652L50 9.19254L50 8.63855L30.799 8.63855L23.1563 8.63855L22.1829 6.7683C20.6398 3.80337 18.0783 1.52516 14.9873 0.368438C13.5284 -0.17757 13.2214 -0.131476 13.4099 0.605768C13.746 1.92004 15.2648 4.45619 16.4842 5.739C17.4197 6.72316 18.2692 7.81409 19.7703 8.63235L12.0448 8.63545L9.43457 8.63855L8.25055 7.92967C7.59907 7.53989 6.72531 6.94424 6.30892 6.60609C4.62587 5.24019 0.888301 4.93372 0.707451 6.14695C0.666486 6.42195 0.797763 6.96153 0.999328 7.34622C1.20089 7.7309 1.33915 8.05975 1.30656 8.07681C-0.199591 8.86812 -0.37183 9.33348 0.62622 9.91605ZM5.91463 8.73649C5.11815 8.23968 3.47932 8.08124 2.45753 8.40233C0.757729 8.93659 0.878526 9.50609 2.79479 9.99404C3.64481 10.2105 4.07424 10.2072 4.93427 9.97809C6.39759 9.58787 6.68877 9.21935 5.91463 8.73649ZM2.93165 10.866C2.19405 10.7082 2.01646 10.7433 1.82491 11.0841C1.34054 11.9456 1.53187 12.1843 2.70216 12.1792C3.96392 12.1736 5.45285 11.5975 6.13528 10.851L6.60079 10.3417L6.0189 10.5024C4.33144 10.968 3.73582 11.038 2.93165 10.866ZM6.13528 7.53413C5.45285 6.78758 3.96392 6.21143 2.70216 6.20589C1.79977 6.2019 1.59797 6.27237 1.60356 6.58881C1.61938 7.44815 2.00436 7.71739 2.93398 7.51862C3.73559 7.34711 4.33283 7.41757 6.0189 7.88269L6.60079 8.04335L6.13528 7.53413ZM18.9777 3.6538C17.8639 2.61031 15.3527 1.10436 14.7266 1.10436C14.3419 1.10436 14.4043 1.29847 15.3078 2.91079C15.7622 3.7216 16.598 4.84641 17.1657 5.41015C18.1802 6.4184 20.147 7.75218 20.6188 7.75218C20.751 7.75218 19.9303 6.86358 18.7947 5.77755C17.2313 4.28201 16.7688 3.7072 16.8889 3.40871C17.0197 3.08452 17.4368 3.38367 19.2493 5.10213C20.4603 6.25021 21.4509 7.10955 21.4509 7.01161C21.4509 6.55069 20.0732 4.68044 18.9777 3.6538Z" fill="#383838"/>
+                        </svg>
+                    </div>
+                    <div class="row review-details-inner">
+                        <div class="col-md-4 col-12 review-details-inner-rate" >
+                            <div class="custom-head-review-details" style="width: 100%">
                                 
-                                <div class="description-title">
-                                    {{ locals.product_reviews }}
-                                </div>
-                                {% if product.rating %}
-                                <div class="rating-section">
-                                        <div>
-                                            {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
-                                            <span class="product-card-rating-count">({{ product.rating.total_count }})</span>
-                                        </div>
-                                </div>
-                                {% endif %}
-
-                                &nbsp;
-                                <!-- Button trigger modal -->
+                                    <span class="out-of">{{product.rating.average}} {{locals.out_of}} 5</span>
+                                    {% include 'rating-stars.twig' with {'rating' : product.rating.average } %}
+                                    <span class="product-review-text"> {{ product.rating.total_count }} {{locals.product_reviews_custom}}</span>
+                                
+                                
                                 
                             </div>
-                            <div class="reviews-break-down-div description-paragrah">
-                                <div class="d-flex align-items-center mt-3 mb-4">
+                            <div class="reviews-break-down-div description-paragrah" style="width: 100%">
+                                <div class="description-paragrah-inner d-flex align-items-center mt-3 mb-4">
                                     {% if product.rating %}
-                                    <h4 class="rating-average">{{ product.rating.average }}</h4>
-                                    <div class="d-flex flex-column">
+                                    
+                                    <div class="d-flex flex-column w-100">
                                         <div class="rating-row">
                                             <span class="rating-count">{{ product.rating['5_ratings'].count }}</span>
                                             <div class="rating-bar">
@@ -418,7 +406,7 @@
                                                 <div class="rating-fill" style="width: {{ (product.rating['5_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
                                             </div>
                                             <span class="rating-stars">
-                                                ⭐ <span>5</span>
+                                               <span class="icon-star1"></span> <span>5</span>
                                             </span>
                                         </div>
                                         <div class="rating-row">
@@ -427,7 +415,7 @@
                                                 <div class="rating-fill" style="width: {{ (product.rating['4_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
                                             </div>
                                             <span class="rating-stars">
-                                                ⭐ <span>4</span>
+                                                <span class="icon-star1"></span> <span>4</span>
                                             </span>
                                         </div>
                                         <div class="rating-row">
@@ -436,7 +424,7 @@
                                                 <div class="rating-fill" style="width: {{ (product.rating['3_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
                                             </div>
                                             <span class="rating-stars">
-                                                ⭐ <span>3</span>
+                                                <span class="icon-star1"></span> <span>3</span>
                                             </span>
                                         </div>
                                         <div class="rating-row">
@@ -445,7 +433,7 @@
                                                 <div class="rating-fill" style="width: {{ (product.rating['2_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
                                             </div>
                                             <span class="rating-stars">
-                                                ⭐ <span>2</span>
+                                                <span class="icon-star1"></span> <span>2</span>
                                             </span>
                                         </div>
                                         <div class="rating-row">
@@ -454,7 +442,7 @@
                                                 <div class="rating-fill" style="width: {{ (product.rating['1_ratings'].count / product.rating.total_count) * 100 }}%;"></div>
                                             </div>
                                             <span class="rating-stars">
-                                                ⭐ <span>1</span>
+                                               <span class="icon-star1"></span> <span>1</span>
                                             </span>
                                         </div>
 
@@ -508,31 +496,55 @@
                                 </div>
                             </div>
                             
-                                {% if product.questions is not empty %}
-                            <div class="add-review-btn-div" >
-                                <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn"><span class="icon-add_circle"></span>{{ locals.add_product_review}} </a>
-                            </div>
+                            {% if product.questions is not empty %}
+                                <div class="add-review-btn-div" >
+                                    <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn">{{ locals.Post_Your_Comment}} </a>
+                                </div>
                             {% endif %}
                            
                         </div>
-                        <div class="col-md-8 col-12">
-                            <div class="reviews-break-down-empty description-paragrah d-none">
-                                <div style="border: 1px solid #ccc; margin: 10px 0px; padding: 10px; border-radius: 3px">
+                        <div class="col-md-8 col-12 review-details-inner-comments">
+                            <div class="comments-header">
+                                <h4 class="user_comments">{{locals.user_comments}}</h4>
+
+                                <div class="sort-container">
+                                    <div class="sort-button" onclick="toggleSortMenu()">
+                                        {{ locals.products_list_sort }}: <span id="current-sort-option">{{ locals.products_list_filter_latest }}</span>
+                                        <span class="icon-arrow-down">▼</span>
+                                    </div>
+                                    
+                                    <div class="sort-dropdown-menu hidden">
+                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'date', 'desc')">{{ locals.products_list_filter_latest }}</a>
+                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'date', 'asc')">{{locals.products_list_filter_old}}</a>
+                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'desc')">{{locals.highest_rating}}</a>
+                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'asc')">{{locals.lowest_rating}}</a>
+                                    </div>
+                                </div>
+                                
+                            
+                             </div>
+                            <div class="reviews-break-down-empty  ">
+                                <div style="border: 1px solid #eee; margin: 10px 0px; padding: 10px; border-radius: 3px">
                                     <span>{{ locals.product_no_reviews }}</span>
                                 </div>
                             </div>
+                            {% if product.reviews.data %}
+                                <div class="comment-section description-paragrah bg-transparent">
+                                    {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
 
-                            <div class="comment-section description-paragrah bg-transparent">
-                                {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
-
-                                {% if product.reviews.next_page > 1 %}
-                                <div class="text-right">
-                                    <a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
-                                        {{ locals.go_all_reviews }}
-                                    </a>
+                                    
                                 </div>
-                                {% endif %}
-                            </div>
+                                {# {% if product.reviews.next_page > 1 %} #}
+                                    <div class="next-reviews">
+                                        <div class="text-right">
+                                            <a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
+                                                {{ locals.go_all_reviews }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {# {% endif %} #}
+                            {% endif %}
+                            
                         </div>
                     </div>
                 </section>
@@ -597,9 +609,10 @@
 
 
 {% block footer_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
-    <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
+    <script type="text/javascript" src="{{ assetUrl('product-details.js?v=1.101010') }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
     <script type="text/javascript" src="{{ assetUrl('product-d2.js?v=1.101010') }}"></script>
 
@@ -608,7 +621,49 @@
     <script>
         var productImages = {{  product.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
+document.addEventListener('DOMContentLoaded', function() {
+    const selectElement = document.getElementById('product-quantity');
+    const displayElement = document.getElementById('quantity-display');
+    const minusButton = document.querySelector('.minus-btn');
+    const plusButton = document.querySelector('.plus-btn');
 
+    const options = selectElement.querySelectorAll('option');
+    const minQuantity = 1; 
+    const maxQuantity = options.length > 0 ? parseInt(options[options.length - 1].value) : 1;
+
+    displayElement.textContent = selectElement.value;
+    updateButtonStates(parseInt(selectElement.value));
+
+
+    function updateButtonStates(currentValue) {
+        minusButton.disabled = (currentValue <= minQuantity);
+        plusButton.disabled = (currentValue >= maxQuantity);
+    }
+
+    function changeQuantity(change) {
+        let currentValue = parseInt(selectElement.value);
+        let newValue = currentValue + change;
+
+        if (newValue >= minQuantity && newValue <= maxQuantity) {
+            selectElement.value = newValue;
+
+            displayElement.textContent = newValue;
+
+            updateButtonStates(newValue);
+
+            selectElement.dispatchEvent(new Event('change'));
+        }
+    }
+
+    minusButton.addEventListener('click', function() {
+        changeQuantity(-1);
+    });
+
+    plusButton.addEventListener('click', function() {
+        changeQuantity(1);
+    });
+
+});
         function productAddToCart() {
             if(!$('.add-to-cart-progress').hasClass('d-none'))
                 return;

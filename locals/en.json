@@ -81,7 +81,7 @@
     "product_sku":"product sku",
     "product_share":"share product",
     "product_description":"product description",
-    "description":"Description",
+    "description":"Description :",
     "product_properties":"product information",
     "product_options": "product description",
     "product_product_readmore":"product_readmore",
@@ -239,6 +239,14 @@
     "total_products":"Total Products",
     "tick_all":"TICK ALL /",
     "our_products":"Our Products",
-    "story":"Story"
+    "story":"Story",
+    "product_reviews_custom":"Product Reviews",
+    "out_of":"out of",
+    "Post_Your_Comment":"Post Your Comment",
+    "user_comments":"User Comments",
+    "products_list_filter_old":"Oldest",
+    "highest_rating":"highest rating",
+    "lowest_rating":"lowest rating"
+
 
 }

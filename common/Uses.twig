@@ -6,7 +6,7 @@
         {% set UsesVal = meta.value %}
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{UsesSlug}}" aria-expanded="true" aria-controls="{{UsesSlug}}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{UsesSlug}}" aria-expanded="false" aria-controls="{{UsesSlug}}">
                     
                     
                     <span>
@@ -29,7 +29,7 @@
                 
                 </button>
             </h2>
-            <div id="{{UsesSlug}}" class="accordion-collapse collapse show">
+            <div id="{{UsesSlug}}" class="accordion-collapse collapse ">
                 <div class="accordion-body benefits-and-uses">
                     {% for item in meta.value.cells %}
                         <div class="benfit-item d-flex flex-column gap-3 align-items-center mb-3">

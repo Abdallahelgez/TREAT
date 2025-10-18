@@ -3,6 +3,7 @@
 
 
 {% block main_content %}
+<div>{{productitem.images|json_encode}}</div>
 <section class="product products-details-page">
             <div class="products-details">
                 <div class="img-side">
@@ -15,11 +16,11 @@
                             {% endif %}
                     <!--GALLERY-->
                     <div class="image-inner">
-                        {% set firstImage = product.selected_product.media|first %}
+                        {% set firstImage = productitem.images|first %}
                             <div class="image-inner-inner">
                                 <a class="image-link"
                                     style="display:block; width: 100%; height: 100%;">
-                                    <img src="{{ firstImage.image.full_size }}" class="carousel-img" alt="{{ firstImage.alt_text }}">
+                                    <img src="{{ firstImage.urls.medium }}" class="carousel-img" alt="{{ firstImage.alt_text }}">
                                     {% if firstImage.provider and firstImage.link %}
                                         <img id="main-video-icon"
                                             class="play-icon"

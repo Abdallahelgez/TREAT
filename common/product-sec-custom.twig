@@ -5,27 +5,27 @@
          data-lg-scroll-offset="130"
          data-md-scroll-offset="130"
          data-sm-scroll-offset="94" class="product-section">
-  {% if settings.key %}
- {% set product = attribute(all_products, settings.key) %}
+  {% if productitem %}
+    {% set product = attribute(all_products, product) %}
 
     
     <div class="product-container container-sec mt-2 mb-2">
-          {% include 'product-d.twig' with {'product' : settings.key} %}
+          {% include 'product-d2.twig' with {'product' : productitem} %}
        
     </div>
 
     {% endif %}
 </section>
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
-    <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
+    <script type="text/javascript" src="{{ assetUrl('product-details.js?v=1.101010') }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
 
     {{ product_view_scripts|raw }}
 
     <script>
-        var productImages = {{  product.selected_product.media | json_encode() | raw }};
+        var productImages = {{  productitem.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
-
+        console.log(productImages);
         function productAddToCart() {
             if(!$('.add-to-cart-progress').hasClass('d-none'))
                 return;

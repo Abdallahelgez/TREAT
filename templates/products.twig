@@ -54,7 +54,14 @@
                 {% endfor %}
             </div>
         </div> #}
+                {# {% for product in products.data %}
 
+                    
+                    {% if product.id == products_page_product.id %}
+                         {% include 'product-sec-custom.twig' with {'productitem' : product} %} 
+                    {% endif %}
+
+                {% endfor %} #}
         <div class="products-container-2">
             {% if  products_page_image %}
                 <div class="products-page-image">

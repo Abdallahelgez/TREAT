@@ -43,13 +43,9 @@
                                 aria-expanded="false"
                         >
                             <span>
-                                {% if requestGet('sort_by') == 'popularity_order' %}
-                                    {{ locals.products_list_filter_popularity }}
-                                {% elseif requestGet('sort_by') == 'price' and  requestGet('order') == 'asc'%}
-                                    {{ locals.products_list_filter_price_low }}
-                                {% elseif requestGet('sort_by') == 'price' and  requestGet('order') == 'desc'%}
-                                    {{ locals.products_list_filter_price_high }}
-                                {% else%}
+                                {% if  %}
+                                 
+                                {% else %}
                                     {{ locals.products_list_filter_latest }}
                                 {% endif %}
                             </span>

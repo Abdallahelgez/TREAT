@@ -16,8 +16,10 @@
 
     {% endif %}
 </section>
+<script src="{{ assetUrl('jquery-3.6.0.min.js?v=1.101010') }}" ></script>
+<script src="{{ assetUrl('jquery-ui.min.js?v=1.101010') }}" ></script>
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
-    <script type="text/javascript" src="{{ asset_url ~ 'product-details.js' }}"></script>
+    <script type="text/javascript" src="{{ assetUrl('product-details.js?v=1.101010') }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
 
     {{ product_view_scripts|raw }}
@@ -328,8 +330,8 @@
             $('#product-images-slick').slick({
                 infinite: false,
                 autoplay: false,
-                arrows: (productImages.length > 1),
-                dots: (productImages.length > 1),
+                arrows: (productImages?.length > 1),
+                dots: (productImages?.length > 1),
                 rtl: !(window.appDirection === 'ltr'),
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>'

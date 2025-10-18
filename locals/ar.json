@@ -84,7 +84,7 @@
   "product_sku":"رمز المنتج",
   "product_share":"شارك المنتج",
   "product_description":"وصف المنتج",
-  "description":"الوصف",
+  "description":"الوصف :",
   "product_properties":"معلومات المنتج",
   "product_options": "خيارات المنتج",
   "product_product_readmore":"المزيد",
@@ -102,7 +102,7 @@
   "product_reviews_more":"سنعراض المزيد من التقيمات",
   "product_no_reviews": "لا توجد تقييمات, اترك تقييمك",
 
-  "product_sold_more_than_x_times": "تم شراؤه أكثر من %s مرة",
+  "product_sold_more_than_x_times": "تم شراؤه أكثر من %s  مرة",
   "check_out_this_product": "اطَّلع على المنتج التالي",
   "similar_products_title": "قد يعجبك أيضاً",
 
@@ -241,6 +241,13 @@
   "tick_all":"اختر الكل /",
   "our_products":"منتجاتنا",
   "story":"القصة",
-  "Account":"الحساب"
+  "Account":"الحساب",
+  "product_reviews_custom":"تقييم للمنتج",
+  "out_of":"من",
+  "Post_Your_Comment":"اترك تعليقك",
+  "user_comments":"تعليقات المستخدمين",
+  "products_list_filter_old":"الأقدم",
+  "highest_rating":"أعلى تقييم",
+  "lowest_rating":"أقل تقييم"
 
 }

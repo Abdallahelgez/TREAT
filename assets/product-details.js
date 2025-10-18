@@ -1,6 +1,3 @@
-$(".products-details-page [id^=carousel-thumbs]").carousel({
-    interval: false
-});
 
 /** Pause/Play Button **/
 $(".products-details-page .carousel-pause").click(function () {

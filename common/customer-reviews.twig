@@ -1,6 +1,6 @@
 {% if reviews %}
     {% for key, review in reviews %}
-            <div class="card card-review mt-2 mb-4 bg-transparent">
+            <div class="card card-review  bg-transparent" data-rating="{{review.rating}}" data-time="{{ review.created_at }}" >
                     <div class="card-body">
                             <div class="d-flex">
                                     <span class="icon-account_circle">
@@ -48,6 +48,68 @@
     {% endfor %}
 
 <script>
+
+function toggleSortMenu() {
+    const sortContainer = document.querySelector('.sort-container');
+    const menu = sortContainer.querySelector('.sort-dropdown-menu');
+    const button = sortContainer.querySelector('.sort-button');
+
+    menu.classList.toggle('hidden');
+    
+    button.classList.toggle('active', !menu.classList.contains('hidden'));
+}
+
+document.addEventListener('click', function(event) {
+    const sortContainer = document.querySelector('.sort-container');
+    const menu = sortContainer.querySelector('.sort-dropdown-menu');
+    const button = sortContainer.querySelector('.sort-button');
+
+    if (!menu.classList.contains('hidden') && !sortContainer.contains(event.target)) {
+        menu.classList.add('hidden');
+        button.classList.remove('active');
+    }
+});
+
+
+function sortReviews(element, sortBy, order) {
+    const currentOptionSpan = document.getElementById('current-sort-option');
+    currentOptionSpan.textContent = element.textContent;
+
+    const menu = element.closest('.sort-dropdown-menu');
+    const button = element.closest('.sort-container').querySelector('.sort-button');
+    menu.classList.add('hidden');
+    button.classList.remove('active');
+    
+    // ج. الحصول على حاوية المراجعات (comment-section) وجميع المراجعات
+    // (يجب أن يكون comment-section هو العنصر الأب المباشر لكل المراجعات)
+    const container = document.querySelector('.comment-section');
+    const reviews = Array.from(container.querySelectorAll('.card-review'));
+
+    // د. دالة المقارنة لفرز التعليقات
+    reviews.sort((a, b) => {
+        let valA, valB;
+
+        if (sortBy === 'date') {
+            valA = new Date(a.getAttribute('data-time')).getTime();
+            valB = new Date(b.getAttribute('data-time')).getTime();
+        } else if (sortBy === 'rating') {
+            valA = parseInt(a.getAttribute('data-rating'));
+            valB = parseInt(b.getAttribute('data-rating'));
+        }
+        
+        if (order === 'asc') {
+            return valA > valB ? 1 : -1;
+        } else { // 'desc'
+            return valA < valB ? 1 : -1;
+        }
+    });
+
+    reviews.forEach(review => {
+        container.appendChild(review);
+    });
+}
+
+
 $('.card-review .icon-account_circle').each(function() {
         var name =  $( 'span', this ).text();
         $('span', this).text(name.substring(0, 1));
