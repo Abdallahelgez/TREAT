@@ -7,11 +7,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_url ~ 'ekko-lightbox.css' }}" />
 
     <link rel="stylesheet" type="text/css" href="{{ assetUrl('product-details.css') }}" />
-{% endblock %}
+<style>
+    
+
+
+</style>
+    {% endblock %}
 
 
 {% block main_content %}
-
 
     <section class="product products-details-page custom-products-details ">
         <div class="container-sec ">
@@ -203,7 +207,7 @@
                                         </div>
                                     </div>
                                 {% endif %}
-
+                                 
                                 <div class="section-out-of-stock-notify-me {% if product.selected_product.out_of_stock %}d-block{% else %}d-none{% endif %}">
                                     <div class="border-product" style="margin-top: 15px"></div>
                                     <div>
@@ -256,17 +260,7 @@
                                 <div class="d-flex flex-column flex-lg-row product-features">
                                     
 
-                                    {% if product.sold_products_count %}
-                                        <div class="product-count d-flex align-items-center">
-                                            <span class="icon-military_tech" style="color: #FFCF57; font-size: 16px"></span>&nbsp;
-                                            <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.sold_products_count) }}</span>
-                                        </div>
-                                    {% elseif product.selected_product.sold_products_count %}
-                                        <div class="product-count d-flex align-items-center">
-                                            <span class="icon-military_tech" style="color: #FFCF57; font-size: 16px"></span>&nbsp;
-                                            <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.selected_product.sold_products_count) }}</span>
-                                        </div>
-                                    {% endif %}
+                                    
 
 
                                     {% if product.low_stock_quantity %}
@@ -308,7 +302,18 @@
                            
 
                             
-
+                                        <div class="custom-tag"> <div class="tag-item">{{locals.Recommended}}</div> <div class="tag-item"><span id="random"></span> {{locals.people_watching}}</div> {% if product.sold_products_count %}
+                                                <div class="tag-item product-count d-flex align-items-center">
+                                                    <span class="icon-military_tech" style="color: var(--green-color); font-size: 16px"></span>&nbsp;
+                                                    <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.sold_products_count) }}</span>
+                                                </div>
+                                            {% elseif product.selected_product.sold_products_count %}
+                                                <div class="tag-item product-count d-flex align-items-center">
+                                                    <span class="icon-military_tech" style="color: var(--green-color); font-size: 16px"></span>&nbsp;
+                                                    <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.selected_product.sold_products_count) }}</span>
+                                                </div>
+                                            {% endif %}
+                                        </div>
                             
                             <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                                 <div class="border-product"></div>
@@ -352,19 +357,90 @@
                 </div>
             </section>
         </div> 
-            {% include 'Features.twig' %}
+
+
+            
+            {% if essproduct.id == product.id %}
+                <div class="features-items container-sec">
+                    {% for key, feature in essfeatures %}
+                        <div class="item">
+                            <img src="{{feature.image}}" alt="{{feature.title}}" class="img">
+                            <div class="text-parent">
+                                <h4>{{feature.title}}</h4>
+                                <p>{{feature.desc}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+               </div>
+                <div class="tickall-sec" style="background-image: url({{tickAllimg}});">
+                    <h2 class="container-sec">{{texttitle_tickall}}</h2>
+                    <div class="tickall-items container-sec">
+                        {% for key, tick in tickAlllist %}
+                            <div class="item">
+                                <p>{{tick.title}}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+                {% else %}
+
+
+                {% include 'Features.twig' %}
+
+
+            {% endif %}
+            
 
             
                
-
-
+                
 
         <div class="container-sec ">
-           <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
-                {% include 'Uses.twig' %}
-                {% include 'key-ingredients.twig' %}
-                {% include 'Application.twig' %}
-            </div>
+           
+
+            {% if essproduct.id == product.id %}
+                        <div class="essentials-items">
+                                
+                                <div class="item">
+                                    <h3 class="header">{{texttitle_benefits}}</h3>
+                                    <div class="content">{{benefits_uses}}</div>
+
+                                </div>
+                                <div class="item">
+                                    <h3 class="header">{{texttitle_application}}</h3>
+                                    <div class="content">{{application}}</div>
+
+                                </div>
+                                    <div class="item">
+                                        <h3 class="header">{{texttitle_ingredients}}</h3>
+                                        <div class="content">{{ingredients}}</div>
+                                    </div>
+                        </div>
+                    <section class="image-collage">
+                        <div class="collage-grid">
+                            <div class="left">
+                            <img src="{{essimg1}}" alt="treat">
+                            </div>
+                            <div class="right">
+                            <div class="top">
+                                <img src="{{essimg2}}" alt="treat">
+                            </div>
+                            <div class="bottom">
+                                <img src="{{essimg3}}" alt="treat">
+                            </div>
+                            </div>
+                        </div>
+                    </section>
+            {% else %}
+                        <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
+                            {% include 'Uses.twig' %}
+                            {% include 'key-ingredients.twig' %}
+                            {% include 'Application.twig' %}
+                        </div>
+            {% endif %}
+          
             {% include 'product-bundle-offers.twig' %}
             
 
@@ -384,7 +460,8 @@
                         </svg>
                     </div>
                     <div class="row review-details-inner">
-                        <div class="col-md-4 col-12 review-details-inner-rate" >
+                        {% if product.reviews.data %}
+                        <div class="col-md-4 col-12  review-details-inner-rate" >
                             <div class="custom-head-review-details" style="width: 100%">
                                 
                                     <span class="out-of">{{product.rating.average}} {{locals.out_of}} 5</span>
@@ -496,11 +573,11 @@
                                 </div>
                             </div>
                             
-                            {% if product.questions is not empty %}
+                            
                                 <div class="add-review-btn-div" >
                                     <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn">{{ locals.Post_Your_Comment}} </a>
                                 </div>
-                            {% endif %}
+                           
                            
                         </div>
                         <div class="col-md-8 col-12 review-details-inner-comments">
@@ -508,26 +585,37 @@
                                 <h4 class="user_comments">{{locals.user_comments}}</h4>
 
                                 <div class="sort-container">
-                                    <div class="sort-button" onclick="toggleSortMenu()">
-                                        {{ locals.products_list_sort }}: <span id="current-sort-option">{{ locals.products_list_filter_latest }}</span>
-                                        <span class="icon-arrow-down">▼</span>
-                                    </div>
+
+
+                                    {% if product.reviews.data %}
+                                        <div class="dropdown">
+                                            <a class="btn btn-transparent dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ locals.products_list_sort }}: 
+                                                <span id="current-sort-option">{{ locals.products_list_filter_latest }}</span>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'desc')">
+                                                {{ locals.products_list_filter_latest }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'asc')">
+                                                {{ locals.products_list_filter_old }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'desc')">
+                                                {{ locals.highest_rating }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'asc')">
+                                                {{ locals.lowest_rating }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     
-                                    <div class="sort-dropdown-menu hidden">
-                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'date', 'desc')">{{ locals.products_list_filter_latest }}</a>
-                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'date', 'asc')">{{locals.products_list_filter_old}}</a>
-                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'desc')">{{locals.highest_rating}}</a>
-                                        <a href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'asc')">{{locals.lowest_rating}}</a>
-                                    </div>
                                 </div>
                                 
                             
                              </div>
-                            <div class="reviews-break-down-empty  ">
-                                <div style="border: 1px solid #eee; margin: 10px 0px; padding: 10px; border-radius: 3px">
-                                    <span>{{ locals.product_no_reviews }}</span>
-                                </div>
-                            </div>
+
                             {% if product.reviews.data %}
                                 <div class="comment-section description-paragrah bg-transparent">
                                     {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
@@ -543,13 +631,93 @@
                                         </div>
                                     </div>
                                 {# {% endif %} #}
+                            {% else %}
+
+                                <div class="reviews-break-down-empty  ">
+                                    <div style="border: 1px solid #eee; margin: 10px 0px; padding: 10px; border-radius: 3px">
+                                        <span>{{ locals.product_no_reviews }}</span>
+                                    </div>
+                                </div>
+
+
                             {% endif %}
                             
                         </div>
+                        {% else %}
+                        
+                        <div class=" col-12 review-details-inner-comments">
+                            <div class="comments-header">
+                                <h4 class="user_comments">{{locals.user_comments}}</h4>
+
+                                <div class="sort-container">
+
+
+                                    {% if product.reviews.data %}
+                                        <div class="dropdown">
+                                            <a class="btn btn-transparent dropdown-toggle" href="javascript:void(0)" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ locals.products_list_sort }}: 
+                                                <span id="current-sort-option">{{ locals.products_list_filter_latest }}</span>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'desc')">
+                                                {{ locals.products_list_filter_latest }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'asc')">
+                                                {{ locals.products_list_filter_old }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'desc')">
+                                                {{ locals.highest_rating }}
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'asc')">
+                                                {{ locals.lowest_rating }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    
+                                </div>
+                                
+                            
+                             </div>
+
+                            {% if product.reviews.data %}
+                                <div class="comment-section description-paragrah bg-transparent">
+                                    {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
+
+                                    
+                                </div>
+                                {# {% if product.reviews.next_page > 1 %} #}
+                                    <div class="next-reviews">
+                                        <div class="text-right">
+                                            <a href="/products/{{ product.id }}/reviews" type="button" class="btn all-reviews-btn">
+                                                {{ locals.go_all_reviews }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                {# {% endif %} #}
+                            {% else %}
+
+                                <div class="reviews-break-down-empty  ">
+                                    <div style="border: 1px solid #eee; margin: 10px 0px; padding: 10px; border-radius: 3px">
+                                        <span>{{ locals.product_no_reviews }}</span>
+                                    </div>
+                                </div>
+                                 <div class="add-review-btn-div" >
+                                    <a href="/products/{{ product.slug}}/reviews/add" class="btn btn-primary add-review-btn" id="add-review-btn">{{ locals.Post_Your_Comment}} </a>
+                                </div>
+                           
+
+
+                            {% endif %}
+                            
+                        </div>
+                        {% endif %}
+                        
                     </div>
                 </section>
             {% endif %}
-            {% if store.is_product_question_and_answer_enabled %}
+            {# {% if store.is_product_question_and_answer_enabled %}
                 <section class="mt-5 review-details">
                     <div>
                         <div class="d-flex flex-wrap align-items-center" style="width: 100%">
@@ -569,9 +737,9 @@
                     {% include 'product-questions.twig' with {'questions' : product.questions} %}
                     {% include 'product-question-add.twig' with {'product' : product} %}
                 </section>
-             {% endif %}
+             {% endif %} #}
 
-            
+        
 
         </div>
 
@@ -619,6 +787,22 @@
     {{ product_view_scripts|raw }}
 
     <script>
+
+
+        function setRandomId() {
+  const randomId = Math.floor(Math.random() * (2500 - 200 + 1)) + 200;
+
+  const element = document.querySelector('.random');
+
+  if (element) {
+    element.id = `item-${randomId}`;
+  }
+}
+
+setRandomId();
+
+setInterval(setRandomId, 60 * 1000);
+
         var productImages = {{  product.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
 document.addEventListener('DOMContentLoaded', function() {

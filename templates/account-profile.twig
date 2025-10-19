@@ -10,7 +10,7 @@
     <div class="container-parent account-div-container">
         
 
-        <div class="container-sec">
+        <div class="container-sec external-controls-outer">
             <div class="d-flex account-div-container-inner">
                 {% include 'profile-section.twig' with { 'section' : 'profile' } %}
                 <div class="flex-grow-1 account-content-outer">
@@ -21,23 +21,67 @@
                              {{ account_profile_template_content|raw }}
                          </div>
 
-                        <div style="margin-top: 80px">
+                        <div style="display:none;">
                             <form action="/auth/logout" method="POST" class="d-flex justify-content-between">
                                 <input type="hidden" name="_token" value="{{ csrf_token }}" />
                                 <button type="submit" class="btn btn-danger">{{ locals.logout }}</button>
                             </form>
                         </div>
 
-                        {% include 'template_for_mazeed_badge' %}
+
+                        
+
+
+                        {# {% include 'template_for_mazeed_badge' %} #}
 
                     </div>
+                    
                 </div>
+                
             </div>
-
+            <div class="form-row external-controls mb-3">
+                    <div class="form-group col-md-6">
+                        <label class="custom-checkbox-container">
+                            <span class="custom-checkbox-text">{{locals.Subscribe_to_the_Newsletter}}</span>
+                            <input id="external-newsletter-checkbox" type="checkbox">
+                            <span class="custom-checkbox-checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-group col-md-6 d-flex align-items-end justify-content-end">
+                        <label></label>
+                        <button id="external-save-button" class="btn btn-primary">{{locals.save}}</button>
+                    </div>
+                </div>
         </div>
     </div>
 
 {% endblock %}
+{% block footer_scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const externalCheckbox = document.getElementById("external-newsletter-checkbox");
+        const originalCheckbox = document.querySelector('input[name="is_newsletter_subscriber"]');
 
+        const externalSaveButton = document.getElementById("external-save-button");
+        const originalSaveButton = document.querySelector("#col-save-button button");
+
+        // ✅ مزامنة حالة checkbox
+        externalCheckbox.addEventListener("change", function () {
+            originalCheckbox.checked = externalCheckbox.checked;
+            // Trigger onchange if needed
+            originalCheckbox.dispatchEvent(new Event('change'));
+        });
+
+        // ✅ عند تحميل الصفحة، مزامنة الحالة من الأصلي إلى الخارجي (لو في بيانات محفوظة)
+        externalCheckbox.checked = originalCheckbox.checked;
+
+        // ✅ زر الحفظ الخارجي يضغط على الزر الأصلي
+        externalSaveButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            originalSaveButton.click(); // ينفذ نفس عملية الزر الأصلي
+        });
+    });
+</script>
+{% endblock %}
 
 {% block footer %} {{ include('footer.twig') }} {% endblock %}

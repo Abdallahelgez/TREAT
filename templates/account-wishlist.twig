@@ -26,14 +26,24 @@
                     {% include 'profile-title.twig' with { 'title' : locals.profile.wishlist , 'section' : 'wishlist' } %}
                     <div class="account-content">
                         <div class="account-content-inner">
-                            <div id="wishlist-list" class="row">
+                            <div class="wishlist-page">
+                                <div id="wishlist-list" class="row ">
                                 {% for product in wishlist.data %}
                                     <div class="col-6 col-lg-4 py-3">
                                         {% include 'product-card.twig' with {'product' : product, 'index': key} %}
                                     </div>
                                 {% endfor %}
                             </div>
+                            <div class="products-sliders ">
+                                {% for product in wishlist.data %}
+                                            <div class="prod-col prod-col-tb custom-category-product-item">
+                                                {% include 'product-card.twig' with {'product' : product, 'index': key} %} 
+                                            </div>
+                                {% endfor %}
+                            </div>
                             {% include 'pagination.twig' with { 'totalPages' : products.last_page , 'currentPage' : products.current_page } %}
+                            </div>
+                            
                         </div>
 
                     </div>
@@ -47,5 +57,47 @@
 {% block footer %} {{ include('footer.twig') }} {% endblock %}
 
 {% block footer_scripts %}
+<script>
+
+        document.addEventListener("DOMContentLoaded", function(){
+            var arrowNextClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_right': 'icon-keyboard_arrow_left';
+            var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
+                $('.wishlist-page .products-sliders').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: false,
+                    autoplay: true,
+                    arrows: false,
+                    dots: false,
+                    rtl: !(window.appDirection === 'ltr'),
+                    nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
+                    prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>',
+                    responsive: [
+                        {
+                            breakpoint: 9999,
+                            settings: "unslick"
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1
+                            }
+                        },
+                        {
+                            breakpoint: 510,
+                            settings: {
+                                slidesToShow: 1.2,
+                                slidesToScroll: 1 ,
+                                centerMode: true,
+                                centerPadding: '0px',
+                                
+                            }
+                        }
+                    ]
+                });
+            
+        });
+    </script>
 	<script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
 {% endblock %}

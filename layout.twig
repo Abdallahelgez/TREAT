@@ -12,6 +12,28 @@
 {% set dark_logo = settings.header_darklogo %}
 
 
+
+{% set essproduct = settings.ess_key %}
+{% set essfeatures = settings.ess_features %}
+{% set texttitle_tickall = settings.ess_title_tickall %}
+{% set tickAlllist = settings.ess_tickAll %}
+{% set tickAllimg = settings.ess_backimage %}
+
+{% set texttitle_benefits = settings.ess_title_benefits %}
+{% set benefits_uses = settings.ess_benefits_uses %}
+{% set texttitle_application = settings.ess_title_application %}
+{% set application = settings.ess_application %}
+{% set texttitle_ingredients = settings.ess_title_ingredients %}
+{% set ingredients = settings.ess_ingredients %}
+
+{% set essimg1 = settings.ess_image1 %}
+{% set essimg2 = settings.ess_image2 %}
+{% set essimg3 = settings.ess_image3 %}
+
+
+
+
+
 <!doctype html>
 <html class="no-js" lang="{{ session.lang.code }}" dir="{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}">
 
@@ -561,13 +583,13 @@
     "icon": "fa fa-paint-brush",
     "display": true,
     "settings": {
-      "key": {
-        "type": "product",
-        "label": {
-          "ar": "المنتج المميز",
-          "en": "special product"
-        }
-      },
+      "category": {
+      "type": "category_products",
+      "label": {
+        "ar": "اختر تصنيف لعرض منتجاته",
+        "en": "Select category to display its products"
+      }
+    },
       "image": {
         "type": "image",
         "label": {
@@ -584,7 +606,7 @@
       }
     }
   },
-  "story":{
+  "story": {
     "name": {
       "ar": "صفحة القصة",
       "en": "Story Page"
@@ -612,7 +634,7 @@
           "ar": "العنوان",
           "en": "Main Title"
         }
-    },
+      },
       "desc": {
         "type": "textarea",
         "label": {
@@ -629,7 +651,7 @@
       }
     }
   },
-  "header":{
+  "header": {
     "name": {
       "ar": "راس الصفحة",
       "en": "header"
@@ -644,6 +666,148 @@
           "en": "dark logo"
         }
       }
+    }
+  },
+  "ess": {
+    "name": {
+      "ar": " صفحةالاساسيات",
+      "en": "The essentials"
+    },
+    "icon": "fa fa-paint-brush",
+    "display": true,
+    "settings": {
+      "key": {
+        "type": "product",
+        "label": {
+          "ar": "المنتج المختار",
+          "en": "Chosed product"
+        }
+      },
+      "features": {
+        "type": "list",
+        "maxItems": 15,
+        "settings_label": {
+          "ar": "المميزات",
+          "en": "Features"
+        },
+        "settings": {
+          "image": {
+            "type": "image",
+            "label": {
+              "ar": "الصورة",
+              "en": "Image"
+            }
+          },
+          "title": {
+            "type": "text",
+            "label": {
+              "ar": "عنوان ",
+              "en": "Title"
+            }
+          },
+          "desc": {
+            "type": "text",
+            "label": {
+              "ar": "نص فرعي ",
+              "en": "description text"
+            }
+          }
+        }
+      },
+      "title_tickall": {
+            "type": "text",
+            "label": {
+              "ar": " عنوان اختر الكل ",
+              "en": "Title tick all"
+            }
+          },
+      "tickAll": {
+        "type": "list",
+        "maxItems": 15,
+        "settings_label": {
+          "ar": "اختر الكل",
+          "en": "tick all"
+        },
+        "settings": {
+          "title": {
+            "type": "text",
+            "label": {
+              "ar": "عنوان ",
+              "en": "Title"
+            }
+          }
+        }
+      },
+      "backimage": {
+            "type": "image",
+            "label": {
+              "ar": "خلفية سيكشن اختر الكل",
+              "en": "background image"
+            }
+          },
+      "title_benefits": {
+            "type": "text",
+            "label": {
+              "ar": " عنوان الفوائد والاستخدامات ",
+              "en": "Title benefits & uses"
+            }
+          },
+      "benefits_uses": {
+          "type": "textarea",
+          "label": {
+            "ar": "نص الفوائد والاستخدامات",
+            "en": "text benefits & uses"
+          }
+        },
+      "title_application": {
+            "type": "text",
+            "label": {
+              "ar": " عنوان الاستخدام ",
+              "en": "Title Application"
+            }
+          },
+      "application": {
+          "type": "textarea",
+          "label": {
+            "ar": "نص الاستخدام",
+            "en": "text application"
+          }
+        },
+      "title_ingredients": {
+            "type": "text",
+            "label": {
+              "ar": " عنوان المكونات الرئيسية ",
+              "en": "Title key-ingredients"
+            }
+          },
+      "ingredients": {
+          "type": "textarea",
+          "label": {
+            "ar": "نص المكونات الرئيسية",
+            "en": "text key-ingredients"
+          }
+        },
+      "image1": {
+            "type": "image",
+            "label": {
+              "ar": "الصورة الاولى",
+              "en": "first image"
+            }
+          },
+      "image2": {
+            "type": "image",
+            "label": {
+              "ar": "صورة الثانية",
+              "en": "second image"
+            }
+          },
+      "image3": {
+            "type": "image",
+            "label": {
+              "ar": "صورة  الثالثة",
+              "en": "third image"
+            }
+          }
     }
   }
 }

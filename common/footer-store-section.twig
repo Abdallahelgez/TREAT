@@ -7,7 +7,7 @@
             </svg>
         </span>
         <span class="join-text">
-            JOIN OUR MAILING LIST
+            {{locals.JOIN_OUR_MAILING_LIST}}
         </span>
     </div>
 
@@ -20,40 +20,61 @@
 </div>
 
 <div class="footer-store-section store-section footer-theme-bg-primary footer-theme-text-for-primary-bg">
-    <div class="container">
+    <div class="container-sec">
         <div class="row">
-            <div class="col-12 col-lg-5">
+            <div class="col-12 col-lg-4">
                 <div class="footer-about-us-links-div footer-about-us-div">
-                    <h2 class="pb-2">{{ about_settings.about_us_title }}</h2>
+                    <img src="{{about_settings.logo_footer}}" class="footer-logo" alt="{{store.name}}" />
+                    <h2 >{{ about_settings.about_us_title }}</h2>
                     <p>{{ about_settings.about_us_des | raw }}</p>
                 </div>
             </div>
-            <div class="col-12 col-lg-7">
+            <div class="col-12 col-lg-8">
                 <div class="row">
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-3 col-sm-6">
                         {% if not (about_settings.links_1_hide) %}
                             <div class="footer-about-us-links-div">
-                                <h2 class="pb-2">{{ about_settings.links_1_title }}</h2>
-                                {% for link in about_settings.links_1_links %}
-                                    <p><a href="{{ link.url }}">{{ link.title }}</a></p>
-                                {% endfor %}
+                                <h2 >{{ about_settings.links_1_title }}</h2>
+                                <div class="footer-div">
+                                    {% for link in about_settings.links_1_links %}
+                                        <p><a href="{{ link.url }}">{{ link.title }}</a></p>
+                                    {% endfor %}
+                                </div>
+                                
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-3 col-sm-6">
                         {% if not (about_settings.links_2_hide) %}
                             <div class="footer-about-us-links-div">
-                                <h2 class="pb-2">{{ about_settings.links_2_title }}</h2>
-                                {% for link in about_settings.links_2_links %}
-                                    <p><a href="{{ link.url }}">{{ link.title }}</a></p>
-                                {% endfor %}
+                                <h2 >{{ about_settings.links_2_title }}</h2>
+                                <div class="footer-div">
+                                    {% for link in about_settings.links_2_links %}
+                                        <p><a href="{{ link.url }}">{{ link.title }}</a></p>
+                                    {% endfor %}
+                                </div>
+                                
                             </div>
                         {% endif %}
                     </div>
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-3 col-sm-6">
+                            <div class="footer-about-us-links-div">
+                                <h2 >{{ about_settings.conectus_title }}</h2>
+                                <div class="footer-div">
+                                     {% for link in about_settings.conectus_links %}
+                                        <div class="conect_us">
+                                            <p>{{link.title}}</p>
+                                            <span>{{link.desc}}</span>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                               
+                            </div>
+                    </div>
+                    <div class="col-12 col-lg-3 col-sm-6">
                         {% if store.business_location.show_location %}
                         <div class="footer-about-us-links-div">
-                            <h2 class="pb-2">{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h2>
+                            <h2 >{% if about_settings.business_location_title %}{{ about_settings.business_location_title }}{% else %}{{ locals.business_location }}{% endif %}</h2>
                             <p>
                                 <a {% if store.business_location.lat %} target="_blank" href="https://maps.google.com/?q={{ store.business_location.lat }},{{ store.business_location.lng }}" {% endif %}>
                                     {{ store.business_location.street }}<br/>
@@ -63,7 +84,7 @@
                         </div>
                         {% endif %}
                         <div  class="footer-about-us-links-div {% if store.business_location.show_location %}mt-5{% endif %}">
-                            <h2 class="pb-2">{% if about_settings.social_media_title %}{{ about_settings.social_media_title }}{% else %}{{ locals.social_media }}{% endif %}</h2>
+                            <h2 >{% if about_settings.social_media_title %}{{ about_settings.social_media_title }}{% else %}{{ locals.social_media }}{% endif %}</h2>
                             <div class="social-icons d-flex flex-wrap">
 
                                 {% if store.social_media.items.facebook %}
@@ -140,7 +161,7 @@
     </div>
 </div>
 
-<div class="footer-companies">
+{# <div class="footer-companies">
     <div class="container">
         <div class="footer-icons">
             <div class="d-flex flex-row {% if store.apps.ios_app_id or store.apps.android_package_name%}justify-content-between{% else %}justify-content-center{% endif %} align-items-center flex-wrap icons-wrapper footer-store-section-bars">
@@ -220,4 +241,4 @@
         </div>
 
     </div>
-</div>
+</div> #}

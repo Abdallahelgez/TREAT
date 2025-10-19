@@ -246,7 +246,10 @@
     "user_comments":"User Comments",
     "products_list_filter_old":"Oldest",
     "highest_rating":"highest rating",
-    "lowest_rating":"lowest rating"
-
+    "lowest_rating":"lowest rating",
+    "Subscribe_to_the_Newsletter":"Subscribe to the Newsletter",
+    "Recommended":"100% Recommended",
+    "people_watching":"people watching",
+    "JOIN_OUR_MAILING_LIST":"JOIN OUR MAILING LIST"
 
 }

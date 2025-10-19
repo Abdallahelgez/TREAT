@@ -3,6 +3,7 @@
             <div class="card card-review  bg-transparent" data-rating="{{review.rating}}" data-time="{{ review.created_at }}" >
                     <div class="card-body">
                             <div class="d-flex">
+
                                     <span class="icon-account_circle">
                                         <span class="d-none">{{ review.customer.name }}</span>
                                     </span>
@@ -12,7 +13,9 @@
                                                 {% include 'rating-stars.twig' with {'rating' : review.rating } %}
                                             </div>
                                     </div>
-                                    <div class="card-date user-review-date" data-time-ago-date="{{ review.created_at }}">    
+                                    <div class="card-date user-review-date" ago-date="{{ review.created_at }}">
+{{ review.created_at|split(' ')[0]|split('-')[2] }}/{{ review.created_at|split(' ')[0]|split('-')[1] }}/{{ review.created_at|split(' ')[0]|split('-')[0] }}
+
                                     </div>
                             </div>
                             <div class="card-paragraph text-justify mt-2 user-review-text">{{ review.comment | raw }}</div>
@@ -49,43 +52,26 @@
 
 <script>
 
-function toggleSortMenu() {
-    const sortContainer = document.querySelector('.sort-container');
-    const menu = sortContainer.querySelector('.sort-dropdown-menu');
-    const button = sortContainer.querySelector('.sort-button');
-
-    menu.classList.toggle('hidden');
-    
-    button.classList.toggle('active', !menu.classList.contains('hidden'));
-}
-
-document.addEventListener('click', function(event) {
-    const sortContainer = document.querySelector('.sort-container');
-    const menu = sortContainer.querySelector('.sort-dropdown-menu');
-    const button = sortContainer.querySelector('.sort-button');
-
-    if (!menu.classList.contains('hidden') && !sortContainer.contains(event.target)) {
-        menu.classList.add('hidden');
-        button.classList.remove('active');
-    }
-});
-
-
 function sortReviews(element, sortBy, order) {
+    // تحديث النص الحالي
     const currentOptionSpan = document.getElementById('current-sort-option');
     currentOptionSpan.textContent = element.textContent;
 
-    const menu = element.closest('.sort-dropdown-menu');
-    const button = element.closest('.sort-container').querySelector('.sort-button');
-    menu.classList.add('hidden');
-    button.classList.remove('active');
-    
-    // ج. الحصول على حاوية المراجعات (comment-section) وجميع المراجعات
-    // (يجب أن يكون comment-section هو العنصر الأب المباشر لكل المراجعات)
+    // إغلاق القائمة المنسدلة (Bootstrap يديرها تلقائياً، لكن نغلقها يدويًا في حال ما كانت تعمل تلقائيًا)
+    const dropdownMenu = element.closest('.dropdown-menu');
+    const dropdown = element.closest('.dropdown');
+    const toggleButton = dropdown.querySelector('[data-toggle="dropdown"]');
+    const bootstrapDropdown = bootstrap.Dropdown.getInstance(toggleButton);
+
+    if (bootstrapDropdown) {
+        bootstrapDropdown.hide();
+    }
+
+    // الحصول على المراجعات
     const container = document.querySelector('.comment-section');
     const reviews = Array.from(container.querySelectorAll('.card-review'));
 
-    // د. دالة المقارنة لفرز التعليقات
+    // الفرز
     reviews.sort((a, b) => {
         let valA, valB;
 
@@ -96,19 +82,13 @@ function sortReviews(element, sortBy, order) {
             valA = parseInt(a.getAttribute('data-rating'));
             valB = parseInt(b.getAttribute('data-rating'));
         }
-        
-        if (order === 'asc') {
-            return valA > valB ? 1 : -1;
-        } else { // 'desc'
-            return valA < valB ? 1 : -1;
-        }
+
+        return order === 'asc' ? valA - valB : valB - valA;
     });
 
-    reviews.forEach(review => {
-        container.appendChild(review);
-    });
+    // إعادة الترتيب داخل الـ DOM
+    reviews.forEach(review => container.appendChild(review));
 }
-
 
 $('.card-review .icon-account_circle').each(function() {
         var name =  $( 'span', this ).text();
