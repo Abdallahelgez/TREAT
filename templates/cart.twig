@@ -126,7 +126,7 @@
                                     <h4>{{ locals.coupon_discount_question }}</h4>
                                     <div class="d-flex">
                                         <input class="form-control send-coupon" type="text" placeholder="{{ locals.coupon_discount_enter }}" />
-                                        <button type="button" class="btn btn-primary" onclick="sendCoupon()">
+                                        <button type="button" class="btn btn-outline-primary" onclick="sendCoupon()">
                                             <img class="send-coupon-progress d-none" src="{{ asset_url }}spinner.gif" width="15" height="15"/>
                                             {{ locals.coupon_discount_submit }}
                                         </button>
@@ -161,7 +161,7 @@
                                 {{ cart.fee_shipping_discount_rules.conditions_subtotal.status.message }}
                             </div>
                             <div class="text-muted mr-1 flex-shrink-0 free-shipping-rule-read-more" class="{% if cart.fee_shipping_discount_rules.conditions_subtotal.status.code == 'min_not_reached' %}d-inline-block{% else %}d-none{% endif %}">
-                              <a data-toggle="modal" data-target="#searchCitiesModal" href="#">
+                              <a data-bs-toggle="modal" data-bs-target="#searchCitiesModal" href="#">
                                 <small>
                                   {{ locals.read_more }}
                                 </small>

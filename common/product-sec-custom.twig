@@ -5,17 +5,19 @@
          data-lg-scroll-offset="130"
          data-md-scroll-offset="130"
          data-sm-scroll-offset="94" class="product-section">
-  {% if productitem %}
-    {% set product = attribute(all_products, product) %}
+  {% if settings.key %}
+ {% set product = attribute(all_products, settings.key) %}
 
     
     <div class="product-container container-sec mt-2 mb-2">
-          {% include 'product-d2.twig' with {'product' : productitem} %}
+          {% include 'product-d.twig' with {'product' : settings.key} %}
        
     </div>
 
     {% endif %}
 </section>
+<script src="{{ assetUrl('jquery-3.6.0.min.js?v=1.101010') }}" ></script>
+<script src="{{ assetUrl('jquery-ui.min.js?v=1.101010') }}" ></script>
     <script type="text/javascript" src="{{ asset_url ~ 'ekko-lightbox.min.js' }}"></script>
     <script type="text/javascript" src="{{ assetUrl('product-details.js?v=1.101010') }}"></script>
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
@@ -23,9 +25,9 @@
     {{ product_view_scripts|raw }}
 
     <script>
-        var productImages = {{  productitem.selected_product.media | json_encode() | raw }};
+        var productImages = {{  product.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
-        console.log(productImages);
+
         function productAddToCart() {
             if(!$('.add-to-cart-progress').hasClass('d-none'))
                 return;
@@ -328,8 +330,8 @@
             $('#product-images-slick').slick({
                 infinite: false,
                 autoplay: false,
-                arrows: (productImages.length > 1),
-                dots: (productImages.length > 1),
+                arrows: (productImages?.length > 1),
+                dots: (productImages?.length > 1),
                 rtl: !(window.appDirection === 'ltr'),
                 nextArrow:'<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><span class="'+arrowNextClass+'"></span></button>',
                 prevArrow:'<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><span class="'+arrowPrevClass+'"></span></button>'

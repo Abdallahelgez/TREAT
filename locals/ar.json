@@ -110,6 +110,7 @@
   "product_reviews_x_count": "تقييم",
   "product_average_rating": "التقييم العام",
   "product_price_vat_inclusive": "السعر شامل ضريبة القيمة المضافة",
+  "product_price_vat_inclusive-cus":"السعر شامل الضريبة",
   "product_price_vat_exclusive":"السعر غير شامل ضريبة القيمة المضافة",
 
   "product_reviews_form_title": "اترك تقييمك",

@@ -27,30 +27,32 @@
 
      <div class="products-page ">
         
-                <div class="products-div container-sec">
-                    {# {% for product in products.data %}
+                {# <div class="products-div container-sec">
+                    {% for product in products.data %}
                         {% if product.id == products_page_product.id %}
-                            <div class="prod-col prod-col-tb">
-                                {% include 'product-card.twig' with {'product' : product, 'index': key} %}
-                            </div>
+                            
+                            {% if product.id == products_page_product.id %}
+                                {% include 'product-sec-custom.twig' with {'produc' : product} %} 
+                            {% endif %}
 
-                             <div>{{products.data|json_encode}}</div> 
+
                         {% endif %}    
-                    {% endfor %} #}
-                    <div class="category-products prod" style="position: relative;">
-    <div class="loading-spinner text-center mt-3">
-      <span>جاري تحميل المنتجات...</span>
-    </div>
-  </div>
+                    {% endfor %}
+                   
+                </div> #}
+                
 
-  {{ settings.products_settings_category.id |json_encode}}
-                </div>
+
         <div class="products-container-2">
             {% if  products_page_image %}
                 <div class="products-page-image">
                     <img src="{{ products_page_image }}" class="img" alt="image">
                 </div>
             {% endif %}
+            <div class="product-section">
+                  <div class="product-container container-sec " id="product-container"></div>
+
+                </div>
                 <div class="products-essentials container-sec" style="background-image:url({{ products_page_image }})">
                     <div class="products-essentials-inner" >{{products_page_essentials}}</div>
                 </div>
@@ -102,117 +104,8 @@
 {% block footer_scripts %}
     <script type="text/javascript" src="{{ asset_url ~ 'toastr.min.js' }}"></script>
    
-   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const container = document.querySelector('.category-products');
-  const loader = container.querySelector('.loading-spinner');
-  const categoryId = "{{ settings.products_settings_category.id }}";
+ 
 
-  if (!categoryId) return;
-
-  zid.store.product.fetchAll(categoryId, { per_page: 8 })
-    .then(function(response) {
-      loader.style.display = 'none';
-
-      if (response.status === 'success' && response.data && response.data.products) {
-        const products = response.data.products.data;
-
-        if (!products.length) {
-          container.innerHTML = '<p class="text-muted">لا توجد منتجات في هذا التصنيف حالياً.</p>';
-          return;
-        }
-
-        products.forEach(p => {
-          const img =
-            (p.images && p.images.length > 0 && (
-              p.images[0].image?.full_size ||
-              p.images[0].image?.large ||
-              p.images[0].image?.medium ||
-              p.images[0].image?.small ||
-              p.images[0].url
-            )) ||
-            'https://xtzny4.zid.store/assets/imgs/placeholder.png';
-
-          const hasDiscount = p.sale_price && p.sale_price < p.price;
-
-          const formattedPrice = `
-            <div class="d-flex price-box align-center">
-              <div class="d-flex">
-                <h2 class="product-formatted-price">
-                  ${hasDiscount ? p.formatted_sale_price : p.formatted_price}
-                </h2>
-                ${hasDiscount ? `
-                  <p>
-                    <span class="product-formatted-price-discount">
-                      خصم ${Math.round(100 - (p.sale_price / p.price) * 100)}%
-                    </span>
-                    <del class="product-formatted-price-old">${p.formatted_price}</del>
-                  </p>` : ''}
-              </div>
-            </div>`;
-
-          const html = `
-            <div class="product products-details-page">
-              <div class="products-details">
-                <div class="img-side">
-                  <div class="image-inner">
-                    <div class="image-inner-inner">
-                      <a class="image-link" href="${p.html_url}" style="display:block;width:100%;height:100%;">
-                        <img src="${img}" class="carousel-img" alt="${p.name}">
-                      </a>
-                      ${!p.is_infinite && p.quantity <= 0
-                        ? `<small class="text-danger">غير متوفر حالياً</small>`
-                        : ''}
-                    </div>
-                  </div>
-                </div>
-
-                <div class="details-side col-product-info">
-                  <div class="product-details-header">
-                    <a class="product-title" href="${p.html_url}">${p.name}</a>
-                    ${formattedPrice}
-                  </div>
-
-                  <div class="product-buttons ${(!p.is_infinite && p.quantity <= 0) ? 'd-none' : 'd-block'}">
-                    <div class="align-center btn-add">
-                      ${
-                        !p.is_infinite && p.quantity <= 0
-                          ? `<a href="${p.html_url}" class="btn btn-add-to-cart disabled"><span>غير متوفر</span></a>`
-                          : (p.has_options || p.has_fields)
-                            ? `<a href="${p.html_url}" class="btn btn-add-to-cart"><span>اختيار المنتج</span></a>`
-                            : `<button class="btn btn-add-to-cart" type="button" onclick="productCartAddToCart(this,'${p.id}')">
-                                <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
-                                <span>أضف للسلة</span>
-                              </button>`
-                      }
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          `;
-
-          container.insertAdjacentHTML('beforeend', html);
-        });
-
-        // بعد تحميل المنتجات، فعل السلايدر إن وجد
-        setTimeout(() => {
-          if (typeof initProductSlider === 'function') {
-            initProductSlider(container);
-          }
-        }, 500);
-
-      } else {
-        container.innerHTML = '<p class="text-danger">تعذر تحميل المنتجات.</p>';
-      }
-    })
-    .catch(err => {
-      loader.style.display = 'none';
-      container.innerHTML = '<p class="text-danger">حدث خطأ أثناء تحميل المنتجات.</p>';
-      console.error('API Error:', err);
-    });
-});
-</script>
 
    <script>
         window.onProductAttributesTriggered = function(){
@@ -283,20 +176,950 @@ document.addEventListener('DOMContentLoaded', function() {
             
         });
     </script>
-    <script>
-    const productId = '{{products_page_product.id}}';
+//      <script>
+//      const productId = '{{products_page_product.id}}';
+//  zid.store.product.fetch(productId)
+//    .then(function(response) {
+//      console.log(response);
+//      if (response.status === 'success' && response.data && response.data.product) {
+//        const product = response.data.product;
+//        console.log(product); // ← ده الـ object الكامل للمنتج
+//      } else {
+//        console.error('تعذر تحميل بيانات المنتج.');
+//      }
+//    })
+//    .catch(function(err) {
+//      console.error('API Error:', err);
+//    });
+//      </script>
+// <script>
+//   const productId = '{{ products_page_product.id }}';
+
+// // Function to build product HTML template
+// function buildProductTemplate(product, locals, storeConfig) {
+//   const selectedProduct = product.selected_product || product;
+//   const firstImage = selectedProduct.media?.[0] || {};
+//   const hasWishlist = storeConfig?.is_wishlist_enabled || false;
+  
+//   return `
+//     <section class="product products-details-page">
+//       <div class="products-details">
+//         <div class="img-side">
+//           ${hasWishlist ? `
+//             <span class="add-to-wishlist" data-wishlist-id="${product.id}">
+//               <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '${product.id}')"></a>      
+//               <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to=${window.location.pathname}"></a>
+//               <img class="loader d-none" src="${storeConfig.asset_url}spinner.gif" width="20" height="20"/>
+//             </span>
+//           ` : ''}
+          
+//           <!--GALLERY-->
+//           <div class="image-inner">
+//             <div class="image-inner-inner">
+//               <a class="image-link" style="display:block; width: 100%; height: 100%;">
+//                 <img src="${firstImage.image?.full_size || ''}" class="carousel-img" alt="${firstImage.alt_text || product.name}">
+//                 ${firstImage.provider && firstImage.link ? `
+//                   <img id="main-video-icon"
+//                     class="play-icon"
+//                     src="${storeConfig.assetUrl}video-play.svg"
+//                     alt="play"
+//                     width="25"
+//                     onclick="showIframe(this, '${firstImage.link}')"
+//                   />
+//                 ` : ''}
+//               </a>
+//               ${firstImage.provider && firstImage.link ? `
+//                 <div class="iframe-video pt-1 d-none">
+//                   <a id="iframe-close-btn"
+//                     type="button"
+//                     class="text-white btn btn-none grow"
+//                     onclick="hideIframe(this)">
+//                     X
+//                   </a>
+//                   <iframe
+//                     width="100%"
+//                     height="100%"
+//                     src=""
+//                     frameborder="0"
+//                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+//                     allowfullscreen
+//                     style="max-width: 100%">
+//                   </iframe>
+//                 </div>
+//               ` : ''}
+//             </div>
+//           </div>
+//         </div>
+
+//         <div class="details-side col-product-info ${selectedProduct.media?.length <= 1 ? 'col-product-info-single-image' : ''}">
+//           <div class="product-details-header">
+//             <a class="product-title" href="${product.html_url}">${product.name}</a>
+            
+//             <div class="d-flex price-box align-center">
+//               <div class="d-flex">
+//                 <h2 class="product-formatted-price">
+//                   ${selectedProduct.formatted_sale_price || selectedProduct.formatted_price}
+//                 </h2>
+//                 ${selectedProduct.formatted_sale_price ? `
+//                   <p>
+//                     <span class="product-formatted-price-discount">
+//                       &nbsp;&nbsp;${locals.product_discount}&nbsp;${selectedProduct.discount_percentage}%
+//                     </span>
+//                     <del class="product-formatted-price-old">
+//                       ${selectedProduct.formatted_price}
+//                     </del>
+//                   </p>
+//                 ` : ''}
+//               </div>
+//             </div>
+
+//             ${product.short_description ? `
+//               <div class="product-short-description">
+//                 <label>${locals.description}</label>
+//                 <div class="text-short-description">
+//                   ${product.short_description}
+//                 </div>
+//               </div>
+//             ` : ''}
+//           </div>
+
+//           <form id="product-form">
+//             <input id="product-id" type="hidden" value="${selectedProduct.id}">
+//             <input id="product-parent-id" type="hidden" value="${product.id}">
+
+//             <div class="size-box">
+//               ${product.variants ? `
+//                 <div id="product-variants-options" class="product-variants-options">
+//                   <!-- Variants will be rendered here -->
+//                   ${buildVariantsSelect(product)}
+//                 </div>
+//               ` : ''}
+//             </div>
+
+//             ${selectedProduct.is_infinite || selectedProduct.quantity > 0 ? `
+//               <div class="select-quantity-div">
+//                 <h4 class="product-title">${locals.product_cart_quantity}</h4>
+//                 <div class="form-group">
+//                   <div>
+//                     <select id="product-quantity" name="quantity" class="select-quantity">
+//                       ${buildQuantityOptions(selectedProduct)}
+//                     </select>
+//                   </div>
+//                 </div>
+//               </div>
+//             ` : ''}
+//           </form>
+
+//           <div class="product-buttons ${selectedProduct.out_of_stock ? 'd-none' : 'd-block'}">
+//             <div class="align-center btn-add">
+//               <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
+//                 <img class="add-to-cart-progress d-none" src="${storeConfig.asset_url}spinner.gif" width="25" height="25"/>
+//                 <span>${locals.add_to_cart}</span>
+//               </button>
+//             </div>
+//           </div>
+
+//           <div>
+//             <span id="product-view-add-to-cart"></span>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   `;
+// }
+
+// // Helper function to build quantity options
+// function buildQuantityOptions(selectedProduct) {
+//   const maxQuantity = selectedProduct.is_infinite || selectedProduct.quantity > 100 
+//     ? 100 
+//     : selectedProduct.quantity;
+  
+//   let options = '';
+//   for (let i = 1; i <= maxQuantity; i++) {
+//     options += `<option value="${i}" ${i === 1 ? 'selected' : ''}>${i}</option>`;
+//   }
+//   return options;
+// }
+
+// // Helper function to build variants select (simplified)
+// function buildVariantsSelect(product) {
+//   // هنا تقدر تضيف لوجيك الـ variants بتفصيل أكتر
+//   // دي نسخة مبسطة
+//   if (!product.variants || product.variants.length === 0) return '';
+  
+//   // يفضل تستخدم نفس الـ template من product-variant-select.twig
+//   return `<div class="variants-placeholder">Variants rendering needed</div>`;
+// }
+
+// // Fetch product and render
+// zid.store.product.fetch(productId)
+//   .then(function(response) {
+//     if (response.status === 'success' && response.data && response.data.product) {
+//       const product = response.data.product;
+      
+//       // Get store config and locals (you might need to pass these)
+//       const storeConfig = {
+//         is_wishlist_enabled: true, // Get from store settings
+//         asset_url: window.asset_url || '/assets/',
+//         assetUrl: window.assetUrl || function(path) { return '/assets/' + path; }
+//       };
+      
+//       const locals = {
+//         description: 'الوصف',
+//         product_discount: 'خصم',
+//         product_cart_quantity: 'الكمية',
+//         add_to_cart: 'أضف للسلة'
+//       };
+
+//       // Build and inject HTML
+//       const html = buildProductTemplate(product, locals, storeConfig);
+//       document.getElementById('product-container').innerHTML = html;
+
+//       // Initialize any required scripts after rendering
+//       if (typeof initProductScripts === 'function') {
+//         initProductScripts(product);
+//       }
+//     } else {
+//       console.error('تعذر تحميل بيانات المنتج.');
+//       document.getElementById('product-container').innerHTML = 
+//         '<div class="alert alert-danger">حدث خطأ في تحميل المنتج</div>';
+//     }
+//   })
+//   .catch(function(err) {
+//     console.error('API Error:', err);
+//     document.getElementById('product-container').innerHTML = 
+//       '<div class="alert alert-danger">حدث خطأ في الاتصال بالخادم</div>';
+//   });
+// </script>
+// <script>
+//   const productId = '{{ products_page_product.id }}';
+
+// // Function to build product options/variants HTML
+// function buildVariantsSelect(product) {
+//   if (!product.options || product.options.length === 0) return '';
+  
+//   let html = '';
+  
+//   product.options.forEach(option => {
+//     html += `
+//       <div class="product-option-group mb-3">
+//         <label class="product-option-label">${option.name}</label>
+//         <div class="product-option-values">
+//           ${option.choices.map((choice, index) => {
+//             const variant = product.variants.find(v => 
+//               v.attributes.some(attr => attr.value === choice)
+//             );
+//             const isSelected = variant && variant.id === product.selected_product.id;
+            
+//             return `
+//               <div class="product-option-item ${isSelected ? 'selected' : ''}" 
+//                    data-variant-id="${variant ? variant.id : ''}"
+//                    data-option-value="${choice}"
+//                    onclick="selectVariant('${variant ? variant.id : ''}', this)">
+//                 ${choice}
+//               </div>
+//             `;
+//           }).join('')}
+//         </div>
+//       </div>
+//     `;
+//   });
+  
+//   return html;
+// }
+
+// // Function to build quantity options
+// function buildQuantityOptions(selectedProduct) {
+//   const maxQuantity = selectedProduct.is_infinite || selectedProduct.quantity > 100 
+//     ? 100 
+//     : selectedProduct.quantity;
+  
+//   let options = '';
+//   for (let i = 1; i <= maxQuantity; i++) {
+//     options += `<option value="${i}" ${i === 1 ? 'selected' : ''}>${i}</option>`;
+//   }
+//   return options;
+// }
+
+// // Function to build product HTML template
+// function buildProductTemplate(product, locals, storeConfig) {
+//   const selectedProduct = product.selected_product || product;
+//   const firstImage = selectedProduct.media?.[0] || selectedProduct.images?.[0] || {};
+//   const hasWishlist = storeConfig?.is_wishlist_enabled || false;
+  
+//   return `
+//     <section class="product products-details-page">
+//       <div class="products-details">
+//         <div class="img-side">
+//           ${hasWishlist ? `
+//             <span class="add-to-wishlist" data-wishlist-id="${product.id}">
+//               <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '${product.id}')"></a>      
+//               <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to=${window.location.pathname}"></a>
+//               <img class="loader d-none" src="${storeConfig.asset_url}spinner.gif" width="20" height="20"/>
+//             </span>
+//           ` : ''}
+          
+//           <div class="image-inner">
+//             <div class="image-inner-inner">
+//               <a class="image-link" style="display:block; width: 100%; height: 100%;">
+//                 <img src="${firstImage.image?.full_size || ''}" 
+//                      class="carousel-img" 
+//                      alt="${firstImage.alt_text || product.name}"
+//                      id="main-product-image">
+//                 ${firstImage.provider && firstImage.link ? `
+//                   <img id="main-video-icon"
+//                     class="play-icon"
+//                     src="${storeConfig.assetUrl}video-play.svg"
+//                     alt="play"
+//                     width="25"
+//                     onclick="showIframe(this, '${firstImage.link}')"
+//                   />
+//                 ` : ''}
+//               </a>
+//               ${firstImage.provider && firstImage.link ? `
+//                 <div class="iframe-video pt-1 d-none">
+//                   <a id="iframe-close-btn"
+//                     type="button"
+//                     class="text-white btn btn-none grow"
+//                     onclick="hideIframe(this)">
+//                     X
+//                   </a>
+//                   <iframe
+//                     width="100%"
+//                     height="100%"
+//                     src=""
+//                     frameborder="0"
+//                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+//                     allowfullscreen
+//                     style="max-width: 100%">
+//                   </iframe>
+//                 </div>
+//               ` : ''}
+//             </div>
+//           </div>
+//         </div>
+
+//         <div class="details-side col-product-info ${selectedProduct.media?.length <= 1 ? 'col-product-info-single-image' : ''}">
+//           <div class="product-details-header">
+//             <a class="product-title" href="${product.html_url}">${product.name}</a>
+            
+//             <div class="d-flex price-box align-center">
+//               <div class="d-flex">
+//                 <h2 class="product-formatted-price" id="product-price">
+//                   ${selectedProduct.formatted_sale_price || selectedProduct.formatted_price}
+//                 </h2>
+//                 ${selectedProduct.formatted_sale_price ? `
+//                   <p>
+//                     <span class="product-formatted-price-discount" id="product-discount">
+//                       &nbsp;&nbsp;${locals.product_discount}&nbsp;${selectedProduct.discount_percentage}%
+//                     </span>
+//                     <del class="product-formatted-price-old" id="product-old-price">
+//                       ${selectedProduct.formatted_price}
+//                     </del>
+//                   </p>
+//                 ` : ''}
+//               </div>
+//             </div>
+
+//             ${product.short_description ? `
+//               <div class="product-short-description">
+//                 <label>${locals.description}</label>
+//                 <div class="text-short-description">
+//                   ${product.short_description}
+//                 </div>
+//               </div>
+//             ` : ''}
+//           </div>
+
+//           <form id="product-form">
+//             <input id="product-id" type="hidden" value="${selectedProduct.id}">
+//             <input id="product-parent-id" type="hidden" value="${product.id}">
+
+//             <div class="size-box">
+//               ${product.options ? `
+//                 <div id="product-variants-options" class="product-variants-options">
+//                   ${buildVariantsSelect(product)}
+//                 </div>
+//               ` : ''}
+//             </div>
+
+//             ${selectedProduct.is_infinite || selectedProduct.quantity > 0 ? `
+//               <div class="select-quantity-div">
+//                 <h4 class="product-title">${locals.product_cart_quantity}</h4>
+//                 <div class="form-group">
+//                   <div>
+//                     <select id="product-quantity" name="quantity" class="select-quantity">
+//                       ${buildQuantityOptions(selectedProduct)}
+//                     </select>
+//                   </div>
+//                 </div>
+//               </div>
+//             ` : ''}
+//           </form>
+
+//           <div class="product-buttons ${selectedProduct.out_of_stock ? 'd-none' : 'd-block'}">
+//             <div class="align-center btn-add">
+//               <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
+//                 <img class="add-to-cart-progress d-none" src="${storeConfig.asset_url}spinner.gif" width="25" height="25"/>
+//                 <span>${locals.add_to_cart}</span>
+//               </button>
+//             </div>
+//           </div>
+
+//           <div>
+//             <span id="product-view-add-to-cart"></span>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   `;
+// }
+
+// // Global variable to store product data
+// let currentProduct = null;
+
+// // Function to handle variant selection
+// window.selectVariant = function(variantId, element) {
+//   if (!currentProduct || !variantId) return;
+  
+//   // Find the selected variant
+//   const selectedVariant = currentProduct.variants.find(v => v.id === variantId);
+//   if (!selectedVariant) return;
+  
+//   // Update UI
+//   document.querySelectorAll('.product-option-item').forEach(item => {
+//     item.classList.remove('selected');
+//   });
+//   element.classList.add('selected');
+  
+//   // Update product details
+//   document.getElementById('product-id').value = selectedVariant.id;
+//   document.getElementById('product-price').textContent = 
+//     selectedVariant.formatted_sale_price || selectedVariant.formatted_price;
+  
+//   if (selectedVariant.formatted_sale_price) {
+//     document.getElementById('product-discount').textContent = 
+//       `\u00A0\u00A0الخصم\u00A0${selectedVariant.discount_percentage}%`;
+//     document.getElementById('product-old-price').textContent = 
+//       selectedVariant.formatted_price;
+//   }
+  
+//   // Update main image
+//   const mainImage = document.getElementById('main-product-image');
+//   if (selectedVariant.media && selectedVariant.media.length > 0) {
+//     mainImage.src = selectedVariant.media[0].image.full_size;
+//   }
+  
+//   // Update quantity dropdown
+//   const quantitySelect = document.getElementById('product-quantity');
+//   if (quantitySelect) {
+//     quantitySelect.innerHTML = buildQuantityOptions(selectedVariant);
+//   }
+  
+//   // Update current product
+//   currentProduct.selected_product = selectedVariant;
+  
+//   console.log('Selected variant:', selectedVariant.name);
+// };
+
+// // Fetch product and render
+// zid.store.product.fetch(productId)
+//   .then(function(response) {
+//     if (response.status === 'success' && response.data && response.data.product) {
+//       const product = response.data.product;
+//       currentProduct = product;
+      
+//       // Get store config and locals
+//       const storeConfig = {
+//         is_wishlist_enabled: typeof store !== 'undefined' ? store.is_wishlist_enabled : true,
+//         asset_url: window.asset_url || '/assets/',
+//         assetUrl: window.assetUrl || function(path) { return '/assets/' + path; }
+//       };
+      
+//       const locals = {
+//         description: 'الوصف',
+//         product_discount: 'خصم',
+//         product_cart_quantity: 'الكمية',
+//         add_to_cart: 'أضف للسلة'
+//       };
+
+//       // Build and inject HTML
+//       const html = buildProductTemplate(product, locals, storeConfig);
+//       document.getElementById('product-container').innerHTML = html;
+
+//       console.log('Product loaded:', product.name);
+//       console.log('Options:', product.options);
+//       console.log('Variants:', product.variants);
+      
+//       // Initialize any required scripts after rendering
+//       if (typeof initProductScripts === 'function') {
+//         initProductScripts(product);
+//       }
+//     } else {
+//       console.error('تعذر تحميل بيانات المنتج.');
+//       document.getElementById('product-container').innerHTML = 
+//         '<div class="alert alert-danger">حدث خطأ في تحميل المنتج</div>';
+//     }
+//   })
+//   .catch(function(err) {
+//     console.error('API Error:', err);
+//     document.getElementById('product-container').innerHTML = 
+//       '<div class="alert alert-danger">حدث خطأ في الاتصال بالخادم</div>';
+//   });
+// </script>
+<script>
+  const productId = '{{ products_page_product.id }}';
+
+// Global variable to store product data
+let currentProduct = null;
+
+// Function to get media for display (prioritize variant images, fallback to parent)
+function getProductMedia(product, variant) {
+  if (variant && variant.images && variant.images.length > 0) {
+    return variant.images;
+  }
+  if (product.images && product.images.length > 0) {
+    return product.images;
+  }
+  if (product.media && product.media.length > 0) {
+    return product.media;
+  }
+  return [];
+}
+
+// Function to build thumbnail gallery
+function buildThumbnailGallery(media) {
+  if (!media || media.length <= 1) return '';
+  
+  return `
+    <div class="product-thumbnails">
+      ${media.map((item, index) => `
+        <div class="thumbnail-item ${index === 0 ? 'active' : ''}" 
+             onclick="changeMainImage(${index})">
+          <img src="${item.image?.thumbnail || item.image?.small || item.image?.full_size || ''}" 
+               alt="${item.alt_text || ''}" />
+          ${item.provider && item.link ? `
+            <div class="video-badge">▶</div>
+          ` : ''}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// Function to change main image
+window.changeMainImage = function(index) {
+  if (!currentProduct) return;
+  
+  const media = getProductMedia(currentProduct, currentProduct.selected_product);
+  const selectedMedia = media[index];
+  
+  if (!selectedMedia) return;
+  
+  // Update main image
+  const mainImage = document.getElementById('main-product-image');
+  const videoIcon = document.getElementById('main-video-icon');
+  const iframeContainer = document.querySelector('.iframe-video');
+  
+  if (mainImage) {
+    mainImage.src = selectedMedia.image?.full_size || selectedMedia.image?.large || '';
+    mainImage.alt = selectedMedia.alt_text || currentProduct.name;
+  }
+  
+  // Handle video icon
+  if (selectedMedia.provider && selectedMedia.link) {
+    if (videoIcon) {
+      videoIcon.classList.remove('d-none');
+      videoIcon.setAttribute('onclick', `showIframe(this, '${selectedMedia.link}')`);
+    }
+    if (iframeContainer) {
+      iframeContainer.classList.remove('d-none');
+      iframeContainer.querySelector('iframe').src = '';
+    }
+  } else {
+    if (videoIcon) videoIcon.classList.add('d-none');
+    if (iframeContainer) iframeContainer.classList.add('d-none');
+  }
+  
+  // Update active thumbnail
+  document.querySelectorAll('.thumbnail-item').forEach((thumb, i) => {
+    thumb.classList.toggle('active', i === index);
+  });
+};
+
+// Function to build product options/variants HTML
+function buildVariantsSelect(product) {
+  if (!product.options || product.options.length === 0) return '';
+  
+  let html = '';
+  
+  product.options.forEach(option => {
+    html += `
+      <div class="product-option-group mb-3">
+        <label class="product-option-label">${option.name}</label>
+        <div class="product-option-values">
+          ${option.choices.map((choice) => {
+            const variant = product.variants.find(v => 
+              v.attributes.some(attr => attr.value === choice)
+            );
+            const isSelected = variant && variant.id === product.selected_product.id;
+            
+            // Get variant image for preview
+            const variantImage = variant && variant.images && variant.images[0] 
+              ? variant.images[0].image.thumbnail || variant.images[0].image.small 
+              : '';
+            
+            return `
+              <div class="product-option-item ${isSelected ? 'selected' : ''}" 
+                   data-variant-id="${variant ? variant.id : ''}"
+                   data-option-value="${choice}"
+                   onclick="selectVariant('${variant ? variant.id : ''}', this)">
+                ${variantImage ? `
+                  <img src="${variantImage}" alt="${choice}" class="option-image" />
+                ` : ''}
+                <span class="option-text">${choice}</span>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  });
+  
+  return html;
+}
+
+// Function to build quantity options
+function buildQuantityOptions(selectedProduct) {
+  const maxQuantity = selectedProduct.is_infinite || selectedProduct.quantity > 100 
+    ? 100 
+    : selectedProduct.quantity;
+  
+  let options = '';
+  for (let i = 1; i <= maxQuantity; i++) {
+    options += `<option value="${i}" ${i === 1 ? 'selected' : ''}>${i}</option>`;
+  }
+  return options;
+}
+
+// Function to update gallery
+function updateGallery(product, selectedVariant) {
+  const imgSide = document.querySelector('.img-side');
+  if (!imgSide) return;
+  
+  const media = getProductMedia(product, selectedVariant);
+  const firstImage = media[0] || {};
+  
+  // Update main image area
+  const imageInner = imgSide.querySelector('.image-inner-inner');
+  if (imageInner) {
+    imageInner.innerHTML = `
+      <a class="image-link" style="display:block; width: 100%; height: 100%;">
+        <img src="${firstImage.image?.full_size || firstImage.image?.large || ''}" 
+             class="carousel-img" 
+             alt="${firstImage.alt_text || selectedVariant.name}"
+             id="main-product-image">
+        ${firstImage.provider && firstImage.link ? `
+          <img id="main-video-icon"
+            class="play-icon"
+            src="${window.assetUrl ? window.assetUrl('video-play.svg') : '/assets/video-play.svg'}"
+            alt="play"
+            width="25"
+            onclick="showIframe(this, '${firstImage.link}')"
+          />
+        ` : ''}
+      </a>
+      ${firstImage.provider && firstImage.link ? `
+        <div class="iframe-video pt-1 d-none">
+          <a id="iframe-close-btn"
+            type="button"
+            class="text-white btn btn-none grow"
+            onclick="hideIframe(this)">
+            X
+          </a>
+          <iframe
+            width="100%"
+            height="100%"
+            src=""
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            style="max-width: 100%">
+          </iframe>
+        </div>
+      ` : ''}
+    `;
+  }
+  
+  // Update or create thumbnail gallery
+  let thumbnailContainer = imgSide.querySelector('.thumbnail-gallery-container');
+  if (!thumbnailContainer) {
+    thumbnailContainer = document.createElement('div');
+    thumbnailContainer.className = 'thumbnail-gallery-container';
+    imgSide.querySelector('.image-inner').appendChild(thumbnailContainer);
+  }
+  
+  thumbnailContainer.innerHTML = buildThumbnailGallery(media);
+}
+
+// Function to handle variant selection
+window.selectVariant = function(variantId, element) {
+  if (!currentProduct || !variantId) return;
+  
+  // Find the selected variant
+  const selectedVariant = currentProduct.variants.find(v => v.id === variantId);
+  if (!selectedVariant) return;
+  
+  // Update UI selection
+  document.querySelectorAll('.product-option-item').forEach(item => {
+    item.classList.remove('selected');
+  });
+  element.classList.add('selected');
+  
+  // Update hidden input
+  const productIdInput = document.getElementById('product-id');
+  if (productIdInput) {
+    productIdInput.value = selectedVariant.id;
+  }
+  
+  // Update price
+  const priceElement = document.getElementById('product-price');
+  if (priceElement) {
+    priceElement.textContent = 
+      selectedVariant.formatted_sale_price || selectedVariant.formatted_price;
+  }
+  
+  // Calculate discount percentage
+  const discountPercent = selectedVariant.sale_price 
+    ? Math.round(((selectedVariant.price - selectedVariant.sale_price) / selectedVariant.price) * 100)
+    : 0;
+  
+  // Update discount and old price
+  const discountContainer = document.getElementById('discount-container');
+  const discountElement = document.getElementById('product-discount');
+  const oldPriceElement = document.getElementById('product-old-price');
+  
+  if (selectedVariant.formatted_sale_price && discountPercent > 0) {
+    if (discountElement) {
+      discountElement.textContent = `\u00A0\u00A0خصم\u00A0${discountPercent}%`;
+    }
+    if (oldPriceElement) {
+      oldPriceElement.textContent = selectedVariant.formatted_price;
+    }
+    if (discountContainer) {
+      discountContainer.classList.remove('d-none');
+    }
+  } else {
+    if (discountContainer) {
+      discountContainer.classList.add('d-none');
+    }
+  }
+  
+  // Update gallery with variant images
+  updateGallery(currentProduct, selectedVariant);
+  
+  // Update quantity dropdown
+  const quantitySelect = document.getElementById('product-quantity');
+  if (quantitySelect) {
+    quantitySelect.innerHTML = buildQuantityOptions(selectedVariant);
+  }
+  
+  // Update stock button visibility
+  const productButtons = document.querySelector('.product-buttons');
+  if (productButtons) {
+    if (selectedVariant.out_of_stock || selectedVariant.quantity <= 0) {
+      productButtons.classList.add('d-none');
+    } else {
+      productButtons.classList.remove('d-none');
+    }
+  }
+  
+  // Update current product
+  currentProduct.selected_product = selectedVariant;
+  
+};
+
+// Function to build product HTML template
+function buildProductTemplate(product, locals, storeConfig) {
+  const selectedProduct = product.selected_product || product;
+  
+  // Get media for initial display
+  const media = getProductMedia(product, selectedProduct);
+  const firstImage = media[0] || {};
+  
+  const hasWishlist = storeConfig?.is_wishlist_enabled || false;
+  
+  return `
+    <section class="product products-details-page">
+      <div class="products-details">
+        <div class="img-side">
+          ${hasWishlist ? `
+            <span class="add-to-wishlist" data-wishlist-id="${product.id}">
+              <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '${product.id}')"></a>      
+              <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to=${window.location.pathname}"></a>
+              <img class="loader d-none" src="${storeConfig.asset_url}spinner.gif" width="20" height="20"/>
+            </span>
+          ` : ''}
+          
+          <div class="image-inner">
+            <div class="image-inner-inner">
+              <a class="image-link" style="display:block; width: 100%; height: 100%;">
+                <img src="${firstImage.image?.full_size || firstImage.image?.large || ''}" 
+                     class="carousel-img" 
+                     alt="${firstImage.alt_text || product.name}"
+                     id="main-product-image">
+                ${firstImage.provider && firstImage.link ? `
+                  <img id="main-video-icon"
+                    class="play-icon"
+                    src="${storeConfig.assetUrl('video-play.svg')}"
+                    alt="play"
+                    width="25"
+                    onclick="showIframe(this, '${firstImage.link}')"
+                  />
+                ` : ''}
+              </a>
+              ${firstImage.provider && firstImage.link ? `
+                <div class="iframe-video pt-1 d-none">
+                  <a id="iframe-close-btn"
+                    type="button"
+                    class="text-white btn btn-none grow"
+                    onclick="hideIframe(this)">
+                    X
+                  </a>
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src=""
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                    style="max-width: 100%">
+                  </iframe>
+                </div>
+              ` : ''}
+            </div>
+            
+            <div class="thumbnail-gallery-container">
+              ${buildThumbnailGallery(media)}
+            </div>
+          </div>
+        </div>
+
+        <div class="details-side col-product-info ${media.length <= 1 ? 'col-product-info-single-image' : ''}">
+          <div class="product-details-header">
+            <a class="product-title" href="${product.html_url}">${product.name}</a>
+            
+            <div class="d-flex price-box align-center">
+              <div class="d-flex">
+                <h2 class="product-formatted-price" id="product-price">
+                  ${selectedProduct.formatted_sale_price || selectedProduct.formatted_price}
+                </h2>
+                <p id="discount-container" class="${selectedProduct.formatted_sale_price ? '' : 'd-none'}">
+                  <span class="product-formatted-price-discount" id="product-discount">
+                    &nbsp;&nbsp;خصم&nbsp;${selectedProduct.discount_percentage || product.discount_percentage || 0}%
+                  </span>
+                  <del class="product-formatted-price-old" id="product-old-price">
+                    ${selectedProduct.formatted_price}
+                  </del>
+                </p>
+              </div>
+            </div>
+
+            ${product.short_description ? `
+              <div class="product-short-description">
+                <label>${locals.description}</label>
+                <div class="text-short-description">
+                  ${product.short_description}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+
+          <form id="product-form">
+            <input id="product-id" type="hidden" value="${selectedProduct.id}">
+            <input id="product-parent-id" type="hidden" value="${product.id}">
+
+            <div class="size-box">
+              ${product.options ? `
+                <div id="product-variants-options" class="product-variants-options">
+                  ${buildVariantsSelect(product)}
+                </div>
+              ` : ''}
+            </div>
+
+            ${selectedProduct.is_infinite || selectedProduct.quantity > 0 ? `
+              <div class="select-quantity-div">
+                <h4 class="product-title">${locals.product_cart_quantity}</h4>
+                <div class="form-group">
+                  <div>
+                    <select id="product-quantity" name="quantity" class="select-quantity">
+                      ${buildQuantityOptions(selectedProduct)}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            ` : ''}
+          </form>
+
+          <div class="product-buttons ${selectedProduct.out_of_stock || selectedProduct.quantity <= 0 ? 'd-none' : 'd-block'}">
+            <div class="align-center btn-add">
+              <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
+                <img class="add-to-cart-progress d-none" src="${storeConfig.asset_url}spinner.gif" width="25" height="25"/>
+                <span>${locals.add_to_cart}</span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <span id="product-view-add-to-cart"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// Fetch product and render
 zid.store.product.fetch(productId)
   .then(function(response) {
-    console.log(response);
     if (response.status === 'success' && response.data && response.data.product) {
       const product = response.data.product;
-      console.log(product); // ← ده الـ object الكامل للمنتج
+      currentProduct = product;
+      
+      // Get store config and locals
+      const storeConfig = {
+        is_wishlist_enabled: typeof store !== 'undefined' ? store.is_wishlist_enabled : true,
+        asset_url: window.asset_url || '/assets/',
+        assetUrl: window.assetUrl || function(path) { return '/assets/' + path; }
+      };
+      
+      const locals = {
+        description: 'الوصف',
+        product_discount: 'خصم',
+        product_cart_quantity: 'الكمية',
+        add_to_cart: 'أضف للسلة'
+      };
+
+      // Build and inject HTML
+      const html = buildProductTemplate(product, locals, storeConfig);
+      document.getElementById('product-container').innerHTML = html;
+
+      
+      
+      // Initialize any required scripts after rendering
+      if (typeof initProductScripts === 'function') {
+        initProductScripts(product);
+      }
     } else {
       console.error('تعذر تحميل بيانات المنتج.');
+      document.getElementById('product-container').innerHTML = 
+        '<div class="alert alert-danger">حدث خطأ في تحميل المنتج</div>';
     }
   })
   .catch(function(err) {
     console.error('API Error:', err);
+    document.getElementById('product-container').innerHTML = 
+      '<div class="alert alert-danger">حدث خطأ في الاتصال بالخادم</div>';
   });
-    </script>
+</script>
 {% endblock %}

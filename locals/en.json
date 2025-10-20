@@ -122,7 +122,7 @@
 
     "product_price_vat_inclusive":"Prices include VAT",
     "product_price_vat_exclusive":"Price Not incl. VAT",
-
+    "product_price_vat_inclusive-cus":"VAT included",
     "product_weight": "Weight",
 
     "product_discount": "Discount",

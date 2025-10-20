@@ -13,7 +13,7 @@
         </div> #}
 
         {% if not ('hide_country' in header_settings.header_options) or not ('hide_language' in header_settings.header_options)%}
-        <div class="language-currency d-flex justify-content-between" data-toggle="modal" data-target="#langCurrecyModal">
+        <div class="language-currency d-flex justify-content-between" data-bs-toggle="modal" data-bs-target="#langCurrecyModal">
 
             {% if session.lang.code == 'en' %}
                 {% set change_to_lang = 'ar' %}

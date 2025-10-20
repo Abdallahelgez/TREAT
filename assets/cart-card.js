@@ -508,6 +508,32 @@
     window.updateCartTexts = updateTexts;
 })();
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // document.addEventListener('DOMContentLoaded', function() {
     
 //     const cartTotalsDiv = document.querySelector('.cart-totals-div');

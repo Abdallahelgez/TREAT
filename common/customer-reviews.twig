@@ -60,7 +60,7 @@ function sortReviews(element, sortBy, order) {
     // إغلاق القائمة المنسدلة (Bootstrap يديرها تلقائياً، لكن نغلقها يدويًا في حال ما كانت تعمل تلقائيًا)
     const dropdownMenu = element.closest('.dropdown-menu');
     const dropdown = element.closest('.dropdown');
-    const toggleButton = dropdown.querySelector('[data-toggle="dropdown"]');
+    const toggleButton = dropdown.querySelector('[data-bs-toggle="dropdown"]');
     const bootstrapDropdown = bootstrap.Dropdown.getInstance(toggleButton);
 
     if (bootstrapDropdown) {

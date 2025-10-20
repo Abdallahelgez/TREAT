@@ -16,12 +16,17 @@
 
 
 {% block main_content %}
-
+    {# <div>{{product|pre}}</div> #}
     <section class="product products-details-page custom-products-details ">
         <div class="container-sec ">
             <section class="products-details ">
                 <div class="products-details-inner">
-                    <div class="row">
+                    <div class="row 
+                    {% if essproduct.id == product.id %}
+                    ess
+                    {% endif %}
+                    
+                    ">
 
                         <div class="col-lg-6 image-container">
 
@@ -35,23 +40,16 @@
                                     </span>
                                   {% endif %}
                                 <div class="share-container">
-                                    <button class="share-btn" onclick="socialBtn()">
+                                    <button class="share-btn" onclick="shareCategory()">
                                         <svg width="24" height="24" class="icon-share" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M15.75 6.5C15.75 5.25736 16.7574 4.25 18 4.25C19.2426 4.25 20.25 5.25736 20.25 6.5C20.25 7.74264 19.2426 8.75 18 8.75C16.7574 8.75 15.75 7.74264 15.75 6.5ZM18 2.75C15.9289 2.75 14.25 4.42893 14.25 6.5C14.25 6.78627 14.2821 7.06505 14.3428 7.33293L9.02696 9.78597C8.34465 8.85471 7.24294 8.25 6 8.25C3.92893 8.25 2.25 9.92893 2.25 12C2.25 14.0711 3.92893 15.75 6 15.75C7.2429 15.75 8.34458 15.1453 9.0269 14.2141L14.3428 16.6672C14.2821 16.935 14.25 17.2138 14.25 17.5C14.25 19.5711 15.9289 21.25 18 21.25C20.0711 21.25 21.75 19.5711 21.75 17.5C21.75 15.4289 20.0711 13.75 18 13.75C16.7504 13.75 15.6436 14.3612 14.9621 15.301L9.65301 12.851C9.71646 12.5776 9.75 12.2927 9.75 12C9.75 11.7073 9.71647 11.4225 9.65304 11.1491L14.9622 8.69913C15.6436 9.63884 16.7504 10.25 18 10.25C20.0711 10.25 21.75 8.57107 21.75 6.5C21.75 4.42893 20.0711 2.75 18 2.75ZM3.75 12C3.75 10.7574 4.75736 9.75 6 9.75C7.24264 9.75 8.25 10.7574 8.25 12C8.25 13.2426 7.24264 14.25 6 14.25C4.75736 14.25 3.75 13.2426 3.75 12ZM18 15.25C16.7574 15.25 15.75 16.2574 15.75 17.5C15.75 18.7426 16.7574 19.75 18 19.75C19.2426 19.75 20.25 18.7426 20.25 17.5C20.25 16.2574 19.2426 15.25 18 15.25Z" fill="#161616"/>
                                         </svg>
                                     </button>
                                     
-                                    <div class="product-social d-flex">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ product.html_url }}" target="_blank"><i class="icon-facebook-f"></i></a>
-                                        <a href="https://www.pinterest.com/pin/create/button/?url={{ product.html_url }}" target="_blank"><i class="icon-pinterest"></i></a>
-                                        <a href="https://twitter.com/intent/tweet?text={{ product.name }}: {{ product.html_url }}" target="_blank"><i class="icon-twitter"></i></a>
-                                        <a href="https://api.whatsapp.com/send?text={{ locals.check_out_this_product }}:{{ product.name }} {{ product.html_url }}" target="_blank"><i class="icon-whatsapp"></i></a>
-                                    </div>  
+                                    
                                 </div>
-                                {% if product.selected_product.formatted_sale_price %}
-                                        <span class="product-formatted-price-discount discount-rate" style="color:#fff; background-color:#EC5550">{% if product.selected_product.formatted_sale_price %}  &nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%{% endif %}</span>
-                                    {% endif %}
-                                <div class="row">
+                                
+                                <div class="row ">
                                     <div class="col-12 col-product-image-wrapper">
 
                                         <!-- Carousel -->
@@ -144,14 +142,29 @@
                         </div>
 
                         <div class="col-lg-6 details-container  col-product-info {% if product.selected_product.media | length <= 1 %}col-product-info-single-image{% endif %}">
-
-
+                            <span class="add-to-wishlist " data-wishlist-id="{{ product.id }}">
+                                        <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>      
+                                        <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
+                                      <img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+                                    </span>
+                                <div class="share-container">
+                                    <button class="share-btn" onclick="shareCategory()">
+                                    
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon-share" width="20" height="22" viewBox="0 0 20 22" fill="none">
+                                        <path d="M15.0137 5.5957C15.0987 5.19072 15.4964 4.93065 15.9023 5.01465C16.8391 5.21065 17.5358 5.55012 18.0947 6.08203C19.4977 7.42003 19.498 9.32788 19.498 13.1299C19.498 16.9318 19.4977 18.8388 18.0957 20.1768C16.7087 21.4996 14.7169 21.5 10.748 21.5H8.75C4.78217 21.5 2.79034 21.4996 1.40234 20.1768C0.000353405 18.8388 -5.83294e-10 16.9308 0 13.1299C0 9.32888 0.000343683 7.42101 1.40234 6.08301C1.96228 5.55111 2.65889 5.21162 3.5957 5.01562C4.00169 4.93163 4.39936 5.1907 4.48438 5.59668C4.56935 6.00156 4.30911 6.39921 3.90332 6.48438C3.24244 6.62235 2.7895 6.83503 2.43652 7.16992C1.49952 8.06392 1.49902 9.75688 1.49902 13.1299C1.49902 16.5028 1.49951 18.1968 2.4375 19.0908C3.39057 19.9996 5.18136 20 8.74902 20H10.749C14.317 20 16.1095 19.9998 17.0615 19.0908C17.9993 18.1968 17.999 16.5025 17.999 13.1299C17.999 9.75728 17.9992 8.06303 17.0615 7.16895C16.7095 6.83395 16.2567 6.6224 15.5947 6.4834C15.1899 6.39824 14.9297 6.00158 15.0137 5.5957ZM9.82129 0.000976562C10.1293 0.0159964 10.4366 0.139607 10.6855 0.350586C11.6256 1.14961 13.2591 3.11522 13.3281 3.19922C13.592 3.51815 13.5482 3.99088 13.2305 4.25488C12.9115 4.51988 12.4378 4.47623 12.1738 4.15723C12.1601 4.14115 11.3125 3.12015 10.5273 2.29004L10.501 12.751C10.5 13.165 10.164 13.499 9.75098 13.499L9.75 13.5H9.74805C9.33417 13.4989 8.99905 13.1619 9 12.748L9.02637 2.23535C8.22639 3.07634 7.33915 4.1432 7.32715 4.1582C7.06216 4.47703 6.59044 4.52071 6.27148 4.25586C5.9526 3.99195 5.90816 3.51919 6.17285 3.2002C6.24185 3.1172 7.87643 1.15154 8.81543 0.352539C8.81839 0.349641 8.8223 0.346659 8.8252 0.344727C9.11617 0.106785 9.45666 -0.0120218 9.80762 0.000976562H9.82129Z" fill="#161616"/>
+                                        </svg>
+                                    </button>
+                                    
+                                    
+                                </div>
 
                             <section class="details-container-inner">
                                 {% if product.badge %}
                                    {{ template_for_product_badge }}
                                 {% endif %}
                                 <h1 class="product-name">{{ product.name | raw }}</h1>
+                                                                <div class="ess-rate"><div class="count">( {{ product.rating.total_count }} ) </div>{% include 'rating-stars.twig' with {'rating' : product.rating.average } %}</div>
+
                                 <div class="price-rate">
                                     <div class="d-flex flex-row price-rate-inner">
                                         <h2 class="product-formatted-price ">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
@@ -161,6 +174,7 @@
                                         <div class="rate-in-price"> <span class="icon-star1"></span> <p>{{ product.rating.average|round(1, 'common') }}</p></div>
                                     {% endif %}
                                 </div>
+                                
                                 <form id="product-form">
                                 <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
 
@@ -181,14 +195,14 @@
                                         <div class="form-group w-100">
                                             <div class="quantity-control">
                                             <div class="quantity-controls-wrapper">
-
-                                                <button type="button" class="quantity-btn minus-btn" data-action="minus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
-</svg></button>
-                                                <span id="quantity-display">1</span>
                                                 <button type="button" class="quantity-btn plus-btn" data-action="plus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
-</svg></button>
+                                                                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                                                    </svg></button>
+                                                
+                                                <span id="quantity-display">1</span>
+                                                <button type="button" class="quantity-btn minus-btn" data-action="minus"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
+                                                            </svg></button>
                                                 
                                             
                                             </div>
@@ -252,23 +266,14 @@
                                         </div>
                                     </section>
                                 {% endif %}
-                                <div class="custom-tags">
-                                
-                                
-                                
-                                </div>
+                               
                                 <div class="d-flex flex-column flex-lg-row product-features">
                                     
 
                                     
 
 
-                                    {% if product.low_stock_quantity %}
-                                        <div class="low-quantity-section d-inline-block">
-                                            <span class="icon-flag_black" style="color: #EC5550; font-size: 16px"></span>&nbsp;
-                                            <span class="low-quantity">{{ locals.product_cart_quantity_low_stock | format(product.low_stock_quantity) }}</span>
-                                        </div>
-                                    {% endif %}
+                                   
 
                                     {% if product.bundle_offer %}
                                     <div class="bundle-offer-section">
@@ -301,19 +306,18 @@
 
                            
 
-                            
-                                        <div class="custom-tag"> <div class="tag-item">{{locals.Recommended}}</div> <div class="tag-item"><span id="random"></span> {{locals.people_watching}}</div> {% if product.sold_products_count %}
-                                                <div class="tag-item product-count d-flex align-items-center">
-                                                    <span class="icon-military_tech" style="color: var(--green-color); font-size: 16px"></span>&nbsp;
-                                                    <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.sold_products_count) }}</span>
-                                                </div>
-                                            {% elseif product.selected_product.sold_products_count %}
-                                                <div class="tag-item product-count d-flex align-items-center">
-                                                    <span class="icon-military_tech" style="color: var(--green-color); font-size: 16px"></span>&nbsp;
-                                                    <span class="lang">{{ locals.product_sold_more_than_x_times | format(product.selected_product.sold_products_count) }}</span>
-                                                </div>
-                                            {% endif %}
+                            {% if product_tags %}
+                                {% for tag in product_tags %}
+                                    {% if tag.product.id == product.id %}
+                                        <div class="custom-tags">
+                                            <div class="tag-item" >{{tag.tag1}}</div>
+                                            <div class="tag-item" >{{tag.tag2}}</div>
+                                            <div class="tag-item" >{{tag.tag3}}</div>
                                         </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                                        
                             
                             <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                                 <div class="border-product"></div>
@@ -361,28 +365,31 @@
 
             
             {% if essproduct.id == product.id %}
-                <div class="features-items container-sec">
-                    {% for key, feature in essfeatures %}
-                        <div class="item">
-                            <img src="{{feature.image}}" alt="{{feature.title}}" class="img">
-                            <div class="text-parent">
-                                <h4>{{feature.title}}</h4>
-                                <p>{{feature.desc}}</p>
-                            </div>
-                        </div>
-                    {% endfor %}
-               </div>
-                <div class="tickall-sec" style="background-image: url({{tickAllimg}});">
-                    <h2 class="container-sec">{{texttitle_tickall}}</h2>
-                    <div class="tickall-items container-sec">
-                        {% for key, tick in tickAlllist %}
+                {% if essfeatures %}
+                    <div class="features-items remove-scroll container-sec">
+                        {% for key, feature in essfeatures %}
                             <div class="item">
-                                <p>{{tick.title}}</p>
+                                <img src="{{feature.image}}" alt="{{feature.title}}" class="img">
+                                <div class="text-parent">
+                                    <h4>{{feature.title}}</h4>
+                                    <p>{{feature.desc}}</p>
+                                </div>
                             </div>
                         {% endfor %}
-                    </div>
                 </div>
-
+                {% endif %}
+               {% if tickAlllist %}
+                    <div class="tickall-sec" style="background-image: url({{tickAllimg}});">
+                        <h2 class="container-sec">{{texttitle_tickall}}</h2>
+                        <div class="tickall-items remove-scroll container-sec">
+                            {% for key, tick in tickAlllist %}
+                                <div class="item">
+                                    <p>{{tick.title}}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
 
                 {% else %}
 
@@ -401,38 +408,49 @@
            
 
             {% if essproduct.id == product.id %}
+                    {% if benefits_uses or application or ingredients %}
                         <div class="essentials-items">
-                                
-                                <div class="item">
-                                    <h3 class="header">{{texttitle_benefits}}</h3>
-                                    <div class="content">{{benefits_uses}}</div>
+                                {% if benefits_uses or texttitle_benefits %}
+                                    <div class="item">
+                                        <h3 class="header">{{texttitle_benefits}}</h3>
+                                        <div class="content">{{benefits_uses}}</div>
 
-                                </div>
-                                <div class="item">
-                                    <h3 class="header">{{texttitle_application}}</h3>
-                                    <div class="content">{{application}}</div>
+                                    </div>
+                                {% endif %}
+                                {% if texttitle_application or application  %}
+                                    <div class="item">
+                                        <h3 class="header">{{texttitle_application}}</h3>
+                                        <div class="content">{{application}}</div>
 
-                                </div>
+                                    </div>
+                                {% endif %}
+                                {% if texttitle_ingredients or ingredients %}
                                     <div class="item">
                                         <h3 class="header">{{texttitle_ingredients}}</h3>
                                         <div class="content">{{ingredients}}</div>
                                     </div>
+                                {% endif %}
                         </div>
-                    <section class="image-collage">
-                        <div class="collage-grid">
-                            <div class="left">
-                            <img src="{{essimg1}}" alt="treat">
-                            </div>
-                            <div class="right">
-                            <div class="top">
-                                <img src="{{essimg2}}" alt="treat">
-                            </div>
-                            <div class="bottom">
-                                <img src="{{essimg3}}" alt="treat">
-                            </div>
-                            </div>
-                        </div>
-                    </section>
+                    {% endif %}
+
+                    {% if essimg1 or essimg2 or essimg3 %}
+                            <section class="image-collage">
+                                <div class="collage-grid">
+                                    <div class="left">
+                                    <img src="{{essimg1}}" alt="treat">
+                                    </div>
+                                    <div class="right">
+                                    <div class="top">
+                                        <img src="{{essimg2}}" alt="treat">
+                                    </div>
+                                    <div class="bottom">
+                                        <img src="{{essimg3}}" alt="treat">
+                                    </div>
+                                    </div>
+                                </div>
+                            </section>
+                    {% endif %}
+
             {% else %}
                         <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
                             {% include 'Uses.twig' %}
@@ -609,6 +627,36 @@
                                                 </a>
                                             </div>
                                         </div>
+                                        {# <div class="dropdown">
+  <a
+    class="btn btn-transparent dropdown-toggle"
+    href="#"
+    role="button"
+    id="sortDropdown"
+    data-toggle="dropdown"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    {{ locals.products_list_sort }}:
+    <span id="current-sort-option">{{ locals.products_list_filter_latest }}</span>
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="sortDropdown">
+    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'desc')">
+      {{ locals.products_list_filter_latest }}
+    </a>
+    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'asc')">
+      {{ locals.products_list_filter_old }}
+    </a>
+    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'desc')">
+      {{ locals.highest_rating }}
+    </a>
+    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'asc')">
+      {{ locals.lowest_rating }}
+    </a>
+  </div>
+</div> #}
+
                                     {% endif %}
                                     
                                 </div>
@@ -785,17 +833,41 @@
     <script type="text/javascript" src="{{ assetUrl('product-d2.js?v=1.101010') }}"></script>
 
     {{ product_view_scripts|raw }}
+<script>
 
+    
+  function shareCategory() {
+    const shareData = {
+      title: document.title,
+      text: 'شوف هذا الرابط المميز 👀',
+      url: window.location.href
+    };
+
+    if (navigator.share) {
+      navigator.share(shareData).catch(err => {
+        console.error('المشاركة اتلغت أو حصل خطأ:', err);
+      });
+    } else {
+      navigator.clipboard.writeText(shareData.url).then(() => {
+        alert('📋 تم نسخ الرابط!');
+      }).catch(err => {
+        console.error('خطأ في النسخ:', err);
+        alert('تعذر نسخ الرابط');
+      });
+    }
+  }
+</script>
     <script>
+
 
 
         function setRandomId() {
   const randomId = Math.floor(Math.random() * (2500 - 200 + 1)) + 200;
 
-  const element = document.querySelector('.random');
+  const element = document.getElementById('random');
 
   if (element) {
-    element.id = `item-${randomId}`;
+    element.textContent = randomId;
   }
 }
 

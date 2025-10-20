@@ -72,6 +72,10 @@ function hideAvailabilityBar() {
     Cart
 */
 
+/* 
+    Cart
+*/
+
 function hideElmById(id) {
     document.getElementById(id).style.display = 'none'
 }
@@ -175,7 +179,11 @@ function addToCart(product_id, quantity, onCompleted) {
     zid.store.cart.addProduct({productId: product_id, quantity: quantity}).then(function (response) {
         if(response.status  === 'success') {
             setCartTotalAndBadge(response.data.cart);
+            window.loadToasterScriptIfNotLoaded(function () {
+              toastr.success("تم إضافة المنتج إلى السلة بنجاح");
+            });
             fetchCart();
+            showCartPopupAfterAdd();
             if (onCompleted) {
                 onCompleted();
             }

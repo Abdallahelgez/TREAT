@@ -72,8 +72,8 @@
                                                                 {% if shipping_method.delivery_option_cities | length > 3 %}
                                                                     <span onclick="showModal()"
                                                                           class="color-success cursor-pointer text-decoration-underline"
-                                                                          role="button"  href="#" data-toggle="modal"
-                                                                          data-target="#shipping-cities-{{ shipping_method.id }}">
+                                                                          role="button"  href="#" data-bs-toggle="modal"
+                                                                          data-bs-target="#shipping-cities-{{ shipping_method.id }}">
                                                                         {{ locals.and }} {{ (shipping_method.delivery_option_cities | length) - 3 }} {{ locals.cities }}
                                                                     </span>
                                                                 {% endif %}
