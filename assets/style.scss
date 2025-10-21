@@ -1775,8 +1775,9 @@ body.ltr{
                 line-height: 120%;
                 border-radius: 6px 6px 6px 0;
                 background: var(--primary-color);
-                left: 0;
+                left: 37px;
                 z-index: 2;
+
             }
             .product-image-inner{
                 border-radius: 16px;
@@ -1785,6 +1786,13 @@ body.ltr{
                 height: 100%;
                 transition: transform 0.3s ease-in-out; 
                 padding: 37px;
+                
+            @media (max-width: 992px) {
+                padding:25px ;
+            }
+            @media (max-width: 992px) {
+                padding:25px ;
+            }
 
                 img{
                     width: 100%;
@@ -1792,7 +1800,7 @@ body.ltr{
                     border-radius: 16px;
                 }
             }
-              @media (max-width: 992px) {}
+             
         }
         .product-details-overlay {
             position: absolute;
