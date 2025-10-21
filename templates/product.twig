@@ -17,6 +17,20 @@
 
 {% block main_content %}
     {# <div>{{product|pre}}</div> #}
+    <section class="breadcrumb-section">
+        <nav aria-label="breadcrumb">
+        
+            <ol class="breadcrumb">
+            <div class="container-sec d-flex flex-wrap">
+                 <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
+
+                <li class="breadcrumb-item active " aria-current="page">{{ product.name | raw }}</li>
+            </div>
+        
+            </ol>
+    
+        </nav>
+    </section>
     <section class="product products-details-page custom-products-details ">
         <div class="container-sec ">
             <section class="products-details ">
@@ -169,6 +183,15 @@
                                     <div class="d-flex flex-row price-rate-inner">
                                         <h2 class="product-formatted-price ">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
                                         <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
+                                    {% if product_tags %}
+                                {% for tag in product_tags %}
+                                    {% if tag.product.id == product.id %}
+                                        {% if tag.vattext %}
+                                            <div class="vat-text" >{{tag.vattext}}</div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
                                     </div>
                                     {% if product.rating %}
                                         <div class="rate-in-price"> <span class="icon-star1"></span> <p>{{ product.rating.average|round(1, 'common') }}</p></div>
@@ -310,9 +333,16 @@
                                 {% for tag in product_tags %}
                                     {% if tag.product.id == product.id %}
                                         <div class="custom-tags">
+                                            {% if tag.tag1 %}
                                             <div class="tag-item" >{{tag.tag1}}</div>
+                                            {% endif %}
+                                             {% if tag.tag2 %}        
                                             <div class="tag-item" >{{tag.tag2}}</div>
+                                            {% endif %}
+                                            {% if tag.tag3 %}
                                             <div class="tag-item" >{{tag.tag3}}</div>
+                                       {% endif %}
+                                       
                                         </div>
                                     {% endif %}
                                 {% endfor %}

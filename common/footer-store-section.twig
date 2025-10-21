@@ -61,13 +61,34 @@
                             <div class="footer-about-us-links-div">
                                 <h2 >{{ about_settings.conectus_title }}</h2>
                                 <div class="footer-div">
-                                     {% for link in about_settings.conectus_links %}
-                                        <div class="conect_us">
-                                            <p>{{link.title}}</p>
-                                            <span>{{link.desc}}</span>
-                                        </div>
-                                    {% endfor %}
+                                    <div class="conect_us">
+                                        <p>{{about_settings.conectus_titlewaths}}</p>
+                                        <span>
+                                            <a href="https://wa.me/{{ about_settings.conectus_descwaths }}" target="_blank">
+                                                {{ about_settings.conectus_descwaths }}
+                                            </a>
+                                        </span>
+                                    </div>
+
+                                    <div class="conect_us">
+                                        <p>{{about_settings.conectus_titlemob}}</p>
+                                        <span>
+                                            <a href="tel:{{about_settings.conectus_descmob}}">
+                                                {{about_settings.conectus_descmob}}
+                                            </a>
+                                        </span>
+                                    </div>
+
+                                    <div class="conect_us">
+                                        <p>{{about_settings.conectus_titlemail}}</p>
+                                        <span>
+                                            <a href="mailto:{{about_settings.conectus_descmail}}" target="_blank">
+                                                {{about_settings.conectus_descmail}}
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
+
                                
                             </div>
                     </div>

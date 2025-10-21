@@ -1,4 +1,5 @@
 {% set products_page_image = settings.products_settings_image %}
+{% set products_page_backimage = settings.products_settings_backimage %}
 {% set products_page_essentials = settings.products_settings_essentials %}
 {% set products_page_product = settings.products_settings_key %}
 
@@ -14,6 +15,7 @@
 
 
 {% set essproduct = settings.ess_key %}
+
 {% set essfeatures = settings.ess_features %}
 {% set texttitle_tickall = settings.ess_title_tickall %}
 {% set tickAlllist = settings.ess_tickAll %}
@@ -233,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 <script>
   var store_currency = zid.store.currency?.code ?? 'SAR';
-  var store_lang = zid.store.lang?.code ?? 'ar';
+  var store_lang = zid.store.lang?.code ?? "{% if session.lang.code == 'ar' %}ar{% else %}en{% endif %}";
     window.appDirection = '{% if session.lang.code == 'ar' %}rtl{% else %}ltr{% endif %}';
 
     window.loadToasterScriptIfNotLoaded = function (onCompleted) {
@@ -624,6 +626,13 @@ document.addEventListener("DOMContentLoaded", function() {
           "en": "Image"
         }
       },
+      "backimage": {
+        "type": "image",
+        "label": {
+          "ar": "صورة الخلفية",
+          "en": "background image"
+        }
+      },
       "essentials": {
         "type": "textarea",
         "label": {
@@ -886,6 +895,13 @@ document.addEventListener("DOMContentLoaded", function() {
             "label": {
               "ar": "العنصر الثالث ",
               "en": "third tag"
+            }
+          },
+          "vattext": {
+            "type": "text",
+            "label": {
+              "ar": "نص الضريبة ",
+              "en": "vat text"
             }
           }
         }

@@ -53,7 +53,7 @@
                   <div class="product-container container-sec " id="product-container"></div>
 
                 </div>
-                <div class="products-essentials container-sec" style="background-image:url({{ products_page_image }})">
+                <div class="products-essentials container-sec" style="background-image:url({{ products_page_backimage }});">
                     <div class="products-essentials-inner" >{{products_page_essentials}}</div>
                 </div>
 
@@ -1010,7 +1010,7 @@ function buildProductTemplate(product, locals, storeConfig) {
             <a class="product-title" href="${product.html_url}">${product.name}</a>
             
             <div class="d-flex price-box align-center">
-              <div class="d-flex">
+              <div class="d-flex align-items-center">
                 <h2 class="product-formatted-price" id="product-price">
                   ${selectedProduct.formatted_sale_price || selectedProduct.formatted_price}
                 </h2>
@@ -1085,7 +1085,7 @@ zid.store.product.fetch(productId)
     if (response.status === 'success' && response.data && response.data.product) {
       const product = response.data.product;
       currentProduct = product;
-      
+      console.log(product);
       // Get store config and locals
       const storeConfig = {
         is_wishlist_enabled: typeof store !== 'undefined' ? store.is_wishlist_enabled : true,
@@ -1094,10 +1094,10 @@ zid.store.product.fetch(productId)
       };
       
       const locals = {
-        description: 'الوصف',
-        product_discount: 'خصم',
-        product_cart_quantity: 'الكمية',
-        add_to_cart: 'أضف للسلة'
+        description: "{% if session.lang.code == 'ar' %}الوصف :{% else %}Description :{% endif %}",
+        product_discount: "{% if session.lang.code == 'ar' %}خصم{% else %}discount{% endif %}",
+        product_cart_quantity: "{% if session.lang.code == 'ar' %}الكمية :{% else %}quantity :{% endif %}",
+        add_to_cart: "{% if session.lang.code == 'ar' %}أضف للسلة{% else %} Add To Basket{% endif %}"
       };
 
       // Build and inject HTML
