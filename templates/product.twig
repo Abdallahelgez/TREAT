@@ -352,7 +352,7 @@
                             <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                                 <div class="border-product"></div>
                                 <div class="d-flex align-center">
-                                  <button style="margin-bottom: 20px"
+                                  <button 
                                           class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
                                       <i class="fa fa-shopping-cart me-1" aria-hidden="true"></i>
                                       <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
@@ -371,20 +371,7 @@
                                 <span id="product-view-add-to-cart"></span>
                             </div>
 
-                            <div class="border-product"></div>
-                            <div class="border-product d-none">
-                                <h4 class="product-title">{{ locals.product_share }}</h4>
-                                <div class="product-icon">
-                                    <div class="product-social d-flex">
-                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ product.html_url }}" target="_blank"><i class="icon-facebook-f"></i></a>
-                                        <a href="https://www.pinterest.com/pin/create/button/?url={{ product.html_url }}" target="_blank"><i class="icon-pinterest"></i></a>
-                                        <a href="https://twitter.com/intent/tweet?text={{ product.name }}: {{ product.html_url }}" target="_blank"><i class="icon-twitter"></i></a>
-                                        <a href="https://api.whatsapp.com/send?text={{ locals.check_out_this_product }}:{{ product.name }} {{ product.html_url }}" target="_blank">
-                                            <i class="icon-whatsapp"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             
                         </div>
                     </div>
@@ -482,11 +469,42 @@
                     {% endif %}
 
             {% else %}
-                        <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
+                            {% set has_uses = false %}
+                            {% set has_key_ingredients = false %}
+                            {% set has_application = false %}
+
+                            {% for meta in product.metafields %}
+                                {% if meta.slug == 'BENEFITS-AND-USES' and meta.value is not empty %}
+                                    {% set has_uses = true %}
+                                {% endif %}
+                                {% if meta.slug == 'KEY-INGREDIENTS' and meta.value is not empty %}
+                                    {% set has_key_ingredients = true %}
+                                {% endif %}
+                                {% if meta.slug == 'APPLICATION' and meta.value is not empty %}
+                                    {% set has_application = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if has_uses or has_key_ingredients or has_application %}
+                                <div class="accordion custom-accordion" id="accordionPanelsStayOpenExample">
+                                    {% if has_uses %}
+                                        {% include 'Uses.twig' %}
+                                    {% endif %}
+                                    {% if has_key_ingredients %}
+                                        {% include 'key-ingredients.twig' %}
+                                    {% endif %}
+                                    {% if has_application %}
+                                        {% include 'Application.twig' %}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+            
+                        {# <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
                             {% include 'Uses.twig' %}
                             {% include 'key-ingredients.twig' %}
                             {% include 'Application.twig' %}
-                        </div>
+                        </div> #}
             {% endif %}
           
             {% include 'product-bundle-offers.twig' %}
@@ -498,6 +516,8 @@
 
             {% if store.is_product_reviews_enabled %}
                 <section class="mt-5 review-details">
+                    {% if essproduct.id == product.id %}
+
                     <div class="head-sec">
                         <svg class="right" xmlns="http://www.w3.org/2000/svg" width="50" height="13" viewBox="0 0 50 13" fill="none">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M49.3738 9.91605C48.7523 10.2786 48.7318 10.3384 49.0142 10.9653C49.5618 12.1818 49.4343 12.5809 48.403 12.8752C47.2234 13.2116 45.2899 12.8431 44.1701 12.0682C43.746 11.7748 42.7708 11.1344 42.0027 10.6453L40.6062 9.75583C16.0678 9.76198 29.1008 9.74652 -1.42214e-07 9.74652L-1.6643e-07 9.19254L-1.90645e-07 8.63855L19.201 8.63855L26.8437 8.63855L27.8171 6.7683C29.3602 3.80337 31.9217 1.52516 35.0127 0.368438C36.4716 -0.17757 36.7786 -0.131476 36.5901 0.605768C36.254 1.92004 34.7352 4.45619 33.5158 5.739C32.5803 6.72316 31.7308 7.81409 30.2297 8.63235L37.9552 8.63545L40.5654 8.63855L41.7495 7.92967C42.4009 7.53989 43.2747 6.94424 43.6911 6.60609C45.3741 5.24019 49.1117 4.93372 49.2925 6.14695C49.3335 6.42195 49.2022 6.96153 49.0007 7.34622C48.7991 7.7309 48.6609 8.05975 48.6934 8.07681C50.1996 8.86812 50.3718 9.33348 49.3738 9.91605ZM44.0854 8.73649C44.8819 8.23968 46.5207 8.08124 47.5425 8.40233C49.2423 8.93659 49.1215 9.50609 47.2052 9.99404C46.3552 10.2105 45.9258 10.2072 45.0657 9.97809C43.6024 9.58787 43.3112 9.21935 44.0854 8.73649ZM47.0683 10.866C47.8059 10.7082 47.9835 10.7433 48.1751 11.0841C48.6595 11.9456 48.4681 12.1843 47.2978 12.1792C46.0361 12.1736 44.5472 11.5975 43.8647 10.851L43.3992 10.3417L43.9811 10.5024C45.6686 10.968 46.2642 11.038 47.0683 10.866ZM43.8647 7.53413C44.5472 6.78758 46.0361 6.21143 47.2978 6.20589C48.2002 6.2019 48.402 6.27237 48.3964 6.58881C48.3806 7.44815 47.9956 7.71739 47.066 7.51862C46.2644 7.34711 45.6672 7.41757 43.9811 7.88269L43.3992 8.04335L43.8647 7.53413ZM31.0223 3.6538C32.1361 2.61031 34.6473 1.10436 35.2734 1.10436C35.6581 1.10436 35.5957 1.29847 34.6922 2.91079C34.2378 3.7216 33.402 4.84641 32.8343 5.41015C31.8198 6.4184 29.853 7.75218 29.3812 7.75218C29.249 7.75218 30.0697 6.86358 31.2053 5.77755C32.7687 4.28201 33.2312 3.7072 33.1111 3.40871C32.9803 3.08452 32.5632 3.38367 30.7507 5.10213C29.5397 6.25021 28.5491 7.10955 28.5491 7.01161C28.5491 6.55069 29.9268 4.68044 31.0223 3.6538Z" fill="#383838"/>
@@ -507,6 +527,8 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M0.62622 9.91605C1.24767 10.2786 1.26816 10.3384 0.985828 10.9653C0.438158 12.1818 0.565705 12.5809 1.59704 12.8752C2.77664 13.2116 4.71013 12.8431 5.82991 12.0682C6.25399 11.7748 7.22923 11.1344 7.99731 10.6453L9.39384 9.75583C33.9322 9.76198 20.8992 9.74652 50 9.74652L50 9.19254L50 8.63855L30.799 8.63855L23.1563 8.63855L22.1829 6.7683C20.6398 3.80337 18.0783 1.52516 14.9873 0.368438C13.5284 -0.17757 13.2214 -0.131476 13.4099 0.605768C13.746 1.92004 15.2648 4.45619 16.4842 5.739C17.4197 6.72316 18.2692 7.81409 19.7703 8.63235L12.0448 8.63545L9.43457 8.63855L8.25055 7.92967C7.59907 7.53989 6.72531 6.94424 6.30892 6.60609C4.62587 5.24019 0.888301 4.93372 0.707451 6.14695C0.666486 6.42195 0.797763 6.96153 0.999328 7.34622C1.20089 7.7309 1.33915 8.05975 1.30656 8.07681C-0.199591 8.86812 -0.37183 9.33348 0.62622 9.91605ZM5.91463 8.73649C5.11815 8.23968 3.47932 8.08124 2.45753 8.40233C0.757729 8.93659 0.878526 9.50609 2.79479 9.99404C3.64481 10.2105 4.07424 10.2072 4.93427 9.97809C6.39759 9.58787 6.68877 9.21935 5.91463 8.73649ZM2.93165 10.866C2.19405 10.7082 2.01646 10.7433 1.82491 11.0841C1.34054 11.9456 1.53187 12.1843 2.70216 12.1792C3.96392 12.1736 5.45285 11.5975 6.13528 10.851L6.60079 10.3417L6.0189 10.5024C4.33144 10.968 3.73582 11.038 2.93165 10.866ZM6.13528 7.53413C5.45285 6.78758 3.96392 6.21143 2.70216 6.20589C1.79977 6.2019 1.59797 6.27237 1.60356 6.58881C1.61938 7.44815 2.00436 7.71739 2.93398 7.51862C3.73559 7.34711 4.33283 7.41757 6.0189 7.88269L6.60079 8.04335L6.13528 7.53413ZM18.9777 3.6538C17.8639 2.61031 15.3527 1.10436 14.7266 1.10436C14.3419 1.10436 14.4043 1.29847 15.3078 2.91079C15.7622 3.7216 16.598 4.84641 17.1657 5.41015C18.1802 6.4184 20.147 7.75218 20.6188 7.75218C20.751 7.75218 19.9303 6.86358 18.7947 5.77755C17.2313 4.28201 16.7688 3.7072 16.8889 3.40871C17.0197 3.08452 17.4368 3.38367 19.2493 5.10213C20.4603 6.25021 21.4509 7.10955 21.4509 7.01161C21.4509 6.55069 20.0732 4.68044 18.9777 3.6538Z" fill="#383838"/>
                         </svg>
                     </div>
+                    {% endif %}
+                    
                     <div class="row review-details-inner">
                         {% if product.reviews.data %}
                         <div class="col-md-4 col-12  review-details-inner-rate" >

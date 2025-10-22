@@ -25,14 +25,28 @@
 
 }
 
+// @font-face {
+//     font-family: 'MyFonten';
+//     src: url('/NeueMachina-Regular.otf') format('opentype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'MyFontar';
+//     src: url('/Changa-Regular.ttf') format('truetype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
 @font-face {
     font-family: 'MyFonten';
-    src: url('/NeueMachina-Regular.otf') format('woff2'),
+    src: url(NeueMachina-Regular.otf);
 }
 
 @font-face {
     font-family: 'MyFontar';
-    src: url('/Changa-VariableFont_wght.ttf') format('woff2'), 
+    src: url(Changa-Regular.ttf);
 }
 
 
@@ -40,15 +54,15 @@ body.rtl{
     --start:right;
     --end:left;
    
-    font-family: 'MyFontar', sans-serif;
+    font-family: 'MyFontar';
 
 }
 body.ltr{
     --start:left;
     --end:right;
-    body {
-    font-family: 'MyFonten', sans-serif;
-}
+   
+    font-family: 'MyFonten';
+
 }
 @keyframes fadeIn {
   from {
@@ -2038,11 +2052,11 @@ border: 1px solid #64776D;
                         }
                     }
                     &.product-card-add-to-cart{
-                        background-color: var(--primary-color);
+                        background-color: var(--green-color);
                         color: #ffffff;
                     }
                     &.btn-product-card-select-variant{
-                        background-color: var(--primary-color);
+                        background-color: var(--green-color);
                         color: #ffffff;
                     }
 
@@ -2296,23 +2310,23 @@ body.rtl{
                             .cart-badge{
                                    body.rtl & {
                                         top: -4px;
-                                        left: 17px;
+                                        left: -13px;
                                         right: unset;
                                    } 
                                    body.ltr & {
                                    top: -4px;
-                                   right: 19px;
+                                   right: -13px;
                                    left: unset;
                                    } 
                                 @media (max-width: 768px) {
                                    body.rtl & {
                                         top: -8px;
-                                        left: 14px;
+                                        left: -13px;
                                         right: unset;
                                    } 
                                    body.ltr & {
                                         top: -6px;
-                                        right: 13px;
+                                        right: -14px;
                                         left: unset;
                                    } 
                                 } 
@@ -4032,9 +4046,8 @@ body.rtl{
                     .ess-rate,.add-to-wishlist,.share-container {
                         display: none;
                     }
-                    margin-top: 30px;
+                   
                     @media (max-width:768px){
-                        margin-top: 0px;
                         padding-top: 0 !important;
                     }
                     .details-container-inner{
@@ -4072,10 +4085,10 @@ body.rtl{
                                font-size: 32px;
                             }
                             @media (max-width:992px){
-                               font-size: 30px;
+                               font-size: 28px;
                             }
                             @media (max-width:768px){
-                               font-size: 28px;
+                               font-size: 22px;
                             }
                             @media (max-width:576px){
                                font-size: 16px;
@@ -4085,7 +4098,7 @@ body.rtl{
                         .price-rate{
                             display: flex;
                             justify-content: space-between;
-                            padding-bottom: 28px;
+                            padding-bottom: 24px;
                             border-bottom: 2px dashed #A3A3A3;
                             margin-bottom: 24px;
                             .price-rate-inner{
@@ -4101,6 +4114,18 @@ body.rtl{
                                     font-weight: 500;
                                     line-height: 120%;
                                     margin-bottom: 0;
+                                    @media (max-width:1200px){
+                                        font-size: 22px;
+                                    }
+                                    @media (max-width:992px){
+                                        font-size: 20px;
+                                    }
+                                    @media (max-width:768px){
+                                        font-size: 18px;
+                                    }
+                                    @media (max-width:576px){
+                                        font-size: 15px;
+                                    }
                                 }
                                 .product-formatted-price-old{
                                     color: #999;
@@ -4112,6 +4137,18 @@ body.rtl{
                                     text-decoration: line-through;
                                     display: flex;
                                     gap: 5px;
+                                    @media (max-width:1200px){
+                                        font-size: 15px;
+                                    }
+                                    @media (max-width:992px){
+                                        font-size: 14px;
+                                    }
+                                    @media (max-width:768px){
+                                        font-size: 13px;
+                                    }
+                                    @media (max-width:576px){
+                                        font-size: 12px;
+                                    }
                                 }
                                 .vat-text{
                                     color: #FF3B30;
@@ -4345,27 +4382,40 @@ body.rtl{
                            } 
                         }
                         
-                    }
-                    .custom-tags{
+                        .custom-tags{
                             display: flex;
                             justify-items: center;
                             gap: 16px;
                             .tag-item{
-                                    border-radius: 8px;
-                                    border: 1px solid #686363;
-                                    color: var(--green-color);
-                                    font-size: 12px;
-                                    font-style: normal;
-                                    font-weight: 400;
-                                    line-height: 100%;
-                                    padding: 15px;
-                                    width: 100%;
-                                    display: flex;
-                                    text-align: center;
-                                    justify-content: center;
-                                }
+                                border-radius: 8px;
+                                border: 1px solid #686363;
+                                color: var(--green-color);
+                                font-size: 12px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 100%;
+                                padding: 15px;
+                                width: 100%;
+                                display: flex;
+                                text-align: center;
+                                justify-content: center;
+                            }
                         }
-                    
+                    }
+                    .btn-add-to-cart{
+                            display: inline-flex;
+                            width: 200px;
+                            height: 56px;
+                            border-radius: 12px;
+                            align-items: center;
+                            justify-content: center;
+                            margin-top: 32px;
+                            @media (max-width:768px){
+                                width: 100%;
+                                margin-top: 32px;
+                                height: 44px;
+                            }                            
+                        }
                 }
                 &.ess{
                     display: flex;
@@ -4373,15 +4423,15 @@ body.rtl{
                     gap: 20px;
                     flex-wrap: nowrap;
                     @media (max-width:768px){
-                               flex-direction: column;
-                               flex-wrap: wrap;
-                               position: relative;
+                            flex-direction: column;
+                            flex-wrap: wrap;
+                            position: relative;
                         }
                     .image-container{
                         width: 400px;
                         max-width: 400%;
                         @media (max-width:992px){
-                                 width: 300px;
+                                width: 300px;
                         max-width: 300%;
                         }
                         @media (max-width:768px){
@@ -4401,7 +4451,7 @@ body.rtl{
                         position: relative;
                         margin-top: 0;
                         @media (max-width:992px){
-                                 width: calc(100% - 320px);
+                                width: calc(100% - 320px);
                         }
                         @media (max-width:768px){
                                 width: 100%;
@@ -4490,7 +4540,7 @@ body.rtl{
                                     }
                                 }
                             }
-                             @media (max-width:768px){
+                            @media (max-width:768px){
                                 top: 36px;
                             }
                         }
@@ -4561,8 +4611,8 @@ body.rtl{
                             body.rtl & {
                                 left: 40px;
                             }
-                             @media (max-width: 768px) {  
-                                 body.ltr & {
+                            @media (max-width: 768px) {  
+                                body.ltr & {
                                 right:0px;
                             }
                             body.rtl & {
