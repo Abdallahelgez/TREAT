@@ -202,7 +202,7 @@
 						{% else %}
 							{% set logoUrl = store.logo %}
 						{% endif %}
-<img class="image-logo {% if header_settings.header_logo_mobile %} d-none d-lg-block {% endif %}" src="{{ imageUrl(logoUrl,{ h: 175, q: 100 }) }}" alt="{{ store.name }}" style="width: auto; max-height: 100%">
+<img class="image-logo {% if header_settings.header_logo_mobile %} d-none d-lg-block {% endif %}" src="{{ imageUrl(logoUrl,{ h: 175, q: 100 }) }}" alt="{{ store.name }}" style="max-width: 70px; height: auto">
 
 			<div class="loader-1" id="loader"></div>
 		</div>
