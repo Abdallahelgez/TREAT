@@ -20,7 +20,7 @@
         <nav aria-label="breadcrumb">
         
             <ol class="breadcrumb">
-            <div class="container-sec d-flex flex-wrap">
+            <div class="container-sec d-flex bread-gag">
                  <li class="breadcrumb-item" aria-current="page"><a href="/">{{ locals.home_title }}</a></li>
 
                 <li class="breadcrumb-item active " aria-current="page">{{ product.name | raw }}</li>
@@ -164,7 +164,7 @@
                                     <button class="share-btn" onclick="shareCategory()">
                                     
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon-share" width="20" height="22" viewBox="0 0 20 22" fill="none">
-                                        <path d="M15.0137 5.5957C15.0987 5.19072 15.4964 4.93065 15.9023 5.01465C16.8391 5.21065 17.5358 5.55012 18.0947 6.08203C19.4977 7.42003 19.498 9.32788 19.498 13.1299C19.498 16.9318 19.4977 18.8388 18.0957 20.1768C16.7087 21.4996 14.7169 21.5 10.748 21.5H8.75C4.78217 21.5 2.79034 21.4996 1.40234 20.1768C0.000353405 18.8388 -5.83294e-10 16.9308 0 13.1299C0 9.32888 0.000343683 7.42101 1.40234 6.08301C1.96228 5.55111 2.65889 5.21162 3.5957 5.01562C4.00169 4.93163 4.39936 5.1907 4.48438 5.59668C4.56935 6.00156 4.30911 6.39921 3.90332 6.48438C3.24244 6.62235 2.7895 6.83503 2.43652 7.16992C1.49952 8.06392 1.49902 9.75688 1.49902 13.1299C1.49902 16.5028 1.49951 18.1968 2.4375 19.0908C3.39057 19.9996 5.18136 20 8.74902 20H10.749C14.317 20 16.1095 19.9998 17.0615 19.0908C17.9993 18.1968 17.999 16.5025 17.999 13.1299C17.999 9.75728 17.9992 8.06303 17.0615 7.16895C16.7095 6.83395 16.2567 6.6224 15.5947 6.4834C15.1899 6.39824 14.9297 6.00158 15.0137 5.5957ZM9.82129 0.000976562C10.1293 0.0159964 10.4366 0.139607 10.6855 0.350586C11.6256 1.14961 13.2591 3.11522 13.3281 3.19922C13.592 3.51815 13.5482 3.99088 13.2305 4.25488C12.9115 4.51988 12.4378 4.47623 12.1738 4.15723C12.1601 4.14115 11.3125 3.12015 10.5273 2.29004L10.501 12.751C10.5 13.165 10.164 13.499 9.75098 13.499L9.75 13.5H9.74805C9.33417 13.4989 8.99905 13.1619 9 12.748L9.02637 2.23535C8.22639 3.07634 7.33915 4.1432 7.32715 4.1582C7.06216 4.47703 6.59044 4.52071 6.27148 4.25586C5.9526 3.99195 5.90816 3.51919 6.17285 3.2002C6.24185 3.1172 7.87643 1.15154 8.81543 0.352539C8.81839 0.349641 8.8223 0.346659 8.8252 0.344727C9.11617 0.106785 9.45666 -0.0120218 9.80762 0.000976562H9.82129Z" fill="#141414"/>
+                                        <path d="M15.0137 5.5957C15.0987 5.19072 15.4964 4.93065 15.9023 5.01465C16.8391 5.21065 17.5358 5.55012 18.0947 6.08203C19.4977 7.42003 19.498 9.32788 19.498 13.1299C19.498 16.9318 19.4977 18.8388 18.0957 20.1768C16.7087 21.4996 14.7169 21.5 10.748 21.5H8.75C4.78217 21.5 2.79034 21.4996 1.40234 20.1768C0.000353405 18.8388 -5.83294e-10 16.9308 0 13.1299C0 9.32888 0.000343683 7.42101 1.40234 6.08301C1.96228 5.55111 2.65889 5.21162 3.5957 5.01562C4.00169 4.93163 4.39936 5.1907 4.48438 5.59668C4.56935 6.00156 4.30911 6.39921 3.90332 6.48438C3.24244 6.62235 2.7895 6.83503 2.43652 7.16992C1.49952 8.06392 1.49902 9.75688 1.49902 13.1299C1.49902 16.5028 1.49951 18.1968 2.4375 19.0908C3.39057 19.9996 5.18136 20 8.74902 20H10.749C14.317 20 16.1095 19.9998 17.0615 19.0908C17.9993 18.1968 17.999 16.5025 17.999 13.1299C17.999 9.75728 17.9992 8.06303 17.0615 7.16895C16.7095 6.83395 16.2567 6.6224 15.5947 6.4834C15.1899 6.39824 14.9297 6.00158 15.0137 5.5957ZM9.82129 0.000976562C10.1293 0.0159964 10.4366 0.139607 10.6855 0.350586C11.6256 1.14961 13.2591 3.11522 13.3281 3.19922C13.592 3.51815 13.5482 3.99088 13.2305 4.25488C12.9115 4.51988 12.4378 4.47623 12.1738 4.15723C12.1601 4.14115 11.3125 3.12015 10.5273 2.29004L10.501 12.751C10.5 13.165 10.164 13.499 9.75098 13.499L9.75 13.5H9.74805C9.33417 13.4989 8.99905 13.1619 9 12.748L9.02637 2.23535C8.22639 3.07634 7.33915 4.1432 7.32715 4.1582C7.06216 4.47703 6.59044 4.52071 6.27148 4.25586C5.9526 3.99195 5.90816 3.51919 6.17285 3.2002C6.24185 3.1172 7.87643 1.15154 8.81543 0.352539C8.81839 0.349641 8.8223 0.346659 8.8252 0.344727C9.11617 0.106785 9.45666 -0.0120218 9.80762 0.000976562H9.82129Z" fill="currentColor"/>
                                         </svg>
                                     </button>
                                     
@@ -382,7 +382,8 @@
             
             {% if essproduct.id == product.id %}
                 {% if essfeatures %}
-                    <div class="features-items remove-scroll container-sec">
+                <div class="container-sec">
+                    <div class="features-items remove-scroll">
                         {% for key, feature in essfeatures %}
                             <div class="item">
                                 <img src="{{feature.image}}" alt="{{feature.title}}" class="img">
@@ -392,7 +393,9 @@
                                 </div>
                             </div>
                         {% endfor %}
+                    </div>
                 </div>
+                    
                 {% endif %}
                {% if tickAlllist %}
                     <div class="tickall-sec" style="background-image: url({{tickAllimg}});">
@@ -514,7 +517,7 @@
            
 
             {% if store.is_product_reviews_enabled %}
-                <section class="mt-5 review-details">
+                <section class="review-details">
                     {% if essproduct.id == product.id %}
 
                     <div class="head-sec">
@@ -541,7 +544,7 @@
                                 
                             </div>
                             <div class="reviews-break-down-div description-paragrah" style="width: 100%">
-                                <div class="description-paragrah-inner d-flex align-items-center mt-3 mb-4">
+                                <div class="description-paragrah-inner d-flex align-items-center">
                                     {% if product.rating %}
                                     
                                     <div class="d-flex flex-column w-100">
@@ -678,35 +681,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        {# <div class="dropdown">
-  <a
-    class="btn btn-transparent dropdown-toggle"
-    href="#"
-    role="button"
-    id="sortDropdown"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    {{ locals.products_list_sort }}:
-    <span id="current-sort-option">{{ locals.products_list_filter_latest }}</span>
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="sortDropdown">
-    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'desc')">
-      {{ locals.products_list_filter_latest }}
-    </a>
-    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'date', 'asc')">
-      {{ locals.products_list_filter_old }}
-    </a>
-    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'desc')">
-      {{ locals.highest_rating }}
-    </a>
-    <a class="dropdown-item" href="javascript:void(0)" onclick="sortReviews(this, 'rating', 'asc')">
-      {{ locals.lowest_rating }}
-    </a>
-  </div>
-</div> #}
+                                        
 
                                     {% endif %}
                                     
@@ -744,7 +719,7 @@
                         </div>
                         {% else %}
                         
-                        <div class=" col-12 review-details-inner-comments">
+                        <div class=" col-12 no-reviews review-details-inner-comments">
                             <div class="comments-header">
                                 <h4 class="user_comments">{{locals.user_comments}}</h4>
 

@@ -9,8 +9,8 @@
 {% block main_content %}
 
 <section class="product products-details-page products-reviews-page">
-   <div class="container pb-5">
-      <section class="products-details mb-5">
+   <div class="container-sec ">
+      <section class="products-details">
 
          <a href="/products/{{ product.slug }}">
             <div class="d-flex">
@@ -19,8 +19,8 @@
             </div>
          </a>
 
-   <section class="mt-5 review-details">
-      <div>
+   <section class=" review-details">
+      <div class="review-details-inner">
          <div class="d-flex flex-wrap align-items-center" style="width: 100%">
             <div class="description-icon">
                <span class="icon-reviews_black"></span>
@@ -48,7 +48,7 @@
                    <div class="d-flex flex-column">
 
 
-                      <div class="row card-rate">
+                      <div class="card-rate">
                          <span class="rating_count_5">{{ product.rating['5_ratings'].count }}</span>
                          <span class="icon-star1"></span>
                          <span class="icon-star1"></span>
@@ -57,7 +57,7 @@
                          <span class="icon-star1"></span> &nbsp;  &nbsp;
                          <span>{{ locals.reviews_rating_5 }}</span>
                       </div>
-                      <div class="row card-rate">
+                      <div class="card-rate">
                          <span class="rating_count_4">{{ product.rating['4_ratings'].count }}</span>
                          <span class="icon-star1"></span>
                          <span class="icon-star1"></span>
@@ -66,7 +66,7 @@
                          <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                          <span>{{ locals.reviews_rating_4 }}</span>
                       </div>
-                      <div class="row card-rate">
+                      <div class="card-rate">
                          <span class="rating_count_3">{{ product.rating['3_ratings'].count }}</span>
                          <span class="icon-star1"></span>
                          <span class="icon-star1"></span>
@@ -75,7 +75,7 @@
                          <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                          <span>{{ locals.reviews_rating_3 }}</span>
                       </div>
-                      <div class="row card-rate">
+                      <div class="card-rate">
                          <span class="rating_count_2">{{ product.rating['2_ratings'].count }}</span>
                          <span class="icon-star1"></span>
                          <span class="icon-star1"></span>
@@ -84,7 +84,7 @@
                          <span class="icon-star1 deactive"></span> &nbsp;  &nbsp;
                          <span>{{ locals.reviews_rating_2 }}</span>
                       </div>
-                      <div class="row card-rate">
+                      <div class="card-rate">
                          <span class="rating_count_1">{{ product.rating['1_ratings'].count }}</span>
                          <span class="icon-star1"></span>
                          <span class="icon-star1 deactive"></span>
@@ -103,7 +103,7 @@
             </div>
          </div>
 
-         <div class="comment-section description-paragrah bg-transparent">
+         <div class="comment-section  bg-transparent">
              {% include 'customer-reviews.twig' with {'reviews' : product.reviews.data } %}
          </div>
 
