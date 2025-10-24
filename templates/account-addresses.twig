@@ -20,9 +20,9 @@
                     <div class="account-content">
                         <div class="account-content-inner">
                             
-                            <div class="row mt-3 mb-5 address-container">
+                            <div class="row address-container">
                                 {% for address in addresses %}
-                                    <div id="address-div-{{ address.id }}" class="col-lg-6 address-item">
+                                    <div id="address-div-{{ address.id }}" class=" address-item">
                                             <div class="card-personal">
                                                 <div class="card-body">
                                                     <a class="delete-button" onclick="deleteAddress({{ address.id }})">
@@ -48,7 +48,7 @@
                                     </div>
                                 {% endfor %}
                             </div>
-                            <a href="/account-addresses/add" class="btn aaddress-personal-btn"> {{ locals.add_new_address }} <span class="icon-add_black"></span></a>
+                            <a href="/account-addresses/add" class="btn aaddress-personal-btn "> {{ locals.add_new_address }} <span class="icon-add_black"></span></a>
                         </div>
 
                     </div>
