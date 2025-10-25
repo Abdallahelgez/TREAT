@@ -1584,11 +1584,26 @@ body.ltr .product-section .product-container .products-details-page .products-de
   font-style: normal;
   font-weight: 400;
   line-height: 120%;
-  border-radius: 6px 6px 6px 0;
   background: var(--primary-color) !important;
   left: 0;
   z-index: 2;
   top: 0;
+}
+@media (max-width: 768px) {
+  .product-item .product-card-inner .product-image .badge-name {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+body.rtl .product-item .product-card-inner .product-image .badge-name {
+  left: unset;
+  right: 0;
+  border-radius: 6px 6px 0px 6px;
+}
+body.ltr .product-item .product-card-inner .product-image .badge-name {
+  left: 0;
+  right: unset;
+  border-radius: 6px 6px 6px 0;
 }
 .product-item .product-card-inner .product-image .badge-name svg {
   display: none;
@@ -1743,6 +1758,7 @@ body.ltr .product-section .product-container .products-details-page .products-de
   padding: 0;
   display: flex;
   gap: 5px;
+  align-items: center;
 }
 @media (max-width: 768px) {
   .product-item .product-card-inner .product-details-overlay .product-details-inner .product-price-section .product-prev-price {
@@ -6483,6 +6499,7 @@ body.ltr .mon-price {
   font-size: 1em;
   width: 100%;
   box-sizing: border-box;
+  outline: 0;
 }
 .mailing-list-section .subscribe-form .subscribe-button {
   padding: 12px 20px;
