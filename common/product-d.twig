@@ -4,154 +4,177 @@
 
 {% block main_content %}
 <section class="product products-details-page">
-            <div class="products-details">
-                <div class="img-side">
-                            {% if store.is_wishlist_enabled == true %}
-                                <span class="add-to-wishlist" data-wishlist-id="{{ product.id }}">
-                                    <a zid-visible-customer="true" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>      
-                                    <a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
-                                    <img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
-                                </span>
-                            {% endif %}
-                    <!--GALLERY-->
-                    <div class="image-inner">
-                        {% set firstImage = product.selected_product.media|first %}
-                            <div class="image-inner-inner">
-                                <a class="image-link"
-                                    style="display:block; width: 100%; height: 100%;">
-                                    <img src="{{ firstImage.image.full_size }}" class="carousel-img" alt="{{ firstImage.alt_text }}">
-                                    {% if firstImage.provider and firstImage.link %}
-                                        <img id="main-video-icon"
-                                            class="play-icon"
-                                            src="{{ assetUrl('video-play.svg') }}"
-                                            alt="play"
-                                            width="25"
-                                            onClick="showIframe(this, '{{ firstImage.link }}')"
-                                        />
-                                    {% endif %}
-                                </a>
-                                {% if firstImage.provider and firstImage.link %}
-                                    <div class="iframe-video pt-1 d-none">
-                                        
-                                            id="iframe-close-btn"
-                                            type="button"
-                                            class="text-white btn btn-none grow"
-                                            onClick="hideIframe(this)"
-                                        >
-                                            X
-                                        </a>
-                                        <iframe
-                                            width="100%"
-                                            height="100%"
-                                            src=""
-                                            frameborder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                            allowfullscreen
-                                            style="max-width: 100%"
-                                        >
-                                        </iframe>
+        <div class="products-details mb-5">
+            <div class="img-side">
+                <!--GALLERY-->
+                <div id="wrap">
+                    <div class="row">
+                        <div class="col-12 col-product-image-wrapper">
+
+                            <!-- Carousel -->
+                            <div class="box-1-1 product-images-carousel product-images-carousel-init {% if product.selected_product.media | length <= 0 %}d-none{% endif %}">
+                                <div class="content">
+                                    <div id="product-images" class="product-images slide gallery">
+                                        <div id="product-images-slick">
+                                            {% for key, image in product.selected_product.media %}
+                                                <div>
+                                                    <div class="box-1-1">
+                                                        <div class="content">
+                                                            <a class="image-link"
+                                                                style="display:block; width: 100%; height: 100%;">
+                                                                <img src="{{ image.image.full_size }}" class="carousel-img" alt="{{ image.alt_text }}">
+                                                                {% if image.provider and image.link %}
+                                                                    <img id="main-video-icon"
+                                                                        class="play-icon"
+                                                                        src="{{ assetUrl('video-play.svg') }}"
+                                                                        alt="play"
+                                                                        width="25"
+                                                                        onClick="showIframe(this, '{{ image.link }}')"
+                                                                    />
+                                                                {% endif %}
+                                                            </a>
+                                                            {% if image.provider and image.link %}
+                                                                <div class="iframe-video pt-1 d-none">
+                                                                    <a
+                                                                        id="iframe-close-btn"
+                                                                        type="button"
+                                                                        class="text-white btn btn-none grow"
+                                                                        onClick="hideIframe(this)"
+                                                                    >
+                                                                        X
+                                                                    </a>
+                                                                    <iframe
+                                                                        width="100%"
+                                                                        height="100%"
+                                                                        src=""
+                                                                        frameborder="0"
+                                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                                        allowfullscreen
+                                                                        style="max-width: 100%"
+                                                                    >
+                                                                    </iframe>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
-                                {% endif %}     
-                            </div>
-                    </div>
-
-                </div>
-                <div class="details-side  col-product-info {% if product.selected_product.media | length <= 1 %}col-product-info-single-image{% endif %}">
-
-
-
-                    <div class="product-details-header">
-                        <a class="product-title" href="{{product.html_url}}">{{ product.name | raw }}</a>
-                        
-                        
-                        <div class="d-flex price-box align-center">
-                            <div class="d-flex align-items-center">
-                                <h2 class="product-formatted-price ">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
-                                {% if product.selected_product.formatted_sale_price %}
-                                    <p>
-                                        <span class="product-formatted-price-discount" >{% if product.selected_product.formatted_sale_price %}  &nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%{% endif %}</span>
-                                        <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
-                                    </p>
-                                {% endif %}
-                            </div>
-
-                        </div>
-                        {% if product.short_description is not empty %}
-                            <div class="product-short-description">
-                                <label>{{ locals.description }} </label>
-                                <div class="text-short-description">
-                                    {{ product.short_description | raw }}
                                 </div>
                             </div>
-                        {% endif %}
-    
-                    </div>
-
-
-                    
-                    
-
-                    <form id="product-form">
-                        <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
-
-                        <div class="size-box">
-                        <input id="product-parent-id" type="hidden" value="{{ product.id }}">
-                            {% if product.variants %}
-                                <div id="product-variants-options" class="product-variants-options">
-                                    {% include 'product-variant-select.twig' with {'variant': product.selected_product, 'selected_product': product} %}
-                                </div>
-                            {% endif %}
 
                             
-                        </div>
 
-                        {% if product.selected_product.is_infinite or product.selected_product.quantity > 0 %}
-                            <div class="select-quantity-div">
-                                <h4 class="product-title">{{ locals.product_cart_quantity }}</h4>
-                                <div class="form-group">
-                                    <div>
-                                        <select  id="product-quantity" name="quantity" class="select-quantity">
-                                            {% if product.selected_product.is_infinite or product.selected_product.quantity > 100 %}
-                                                {% set maxQuantity = 100 %}
-                                            {% else %}
-                                                {% set maxQuantity = product.selected_product.quantity %}
-                                            {% endif %}
-
-                                            {% for n in rangeN(1, maxQuantity) %}
-                                                <option value="{{ n }}" {% if n == 1 %}selected{% endif %}>{{ n }}</option>
-                                            {% endfor %}
-                                        </select>
+                            <!-- No image -->
+                            <div class="box-1-1 product-images-empty {% if product.selected_product.media | length > 0 %}d-none{% endif %}">
+                                <div class="content">
+                                    <div class="d-flex" style="width: 100%; height: 100%;">
+                                        <img src="{{ asset_url ~ 'product-img.svg' }}" width="100%" height="auto" />
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="details-side  col-product-info {% if product.selected_product.media | length <= 1 %}col-product-info-single-image{% endif %}">
+
+
+
+                <div class="product-details-header">
+                    <a class="product-title" href="{{product.html_url}}">{{ product.name | raw }}</a>
+                    
+                    
+                    <div class="d-flex price-box align-center">
+                        <div class="d-flex align-items-center">
+                            <h2 class="product-formatted-price ">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
+                            {% if product.selected_product.formatted_sale_price %}
+                                <p>
+                                    <span class="product-formatted-price-discount" >{% if product.selected_product.formatted_sale_price %}  &nbsp;  &nbsp;{{ locals.product_discount }}&nbsp;{{ product.discount_percentage }}%{% endif %}</span>
+                                    <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
+                                </p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    {% if product.short_description is not empty %}
+                        <div class="product-short-description">
+                            <label>{{ locals.description }} </label>
+                            <div class="text-short-description">
+                                {{ product.short_description | raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                
+                
+
+                <form id="product-form">
+                    <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
+
+                    <div class="size-box">
+                    <input id="product-parent-id" type="hidden" value="{{ product.id }}">
+                        {% if product.variants %}
+                            <div id="product-variants-options" class="product-variants-options">
+                                {% include 'product-variant-select.twig' with {'variant': product.selected_product, 'selected_product': product} %}
                             </div>
                         {% endif %}
 
                         
+                    </div>
 
+                    {% if product.selected_product.is_infinite or product.selected_product.quantity > 0 %}
+                        <div class="select-quantity-div">
+                            <h4 class="product-title">{{ locals.product_cart_quantity }}</h4>
+                            <div class="form-group">
+                                <div>
+                                    <select  id="product-quantity" name="quantity" class="select-quantity">
+                                        {% if product.selected_product.is_infinite or product.selected_product.quantity > 100 %}
+                                            {% set maxQuantity = 100 %}
+                                        {% else %}
+                                            {% set maxQuantity = product.selected_product.quantity %}
+                                        {% endif %}
 
-                    </form>
-                    <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
-                        
-                        <div class="align-center btn-add">
-                            <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
-                                <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
-                                <span>{{ locals.add_to_cart }}</span>
-                            </button>
-                        
+                                        {% for n in rangeN(1, maxQuantity) %}
+                                            <option value="{{ n }}" {% if n == 1 %}selected{% endif %}>{{ n }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-
-                       
-
-                    </div>
-
-                    <div>
-                        <span id="product-view-add-to-cart"></span>
-                    </div>
+                    {% endif %}
 
                     
+
+
+                </form>
+                <div class="product-buttons {% if product.selected_product.out_of_stock %}d-none{% else %}d-block{% endif %}">
                     
+                    <div class="align-center btn-add">
+                        <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
+                            <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
+                            <span>{{ locals.add_to_cart }}</span>
+                        </button>
+                    
+                    </div>
+
+                
 
                 </div>
+
+                <div>
+                    <span id="product-view-add-to-cart"></span>
+                </div>
+
+                
+                
+
             </div>
+        </div>
 </section>
 {% endblock %}

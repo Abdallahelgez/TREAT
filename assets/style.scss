@@ -678,7 +678,9 @@ body.ltr {
         }
     }
 }
-
+.app-content-padded {
+    padding-top: 0px !important; 
+}
 // @media (max-width: 768px) {   }
 
 /* القسم الأول: الصورة والاسم والسعر */
@@ -866,6 +868,42 @@ body.ltr .cart-product-row {
                                 }
                             }
                         }
+                    }
+                }
+                .slick-dots{
+                    display: inline-flex !important;
+                    bottom: 25px !important;
+                    width: fit-content;
+                    margin: auto;
+                    left: 0;
+                    right: 0;
+                    border-radius: 9px;
+                    background: rgba(0, 0, 0, 0.5);
+                    padding: 6px 8px;
+                    gap: 7px;
+                    li{
+                        margin: 0;
+                        width: 8px;
+                        height: 8px;
+                        display: flex;
+                        padding: 8px 4px;
+                        align-items: center;
+                        justify-content: center;
+                        button{
+                            background-color: transparent;
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            border: 1px solid #ffffff;
+                            &::before{
+                                display: none;
+                            }
+                        }
+                        &.slick-active{
+                            button{
+                                background-color: #ffffff;
+                            }
+                        }    
                     }
                 }
                 .details-side {
@@ -1921,13 +1959,14 @@ body.ltr .cart-product-row {
                     .product-price {
                         color: var(--1A-black);
                         text-align: var(--start);
-                        font-size: 20px;
-                        font-weight: 500;
+                        font-size: 18px;
+                        font-weight: 600;
                         line-height: normal;
                         margin: 0;
                         padding: 0;
                         @media (max-width: 992px) {
                             font-size: 18px;
+                            font-weight: 500;
                         }
                         @media (max-width: 768px) {
                             font-size: 16px;
@@ -1936,8 +1975,8 @@ body.ltr .cart-product-row {
                     .product-prev-price {
                         color: #999999;
                         text-align: var(--start);
-                        font-size: 16px;
-                        font-weight: 500;
+                        font-size: 14px;
+                        font-weight: 400;
                         line-height: normal;
                         text-decoration-line: line-through;
                         margin: 0;
@@ -2437,8 +2476,10 @@ body.rtl {
 /* reviews section*/
 .reviews-sec {
     padding: 40px 0;
+    padding-bottom: 0;
     @media (max-width: 576px) {
         padding: 16px 0;
+        
     }
     .reviews-div {
         display: block;

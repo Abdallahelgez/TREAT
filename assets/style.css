@@ -676,6 +676,10 @@ body.ltr .template_for_cart_products_list .cart-product-row-wrapper {
   direction: ltr;
 }
 
+.app-content-padded {
+  padding-top: 0px !important;
+}
+
 /* القسم الأول: الصورة والاسم والسعر */
 .item-img-name-price {
   display: flex;
@@ -864,6 +868,40 @@ body.ltr .product-section .product-container .products-details-page .products-de
     aspect-ratio: 1/1;
     height: fit-content;
   }
+}
+.product-section .product-container .products-details-page .products-details .slick-dots {
+  display: inline-flex !important;
+  bottom: 25px !important;
+  width: fit-content;
+  margin: auto;
+  left: 0;
+  right: 0;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 8px;
+  gap: 7px;
+}
+.product-section .product-container .products-details-page .products-details .slick-dots li {
+  margin: 0;
+  width: 8px;
+  height: 8px;
+  display: flex;
+  padding: 8px 4px;
+  align-items: center;
+  justify-content: center;
+}
+.product-section .product-container .products-details-page .products-details .slick-dots li button {
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+}
+.product-section .product-container .products-details-page .products-details .slick-dots li button::before {
+  display: none;
+}
+.product-section .product-container .products-details-page .products-details .slick-dots li.slick-active button {
+  background-color: #ffffff;
 }
 .product-section .product-container .products-details-page .products-details .details-side {
   flex: 1;
@@ -1731,8 +1769,8 @@ body.ltr .product-item .product-card-inner .product-image .badge-name {
 .product-item .product-card-inner .product-details-overlay .product-details-inner .product-price-section .product-price {
   color: var(--1A-black);
   text-align: var(--start);
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
   line-height: normal;
   margin: 0;
   padding: 0;
@@ -1740,6 +1778,7 @@ body.ltr .product-item .product-card-inner .product-image .badge-name {
 @media (max-width: 992px) {
   .product-item .product-card-inner .product-details-overlay .product-details-inner .product-price-section .product-price {
     font-size: 18px;
+    font-weight: 500;
   }
 }
 @media (max-width: 768px) {
@@ -1750,8 +1789,8 @@ body.ltr .product-item .product-card-inner .product-image .badge-name {
 .product-item .product-card-inner .product-details-overlay .product-details-inner .product-price-section .product-prev-price {
   color: #999999;
   text-align: var(--start);
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 400;
   line-height: normal;
   text-decoration-line: line-through;
   margin: 0;
@@ -2315,6 +2354,7 @@ body.ltr .header header #fixed-header .search-header .search-header-bar .header-
 /* reviews section*/
 .reviews-sec {
   padding: 40px 0;
+  padding-bottom: 0;
 }
 @media (max-width: 576px) {
   .reviews-sec {
