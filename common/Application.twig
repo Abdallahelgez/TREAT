@@ -1,6 +1,6 @@
 
 {% for meta in product.metafields %}
-    {% if meta.slug == "APPLICATION" %}
+    {% if meta.slug == "Application-3" %}
         {% set ApplicationSlug = meta.slug %}
         {# {% set KeyIngredientsName = meta.name %}
         {% set UsesVal = meta.value %} #}
@@ -8,12 +8,7 @@
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ApplicationSlug}}" aria-expanded="false" aria-controls="{{ApplicationSlug}}">
-                    {% if session.lang.code == 'ar' %}
-                        {{meta.name.ar}}
-                    {% endif %}
-                    {% if session.lang.code == 'en' %}
-                        {{meta.name.en}}
-                    {% endif %}
+                   
                     
                    <span>
                         {% if session.lang.code == 'ar' %}

@@ -32,7 +32,7 @@
             <div id="{{UsesSlug}}" class="accordion-collapse collapse ">
                 <div class="accordion-body benefits-and-uses">
                     {% for item in meta.value.cells %}
-                        <div class="benfit-item d-flex flex-column gap-3 align-items-center mb-3">
+                        <div class="benfit-item d-flex flex-column gap-3 align-items-center">
                         <div class="parent-img">
                             <img
                             src="{{ item[0].value.medium ?? item[0].value.small ?? item[0].value.full_size }}"

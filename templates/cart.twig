@@ -105,7 +105,7 @@
                     <div class="cart-totals-div">
                         {% for cartTotal in cart.totals %}
                             <div class="cart-product-row-wrapper cart-totals-row-wrapper {{cartTotal.code}}">
-                                <div class=" {% if cartTotal.code != 'total' %} flex-grow-1 {% else %} text{% endif %}">               
+                                <div class=" {% if cartTotal.code != 'total' %} flex-grow-1 {% else %} text {% endif %}" style="{% if cartTotal.code == 'total' %} color: var( --primary-color); {% endif %} ">               
                                     {% if cartTotal.code == 'sub_totals' %}{{locals.total_products}} {% else %} {{ cartTotal.title }} {% endif %}
                                     
                                     {% if cartTotal.codecartTotal.code == 'total' and store.is_cart_total_vat_included %}&nbsp;<small>{{ locals.sys_lbl_cart_includes_vat }}</small>{% endif %}
@@ -116,7 +116,11 @@
                             </div>
                         {% endfor %}
                     </div>
-
+                    {# {% if store.is_cart_total_vat_included %} #}
+                            <p class="include-vat">
+                                {{locals.product_price_vat_inclusive}} <span>*</span>
+                            </p>
+                        {# {% endif %} #}
                     <div>{{ template_for_cart_payments_widget }}</div>
 
 
@@ -147,11 +151,7 @@
                                 
                         </div>
                         
-                        {# {% if store.is_cart_total_vat_included %} #}
-                            <p class="include-vat">
-                                {{locals.product_price_vat_inclusive}} <span>*</span>
-                            </p>
-                        {# {% endif %} #}
+                        
 
 
 

@@ -1,0 +1,57 @@
+<div section-id="{{ sectionId }}"
+     data-lg-scroll-offset="130"
+     data-md-scroll-offset="130"
+     data-sm-scroll-offset="94"
+     class="home-products-section">
+    <div class="container-sec slider-container">
+      <div class="head-sec">
+          
+            
+          <h2 class="title-sec " >{{ settings.title }}</h2>
+          
+      </div>
+        <div class="d-flex flex-column">
+
+            <div class="products-slider-wrapper" style="position: relative">
+                    <div class="products-flex">
+                        {% for product in settings.products.products %}
+                              <div class="prod-col prod-col-tb custom-category-product-item">
+                                  {% include 'product-card.twig' with {'product' : product, 'index': key} %} 
+                              </div>
+                        {% endfor %}
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+   
+
+
+{% schema %}
+{
+  "name": {
+    "ar": " قائمة المنتجات الثابتة",
+    "en": "Products flexible"
+  },
+  "icon": "fal fa-box",
+  "display": true,
+  "settings": {
+    "title": {
+      "type": "text",
+      "label": {
+        "ar": "العنوان",
+        "en": "Title"
+      }
+    },
+    "products": {
+      "type": "products",
+      "label": {
+        "ar": "اختر قائمة المنتجات ",
+        "en": "Select category products"
+      }
+    }
+    
+  }
+}
+{% endschema %}
