@@ -21,24 +21,25 @@
         </nav>
     </section>
     <div class="container-sec">
+        {% if story_page_image1 %}
+            <div class="img-parent">
+                <img src="{{story_page_image1}}" alt="Founder Yara Alnamlah " class="img" />
+            </div>
+        {% endif %}
         <div class="text-container-div">
             {% if story_page_h1 %}
                 <h1>{{story_page_h1}}</h1>
             {% endif %}
             <div class="content">
                 {% if story_page_p %}
-                        <p>{{story_page_p}}</p>
+                        <p>“{{story_page_p}}”</p>
                 {% endif %}
                 {% if story_page_span %}      
                     <span>{{story_page_span}}</span>
                 {% endif %}
             </div>     
         </div>
-        {% if story_page_image1 %}
-            <div class="img-parent">
-                <img src="{{story_page_image1}}" alt="Founder Yara Alnamlah " class="img" />
-            </div>
-        {% endif %}
+        
 
     </div>
     {% if story_page_image2 %}

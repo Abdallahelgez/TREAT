@@ -227,7 +227,7 @@ body.ltr {
                     gap: 8px;
                     align-self: stretch;
                     border-radius: 4px;
-                    background-color: var(--green-color);
+                    background-color: var(--primary-color);
                 }
             }
         }
@@ -2049,11 +2049,11 @@ body.ltr .cart-product-row {
                         }
                     }
                     &.product-card-add-to-cart {
-                        background-color: var(--green-color);
+                        background-color: var(--primary-color)!important;
                         color: #ffffff;
                     }
                     &.btn-product-card-select-variant {
-                        background-color: var(--green-color);
+                        background-color: var(--primary-color)!important;
                         color: #ffffff;
                     }
                 }
@@ -4085,11 +4085,9 @@ body.rtl {
                         .price-rate {
                             display: flex;
                             justify-content: space-between;
-                            padding-bottom: 24px;
-                            border-bottom: 2px dashed #a3a3a3;
+                            
                             margin-bottom: 24px;
                             @media (max-width: 768px) {
-                                padding-bottom: 16px;
                                 margin-bottom: 16px;
                             }
                             .price-rate-inner {
@@ -5311,7 +5309,7 @@ body.rtl {
 .menu-header-slider-custom {
     width: 100%;
     max-width: 280px;
-    background-color: #f1fefc !important;
+    background-color: #ffffff !important;
 
     body.sidenav-open & {
         display: flex !important;
@@ -5646,6 +5644,24 @@ body.rtl {
         }
         
       }
+      .reviews-break-down-empty{
+        .reviews-break-down-empty-inner{
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 16px;
+            span{
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+
+                line-height: 18px; /* 150% */
+                margin-bottom: 0;
+                @media (max-width: 768px) {
+                    font-size: 14px;
+                }
+            }
+        }
+      }
       .comment-section {
           margin: 0;
           display: flex;
@@ -5792,9 +5808,15 @@ a {
             }
         }
         .footer-logo {
-            width: 70px;
+            width: 150px;
             height: auto;
             object-fit: contain;
+            @media (max-width: 992px) {
+                 width: 100px;
+            }
+            @media (max-width: 768px) {
+                 width: 70px;
+            }
         }
         h2 {
             color: #ebedf0;
@@ -6103,6 +6125,7 @@ a {
         display: flex;
         flex-direction: column;
         gap: 16px;
+        margin-top: 40px;
 
         h1 {
             color: var(--green-color);
@@ -6834,7 +6857,7 @@ $text-color: #4a4a4a; // لون النص الأساسي
             width: max-content;
             color: #333;
             text-align: start;
-            font-size: 16px;
+            font-size: 14px;
             font-style: normal;
             font-weight: 400;
             line-height: 30px; /* 187.5% */
@@ -6858,7 +6881,7 @@ $text-color: #4a4a4a; // لون النص الأساسي
 
         .subscribe-button {
             padding: 12px 20px;
-            background-color: var(--green-color);
+            background-color: var(--primary-color);
             color: white;
             border: none;
             border-radius: 0;
@@ -6875,7 +6898,7 @@ $text-color: #4a4a4a; // لون النص الأساسي
     }
 }
 #modal-select-destination-city-save {
-    background-color: var(--green-color) !important;
+    background-color: var(--primary-color) !important;
     color: #fff !important;
     width: 100% !important;
 }
@@ -6935,3 +6958,35 @@ $text-color: #4a4a4a; // لون النص الأساسي
         }
     }
 }
+.capitalize{
+    text-transform: capitalize;
+}
+ .floating-cart-container {
+    display: none;}
+
+@media (max-width: 768px) {
+  .floating-cart-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* white background */
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 15px;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn-add-to-cart {
+    width: 100%;
+  }
+
+  body[data-template="product"]  {
+    .footer{
+        margin-bottom: 65px;
+    }
+  }
+}
+

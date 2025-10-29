@@ -176,7 +176,9 @@
                                    {{ template_for_product_badge }}
                                 {% endif %}
                                 <h1 class="product-name">{{ product.name | raw }}</h1>
-                                                                <div class="ess-rate"><div class="count">( {{ product.rating.total_count }} ) </div>{% include 'rating-stars.twig' with {'rating' : product.rating.average } %}</div>
+                                                                <div class="ess-rate">
+                                                                    <div class="count">
+                                                                        {% if product.rating.total_count %}( {{ product.rating.total_count }} ){% endif %}</div>{% include 'rating-stars.twig' with {'rating' : product.rating.average } %}</div>
 
                                 <div class="price-rate">
                                     <div class="d-flex flex-row price-rate-inner">
@@ -377,7 +379,16 @@
             </section>
         </div> 
 
-
+            <div class="floating-cart-container">
+                <button 
+                    class="btn btn-add-to-cart" 
+                    type="button" 
+                    onclick="productAddToCart()">
+                    <i class="fa fa-shopping-cart me-1" aria-hidden="true"></i>
+                    <img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="25" height="25"/>
+                    <span>{{ locals.add_to_cart }}</span>
+                </button>
+            </div>
             
             {% if essproduct.id == product.id %}
                 {% if essfeatures %}
@@ -445,9 +456,9 @@
                                 {% if texttitle_ingredients or ingredients %}
                                     <div class="item">
                                         <h3 class="header">{{texttitle_ingredients}}</h3>
-                                        <div class="content">{{ingredients}}</div>
+                                       <div class="content">{{ingredients}}</div>
                                     </div>
-                                {% endif %}
+                                {% endif %} 
                         </div>
                     {% endif %}
 
@@ -496,6 +507,9 @@
                                     {% endif %}
                                     {% if has_application %}
                                         {% include 'Application.twig' %}
+                                    {% endif %}
+                                    {% if product.description %}
+                                        {% include 'description.twig' %}
                                     {% endif %}
                                 </div>
                             {% endif %}
@@ -703,7 +717,7 @@
                             {% else %}
 
                                 <div class="reviews-break-down-empty  ">
-                                    <div style="border: 1px solid #eee; margin: 10px 0px; padding: 10px; border-radius: 3px">
+                                    <div style="margin: 10px 0px; " class="reviews-break-down-empty-inner">
                                         <span>{{ locals.product_no_reviews }}</span>
                                     </div>
                                 </div>
@@ -768,7 +782,7 @@
                             {% else %}
 
                                 <div class="reviews-break-down-empty  ">
-                                    <div style="border: 1px solid #eee; margin: 10px 0px; padding: 10px; border-radius: 3px">
+                                    <div style="margin: 10px 0px;" class="reviews-break-down-empty-inner">
                                         <span>{{ locals.product_no_reviews }}</span>
                                     </div>
                                 </div>
@@ -1248,8 +1262,8 @@ document.addEventListener('DOMContentLoaded', function() {
             var arrowPrevClass = (window.appDirection === 'ltr') ? 'icon-keyboard_arrow_left' : 'icon-keyboard_arrow_right';
 
             $('#product-images-slick').slick({
-                infinite: false,
-                autoplay: false,
+                infinite: true,
+                autoplay: true,
                 arrows: (productImages.length > 1),
                 dots: (productImages.length > 1),
                 rtl: !(window.appDirection === 'ltr'),

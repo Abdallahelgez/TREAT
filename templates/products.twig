@@ -53,9 +53,9 @@
                   <div class="product-container container-sec " id="product-container"></div>
 
                 </div>
-                <div class="products-essentials container-sec" style="background-image:url({{ products_page_backimage }});">
+                {# <div class="products-essentials container-sec" style="background-image:url({{ products_page_backimage }});">
                     <div class="products-essentials-inner" >{{products_page_essentials}}</div>
-                </div>
+                </div> #}
 
                 <div class="products-div container-sec">
                     {% for product in products.data %}
@@ -1061,8 +1061,6 @@ function buildProductTemplate(product, locals, storeConfig) {
             <div class="align-center btn-add">
               <button class="btn btn-add-to-cart" type="button" onclick="productAddToCart()">
                 <span>${locals.add_to_cart}</span>
-                <img class="add-to-cart-progress d-none" src="${storeConfig.asset_url}spinner.gif" width="25" height="25"/>
-
               </button>
             </div>
           </div>
