@@ -85,6 +85,7 @@
   "product_share":"شارك المنتج",
   "product_description":"وصف المنتج",
   "description":"الوصف :",
+  "description_without_dots":"الوصف",
   "product_properties":"معلومات المنتج",
   "product_options": "خيارات المنتج",
   "product_product_readmore":"المزيد",

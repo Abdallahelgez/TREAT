@@ -277,18 +277,34 @@
 
 
                             </form>
+                                {% if essproduct.id != product.id %}
+                                    {% if product.short_description %}
+                                        <section id="product-description" class="product-description">
+                                            <div class="d-flex align-items-start product-short-description">
+                                                
+                                                <span class="description-title">
+                                                    {{ locals.description }}
+                                                </span>
+                                            </div>
+                                            <div class="description-paragrah text-short-description text-justify description-text-clear">
+                                                {{ product.short_description | raw }}
+                                            </div>
+                                        </section>
+                                    {% endif %}
+                                {% else %}
                                 {% if product.description %}
-                                    <section id="product-description" class="product-description">
-                                        <div class="d-flex align-items-start product-short-description">
-                                            
-                                            <span class="description-title">
-                                                {{ locals.description }}
-                                            </span>
-                                        </div>
-                                        <div class="description-paragrah text-short-description text-justify description-text-clear">
-                                            {{ product.description | raw }}
-                                        </div>
-                                    </section>
+                                        <section id="product-description" class="product-description">
+                                            <div class="d-flex align-items-start product-short-description">
+                                                
+                                                <span class="description-title">
+                                                    {{ locals.description }}
+                                                </span>
+                                            </div>
+                                            <div class="description-paragrah text-short-description text-justify description-text-clear">
+                                                {{ product.description | raw }}
+                                            </div>
+                                        </section>  
+                                    {% endif %}
                                 {% endif %}
                                
                                 <div class="d-flex flex-column flex-lg-row product-features">
@@ -479,7 +495,7 @@
                                 </div>
                             </section>
                     {% endif %}
-
+                            <div>{{product|json_encode}}</div>
             {% else %}
                             {% set has_uses = false %}
                             {% set has_key_ingredients = false %}
@@ -497,7 +513,7 @@
                                 {% endif %}
                             {% endfor %}
 
-                            {% if has_uses or has_key_ingredients or has_application %}
+                            {% if has_uses or has_key_ingredients or has_application or product.description %}
                                 <div class="accordion custom-accordion" id="accordionPanelsStayOpenExample">
                                     {% if has_uses %}
                                         {% include 'Uses.twig' %}

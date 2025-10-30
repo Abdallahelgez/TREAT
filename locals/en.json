@@ -82,6 +82,7 @@
     "product_share":"share product",
     "product_description":"product description",
     "description":"Description :",
+    "description_without_dots":"Description",
     "product_properties":"product information",
     "product_options": "product description",
     "product_product_readmore":"product_readmore",
