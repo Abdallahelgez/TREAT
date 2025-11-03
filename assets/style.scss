@@ -4144,6 +4144,7 @@ body.rtl {
                                 .vat-text {
                                     color: #ff3b30;
                                     font-size: 14px;
+                                    text-transform: capitalize;
                                 }
                             }
                             .rate-in-price {
@@ -4676,6 +4677,7 @@ body.rtl {
                                     color: #ff3b30;
                                     font-size: 14px;
                                     margin-bottom: 8px;
+                                    text-transform: capitalize;
                                 }
                             }
                         }
@@ -5735,7 +5737,7 @@ body.rtl {
                 font-style: normal;
                 font-weight: 400;
                 line-height: 180%;
-                
+                text-transform: capitalize;
                 
                 @media (max-width: 768px) {
                     font-size: 18px;
@@ -6138,8 +6140,9 @@ a {
     .text-container-div {
         display: flex;
         flex-direction: column;
-        gap: 16px;
+        gap: 40px;
         margin-top: 40px;
+        margin-bottom: 40px;
 
         h1 {
             color: var(--green-color);
@@ -6162,7 +6165,7 @@ a {
         .content {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 40px;
 
             p {
                 color: #333;
@@ -6170,8 +6173,9 @@ a {
                 font-style: normal;
                 font-weight: 400;
                 line-height: 200%;
-                text-align: justify;
+                text-align: center;
                 margin: 0;
+                white-space: break-spaces;
                 @media (max-width: 992px) {
                     font-size: 18px;
                     line-height: 150%;
@@ -6199,19 +6203,19 @@ a {
                     line-height: 25px;
                 }
             }
-            @media (max-width: 768px) {
-                gap: 18px;
-            }
-            @media (max-width: 450px) {
-                gap: 12px;
-            }
+            // @media (max-width: 768px) {
+            //     gap: 18px;
+            // }
+            // @media (max-width: 450px) {
+            //     gap: 12px;
+            // }
         }
-        @media (max-width: 768px) {
-            gap: 12px;
-        }
-        @media (max-width: 450px) {
-            gap: 8px;
-        }
+        // @media (max-width: 768px) {
+        //     gap: 12px;
+        // }
+        // @media (max-width: 450px) {
+        //     gap: 8px;
+        // }
     }
     .img-parent {
         width: 100%;

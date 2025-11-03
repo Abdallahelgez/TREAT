@@ -3827,6 +3827,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
 .custom-products-details .products-details .products-details-inner .row .details-container .details-container-inner .price-rate .price-rate-inner .vat-text {
   color: #ff3b30;
   font-size: 14px;
+  text-transform: capitalize;
 }
 .custom-products-details .products-details .products-details-inner .row .details-container .details-container-inner .price-rate .rate-in-price {
   display: flex;
@@ -4388,6 +4389,7 @@ body.rtl .custom-products-details .products-details .products-details-inner .row
   color: #ff3b30;
   font-size: 14px;
   margin-bottom: 8px;
+  text-transform: capitalize;
 }
 .custom-products-details .products-details .products-details-inner .row.ess .details-container .details-container-inner .btn-add-to-cart {
   display: inline-flex;
@@ -5454,6 +5456,7 @@ body.rtl .review-details .review-details-inner .review-details-inner-comments {
   font-style: normal;
   font-weight: 400;
   line-height: 180%;
+  text-transform: capitalize;
 }
 @media (max-width: 768px) {
   .custom-accordion .accordion-item .accordion-button span {
@@ -5913,8 +5916,9 @@ a {
 .story .text-container-div {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 40px;
   margin-top: 40px;
+  margin-bottom: 40px;
 }
 .story .text-container-div h1 {
   color: var(--green-color);
@@ -5943,7 +5947,7 @@ a {
 .story .text-container-div .content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 40px;
 }
 .story .text-container-div .content p {
   color: #333;
@@ -5951,8 +5955,9 @@ a {
   font-style: normal;
   font-weight: 400;
   line-height: 200%;
-  text-align: justify;
+  text-align: center;
   margin: 0;
+  white-space: break-spaces;
 }
 @media (max-width: 992px) {
   .story .text-container-div .content p {
@@ -5988,26 +5993,6 @@ a {
   .story .text-container-div .content span {
     font-size: 18px;
     line-height: 25px;
-  }
-}
-@media (max-width: 768px) {
-  .story .text-container-div .content {
-    gap: 18px;
-  }
-}
-@media (max-width: 450px) {
-  .story .text-container-div .content {
-    gap: 12px;
-  }
-}
-@media (max-width: 768px) {
-  .story .text-container-div {
-    gap: 12px;
-  }
-}
-@media (max-width: 450px) {
-  .story .text-container-div {
-    gap: 8px;
   }
 }
 .story .img-parent {
