@@ -885,7 +885,29 @@
 
     {{ product_view_scripts|raw }}
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // نتحقق إن الشاشة موبايل
+    if (window.innerWidth <= 768) {
+        const floatingCart = document.querySelector(".floating-cart-container");
+        const mainCartButton = document.querySelector(".product-buttons .btn-add-to-cart");
 
+        if (floatingCart && mainCartButton) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // الزرار الأساسي ظاهر → اخفي الفلوتنج
+                        floatingCart.style.display = "none";
+                    } else {
+                        // الزرار الأساسي اختفى → اظهر الفلوتنج
+                        floatingCart.style.display = "block";
+                    }
+                });
+            });
+
+            observer.observe(mainCartButton);
+        }
+    }
+});
     
   function shareCategory() {
     const shareData = {
