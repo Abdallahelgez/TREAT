@@ -1,5 +1,5 @@
 
-{% for meta in product.metafields %}
+{# {% for meta in product.metafields %}
     {% if meta.slug == "BENEFITS-AND-USES" %}
         {% set UsesSlug = meta.slug %}
         {% set UsesName = meta.name %}
@@ -62,10 +62,51 @@
             </div>
         </div>
     {% endif %}
+{% endfor %} #}
+{% for meta in product.metafields %}
+    {% if meta.slug == "BENEFITS-AND-USES1" %}
+        {% set BENEFITS_AND_USES = meta.slug %}
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{BENEFITS_AND_USES}}" aria-expanded="false" aria-controls="{{BENEFITS_AND_USES}}">
+                    <span>
+                        {% if session.lang.code == 'ar' %}
+                            {{meta.name.ar}}
+                        {% endif %}
+                        {% if session.lang.code == 'en' %}
+                            {{meta.name.en}}
+                        {% endif %}
+                    </span>
+                        
+                   <div class="btns">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg plus" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-lg minus" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
+                        </svg>
+                   </div>
+                
+                </button>
+            </h2>
+            <div id="{{BENEFITS_AND_USES}}" class="accordion-collapse collapse ">
+                <div class="accordion-body key-ingredients">
+                    <div class="key-ingredients-inner">
+                        {% if session.lang.code == 'ar' %}
+                            {{meta.value.ar|raw}}
+                        {% endif %}
+                        {% if session.lang.code == 'en' %}
+                            {{meta.value.en|raw}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endfor %}
 
 
-{# {{meta.value.cells}} #}
+
  
     
         

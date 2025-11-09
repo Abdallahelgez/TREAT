@@ -277,7 +277,7 @@
 
 
                             </form>
-                                {% if essproduct.id != product.id %}
+                               
                                     {% if product.short_description %}
                                         <section id="product-description" class="product-description">
                                             <div class="d-flex align-items-start product-short-description">
@@ -291,21 +291,8 @@
                                             </div>
                                         </section>
                                     {% endif %}
-                                {% else %}
-                                {% if product.description %}
-                                        <section id="product-description" class="product-description">
-                                            <div class="d-flex align-items-start product-short-description">
-                                                
-                                                <span class="description-title">
-                                                    {{ locals.description }}
-                                                </span>
-                                            </div>
-                                            <div class="description-paragrah text-short-description text-justify description-text-clear">
-                                                {{ product.description | raw }}
-                                            </div>
-                                        </section>  
-                                    {% endif %}
-                                {% endif %}
+                                
+                             
                                
                                 <div class="d-flex flex-column flex-lg-row product-features">
                                     
@@ -452,50 +439,7 @@
         <div class="container-sec ">
            
 
-            {% if essproduct.id == product.id %}
-                    {% if benefits_uses or application or ingredients %}
-                        <div class="essentials-items">
-                                {% if benefits_uses or texttitle_benefits %}
-                                    <div class="item">
-                                        <h3 class="header">{{texttitle_benefits}}</h3>
-                                        <div class="content">{{benefits_uses}}</div>
-
-                                    </div>
-                                {% endif %}
-                                {% if texttitle_application or application  %}
-                                    <div class="item">
-                                        <h3 class="header">{{texttitle_application}}</h3>
-                                        <div class="content">{{application}}</div>
-
-                                    </div>
-                                {% endif %}
-                                {% if texttitle_ingredients or ingredients %}
-                                    <div class="item">
-                                        <h3 class="header">{{texttitle_ingredients}}</h3>
-                                       <div class="content">{{ingredients}}</div>
-                                    </div>
-                                {% endif %} 
-                        </div>
-                    {% endif %}
-
-                    {% if essimg1 or essimg2 or essimg3 %}
-                            <section class="image-collage">
-                                <div class="collage-grid">
-                                    <div class="left">
-                                    <img src="{{essimg1}}" alt="treat">
-                                    </div>
-                                    <div class="right">
-                                    <div class="top">
-                                        <img src="{{essimg2}}" alt="treat">
-                                    </div>
-                                    <div class="bottom">
-                                        <img src="{{essimg3}}" alt="treat">
-                                    </div>
-                                    </div>
-                                </div>
-                            </section>
-                    {% endif %}
-            {% else %}
+            
                             {% set has_uses = false %}
                             {% set has_key_ingredients = false %}
                             {% set has_application = false %}
@@ -529,18 +473,12 @@
                                 </div>
                             {% endif %}
 
-            {# <div>{{product|json_encode}}</div> #}
-                        {# <div class="accordion custom-accordion " id="accordionPanelsStayOpenExample">
-                            {% include 'Uses.twig' %}
-                            {% include 'key-ingredients.twig' %}
-                            {% include 'Application.twig' %}
-                        </div> #}
-            {% endif %}
+            
+            
           
             {% include 'product-bundle-offers.twig' %}
             
 
-            {# <div>{{ product|json_encode }}</div> #}
 
            
 
@@ -930,11 +868,20 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 </script>
     <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const allFeatureDivs = document.querySelectorAll(".feature-div");
+
+  allFeatureDivs.forEach(div => {
+    const items = div.querySelectorAll("p");
+    if (items.length > 4) {
+      div.classList.add("two-columns");
+    }
+  });
+});
 
 
-
-        function setRandomId() {
-  const randomId = Math.floor(Math.random() * (1000 - 200 + 1)) + 200;
+function setRandomId() {
+  const randomId = Math.floor(Math.random() * (100 - 20 + 1)) + 20;
 
   const element = document.getElementById('random');
 
@@ -945,7 +892,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 setRandomId();
 
-setInterval(setRandomId, 60 * 1000);
 
         var productImages = {{  product.selected_product.media | json_encode() | raw }};
         var customerWishlistIds = {{  customer.wishlist | json_encode() | raw }};
