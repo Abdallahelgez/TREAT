@@ -57,7 +57,7 @@
                     <div class="products-essentials-inner" >{{products_page_essentials}}</div>
                 </div> #}
 
-                <div class="products-div container-sec">
+                {# <div class="products-div container-sec">
                     {% for product in products.data %}
                         {% if product.id != products_page_product.id %}
                           <div class="prod-col prod-col-tb">
@@ -66,24 +66,25 @@
                         {% endif %} 
                     {% endfor %}
                     
-                </div>
+                </div> #}
              {# {% include 'product-sec-custom.twig' with {'productid' : products_page_product.id} %}  #}
             
-                <div class="products-div-slider container-sec">
-                    <div class="head-sec">
-                        
-                           
-                        <h2 class="title-sec " >{{ locals.our_products }}</h2>
-                        
+                <div class=" container-sec">
+                    
 
-                    </div>
-
-                        <div class="products-sliders">
+                        {# <div class="products-sliders">
                             {% for product in products.data %}
                                     <div class="prod-col prod-col-tb custom-category-product-item">
                                         {% include 'product-card.twig' with {'product' : product, 'index': key} %} 
                                     </div>
                             {% endfor %}
+                        </div> #}
+                        <div class="products-flex">
+                          {% for product in products.data %}
+                              <div class="prod-col prod-col-tb custom-category-product-item">
+                                  {% include 'product-card.twig' with {'product' : product, 'index': key} %} 
+                              </div>
+                          {% endfor %}
                         </div>
                     </div>
                 
@@ -645,10 +646,6 @@ zid.store.product.fetch(productId)
       if (typeof initProductScripts === 'function') {
         initProductScripts(product);
       }
-    } else {
-      console.error('تعذر تحميل بيانات المنتج.');
-      document.getElementById('product-container').innerHTML = 
-        '<div class="alert alert-danger">حدث خطأ في تحميل المنتج</div>';
     }
   })
   .catch(function(err) {
