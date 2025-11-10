@@ -230,11 +230,11 @@
             <div class="cart-empty pt-5 pbb-5 {% if cart.products_count > 0 %}d-none{% endif %}">
                 <div class="d-flex flex-column align-items-center">
                     <span class="icon-shopping_cart_black_36dp-1-1 theme-title-primary" style="font-size: 90px">
-                        <span class="path1"></span><span class="path2"></span>
+                        <img src="{{ imageUrl('shopping-cart-remove.svg') }}" style="width: 90px;height: 90px;" alt="Shopping Cart Empity">
                     </span>
                     <h2 class="mt-3">{{ locals.cart_list_empty }}</h2>
                     <div class="mt-3">
-                        <a href="/" class="btn btn-outline-primary btn-lg btn-block">
+                        <a href="/" class="btn btn-primary btn-lg btn-block">
                             {{ locals.cart_back_to_store }}
                         </a>
                     </div>

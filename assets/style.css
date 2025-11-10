@@ -4053,7 +4053,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   border-radius: 8px;
   border: 1px solid #686363;
   color: var(--green-color);
-  font-size: 12px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 100%;
@@ -4071,6 +4071,11 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
 .custom-products-details .products-details .products-details-inner .row .details-container .custom-tags .tag-item.random-number {
   margin-right: 5px;
   display: block;
+}
+@media (max-width: 768px) {
+  .custom-products-details .products-details .products-details-inner .row .details-container .custom-tags .tag-item {
+    font-size: 12px;
+  }
 }
 .custom-products-details .products-details .products-details-inner .row .details-container .btn-add-to-cart {
   display: inline-flex;
@@ -4096,7 +4101,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
 .tick-all .tick-all-head {
   color: #ebedf0;
   text-align: start;
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: 180%;
@@ -4104,14 +4109,14 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
 }
 @media (max-width: 768px) {
   .tick-all .tick-all-head {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 10px;
     line-height: 150%;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 576px) {
   .tick-all .tick-all-head {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 10px;
   }
 }
@@ -4119,7 +4124,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   align-items: start;
   color: #ebedf0;
   text-align: start;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 173.1%;
   grid-template-columns: repeat(1, 1fr);
@@ -4131,11 +4136,6 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   margin-bottom: 0;
 }
 @media (max-width: 768px) {
-  .tick-all .tick-all-inner .feature-div {
-    font-size: 14px;
-  }
-}
-@media (max-width: 576px) {
   .tick-all .tick-all-inner .feature-div {
     font-size: 12px;
   }
@@ -4469,6 +4469,19 @@ body.ltr .tick-all .tick-all-inner .feature-ar {
 }
 .features-items .item:last-of-type:after {
   display: none;
+}
+
+.key-ingredients-inner p {
+  text-align: start;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 173.1%;
+  margin-bottom: 0px;
+}
+@media (max-width: 768px) {
+  .key-ingredients-inner p {
+    font-size: 12px;
+  }
 }
 
 .essentials-items {
