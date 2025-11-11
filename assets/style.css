@@ -3989,6 +3989,9 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   font-style: normal;
   font-weight: 400;
   line-height: 130%;
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
 }
 .custom-products-details .products-details .products-details-inner .row .details-container .details-container-inner .product-description .description-paragrah * {
   all: unset;
@@ -4004,7 +4007,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   }
 }
 .custom-products-details .products-details .products-details-inner .row .details-container .details-container-inner #product-form .size-box #product-variants-options .form-group div label {
-  color: #686363;
+  color: #292929;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
