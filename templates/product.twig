@@ -199,7 +199,7 @@
                                     {% endif %}
                                 </div>
                                 
-                                <form id="product-form">
+                            <form id="product-form">
                                 <input id="product-id" type="hidden" value="{{ product.selected_product.id }}">
 
                                 <div class="size-box">
@@ -278,7 +278,7 @@
 
                             </form>
                                
-                                    {% if product.short_description %}
+                                    {% if product.description %}
                                         <section id="product-description" class="product-description">
                                             <div class="d-flex align-items-start product-short-description">
                                                 
@@ -287,7 +287,7 @@
                                                 </span>
                                             </div>
                                             <div class="description-paragrah text-short-description text-justify description-text-clear">
-                                                {{ product.short_description | raw }}
+                                                {{ product.description | raw }}
                                             </div>
                                         </section>
                                     {% endif %}
@@ -467,9 +467,9 @@
                                     {% if has_application %}
                                         {% include 'Application.twig' %}
                                     {% endif %}
-                                    {% if product.description %}
+                                    {# {% if product.description %}
                                         {% include 'description.twig' %}
-                                    {% endif %}
+                                    {% endif %} #}
                                 </div>
                             {% endif %}
 
