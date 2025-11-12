@@ -187,11 +187,12 @@
          data-md-scroll-offset="130"
          data-sm-scroll-offset="94"
          class="hero-sec  {% if settings.position %} swap {% endif %}">
-  <img src="{{ settings.image }}" loading="lazy" alt="Lip Treatment" class="hero-img" />
+            <div class="slider-hero">
+                <img src="{{ settings.image }}" loading="lazy" alt="Lip Treatment" class="hero-img" />
   <div class="hero-content">
-    
     <a href="{{ settings.url }}" class="shop-button"><span class="button-text">{{ settings.button_text }}</span> </span></a>
   </div>
+            </div>
 </section>
 
 
@@ -224,7 +225,8 @@
             "ar": "ارفع صورة بحجم 1626 * 825 ",
             "en": "Upload an image with a size of 1626 * 825"
           }
-        },"image": {
+        },
+        "image_mobile": {
           "type": "image",
           "label": {
             "ar": "صورة الجوال",
