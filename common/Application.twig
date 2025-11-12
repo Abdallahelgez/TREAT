@@ -7,7 +7,7 @@
         
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ApplicationSlug}}" aria-expanded="false" aria-controls="{{ApplicationSlug}}">
+                <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ApplicationSlug}}" aria-expanded="false" aria-controls="{{ApplicationSlug}}">
                    
                     
                    <span>
@@ -31,7 +31,7 @@
                 
                 </button>
             </h2>
-            <div id="{{ApplicationSlug}}" class="accordion-collapse collapse ">
+            <div id="{{ApplicationSlug}}" data-bs-parent="#accordionPanelsStayOpenExample" class="accordion-collapse collapse ">
                 <div class="accordion-body key-ingredients">
                     <div class="key-ingredients-inner">
                         {% if session.lang.code == 'ar' %}

@@ -162,9 +162,10 @@
 							<span zid-visible-customer="true">
 								<a zid-visible-wishlist="{{ product.id }}" class="icon-heart-mask filled" onclick="addToWishlist(this, '{{ product.id }}')"></a>
 								<a zid-hidden-wishlist="{{ product.id }}" class="icon-heart-mask" onclick="addToWishlist(this, '{{ product.id }}')"></a>
+							<img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
 							</span>
 							<a zid-visible-guest="true" class="icon-heart-mask" href="/auth/login?redirect_to={{ requestUri() }}"></a>
-							<img class="loader d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+							
 						</span>
 					{% endif %}
 				</div>

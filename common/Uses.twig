@@ -68,7 +68,7 @@
         {% set BENEFITS_AND_USES = meta.slug %}
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{BENEFITS_AND_USES}}" aria-expanded="false" aria-controls="{{BENEFITS_AND_USES}}">
+                <button  class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{BENEFITS_AND_USES}}" aria-expanded="false" aria-controls="{{BENEFITS_AND_USES}}">
                     <span>
                         {% if session.lang.code == 'ar' %}
                             {{meta.name.ar}}
@@ -89,7 +89,7 @@
                 
                 </button>
             </h2>
-            <div id="{{BENEFITS_AND_USES}}" class="accordion-collapse collapse ">
+            <div id="{{BENEFITS_AND_USES}}" data-bs-parent="#accordionPanelsStayOpenExample" class="accordion-collapse collapse ">
                 <div class="accordion-body key-ingredients">
                     <div class="key-ingredients-inner">
                         {% if session.lang.code == 'ar' %}
