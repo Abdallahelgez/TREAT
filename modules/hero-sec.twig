@@ -193,7 +193,7 @@
   width: 100%;
 }
 .slick-dots{
-  bottom: 30px;
+  bottom: 0px;
 }
 .slick-dots li button{ 
   display: flex;
@@ -202,7 +202,7 @@
     height: 10px;
     line-height: 10px;
     font-size: 10px;
-    color: #000000;
+    color: #000000 !important;
 }
 .slick-dots li button:hover:before{
    color: #000;
@@ -220,7 +220,7 @@
          class="hero-sec  {% if settings.position %} swap {% endif %}">
           <div class="slider-hero">
             {% for slide in settings.sliders %}
-              <div class="slider-hero-inner">
+              <a href="{{ slide.url }}" class="slider-hero-inner">
                     {% if slide.image %}
                       <picture>
                         {% if slide.image_mobile is not empty %}
@@ -232,10 +232,10 @@
                     {% endif %} 
                     
                     
-                    <div class="hero-content">
+                    {# <div class="hero-content">
                       <a href="{{ slide.url }}" class="shop-button"><span class="button-text">{{ slide.button_text }}</span> </span></a>
-                    </div>
-              </div>
+                    </div> #}
+                </a>
             {% endfor %}  
           </div>
 </section>

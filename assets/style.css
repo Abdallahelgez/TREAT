@@ -3698,7 +3698,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   right: 0px;
 }
 .custom-products-details .products-details .products-details-inner .row .image-container .slick-dots {
-  bottom: 20px;
+  bottom: 0px;
 }
 .custom-products-details .products-details .products-details-inner .row .image-container .slick-dots li button {
   display: flex;
@@ -6405,6 +6405,25 @@ body.ltr .mon-price {
 .modal-select-destination-city-content .dropdwns-container .dropdwn button {
   text-align: start !important;
   margin-top: 10px !important;
+}
+
+.hero-sec .slick-dots {
+  bottom: 0px;
+}
+
+.slick-dots li {
+  margin: 0;
+}
+
+.slick-dots li button:before {
+  height: 10px;
+  line-height: 10px;
+  font-size: 10px;
+  color: #000000 !important;
+}
+
+.slick-dots li button:hover:before {
+  color: #000;
 }
 
 .products-reviews-page .review-details .review-details-inner {

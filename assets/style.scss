@@ -4042,7 +4042,7 @@ body.rtl {
                         }
                     }
                     .slick-dots {
-                        bottom: 20px;
+                        bottom: 0px;
                         li{
                             button{
                                 display: flex;
@@ -7007,10 +7007,22 @@ $text-color: #4a4a4a; // لون النص الأساسي
     }
 }
 
+.hero-sec  .slick-dots{
+    bottom:0px;
+}
 
-
-
-
+.slick-dots li{
+    margin: 0;
+}
+.slick-dots li button:before{
+    height: 10px;
+    line-height: 10px;
+    font-size: 10px;
+    color: #000000 !important;
+}
+.slick-dots li button:hover:before{
+   color: #000;
+}
 
 
 .products-reviews-page{
