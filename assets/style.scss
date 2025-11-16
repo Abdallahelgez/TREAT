@@ -4041,7 +4041,21 @@ body.rtl {
                         }
                     }
                     .slick-dots {
-                        display: none !important;
+                        bottom: 20px;
+                        li{
+                            button{
+                                display: flex;
+                                &:before{
+                                    height: 10px;
+                                    line-height: 10px;
+                                }
+                            }
+                            &.active{
+                                button{
+
+                                }
+                            }
+                        }
                     }
                 }
 

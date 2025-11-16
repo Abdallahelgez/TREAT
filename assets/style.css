@@ -3697,7 +3697,14 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   right: 0px;
 }
 .custom-products-details .products-details .products-details-inner .row .image-container .slick-dots {
-  display: none !important;
+  bottom: 20px;
+}
+.custom-products-details .products-details .products-details-inner .row .image-container .slick-dots li button {
+  display: flex;
+}
+.custom-products-details .products-details .products-details-inner .row .image-container .slick-dots li button:before {
+  height: 10px;
+  line-height: 10px;
 }
 .custom-products-details .products-details .products-details-inner .row .details-container {
   padding-left: 0;

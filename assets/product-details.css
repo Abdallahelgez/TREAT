@@ -701,9 +701,6 @@
     margin-right: 15px;
 }
 
-.products-details-page .slick-dots {
-    display: none !important;
-}
 
 .products-details-page .slick-arrow {
     background-color: rgba(204,204,204,0.7);

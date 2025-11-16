@@ -5,9 +5,6 @@
   height: auto;
   overflow: hidden;
 }
-.rtl .swap{
-
-}
 .hero-img {
   width: 100%;
   height: auto;
@@ -17,7 +14,7 @@
 .hero-content {
     position: absolute;
     bottom: 120px;
-    left: 100px;
+    right: 100px;
     color: #090909;
     display: flex;
     flex-direction: column;
@@ -28,59 +25,59 @@
     max-width: fit-content;
     width: max-content;
 }   
-.rtl .swap .hero-content{
-    right: 100px;
+ .swap .hero-content{
+    left: 100px;
 }
 
 
 @media (max-width: 1201px) {
     .hero-content{
-        left: 80px;
+        right: 80px;
         bottom: 100px;
         gap: 20px;
     }
-    .rtl .swap .hero-content{
-        right: 80px;
+     .swap .hero-content{
+        left: 80px;
     }
 
 }
 @media (max-width: 993px) {
     .hero-content{
-        left: 60px;
+        right: 60px;
         bottom: 80px;
         gap: 20px;
     }
-    .rtl .swap .hero-content{
-        right: 60px;
+     .swap .hero-content{
+        left: 60px;
     }  
 }
 @media (max-width: 769px) {
     .hero-content{
-        left: 40px;
+        right: 40px;
         bottom: 60px;
         
     }
-    .rtl .swap .hero-content{
-        right: 40px;
+     .swap .hero-content{
+        left: 40px;
     }  
 }
 @media (max-width: 577px) {
     .hero-content{
-        left: 20px;
+        right: 20px;
         bottom: 40px;
        
     }
-    .rtl .swap .hero-content{
-        right: 20px;
+     .swap .hero-content{
+        left: 20px;
     }     
 }
 @media (max-width: 450px) {
     .hero-content{
-            left: 16px;
+            right: 16px;
             bottom: 20px;
     }   
-    .rtl .swap .hero-content{
-        right: 16px;
+     .swap .hero-content{
+        left: 16px;
     }  
 }
     /*****************/
@@ -195,6 +192,9 @@
   height: auto;
   width: 100%;
 }
+.slick-dots{
+  bottom: 30px;
+}
 </style>
 
 <section section-id="{{ sectionId }}"
@@ -222,6 +222,7 @@
               </div>
             {% endfor %}  
           </div>
+          <div>{{ settings.position | json_encode }}</div>
 </section>
 
 <script>
@@ -304,19 +305,19 @@
             "en": "text button"
           }
         }
+      }
+    },
+    "position": {
+      "type": "checkbox",
+      "label": {
+        "ar": "",
+        "en": ""
       },
-        "position": {
-          "type": "checkbox",
-          "label": {
-            "ar": "",
-            "en": ""
-          },
-          "noLabel": true,
-          "option": {
-            "ar": " عرض الزرار على اليمين",
-            "en": "Display Buttom in right"
-          }
-        }
+      "noLabel": true,
+      "option": {
+        "ar": " عرض الزرار على اليسار",
+        "en": "Display Buttom in left"
+      }
     }
   }
 }
