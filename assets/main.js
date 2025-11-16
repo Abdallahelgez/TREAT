@@ -183,7 +183,7 @@ function addToCart(product_id, quantity, onCompleted) {
               toastr.success("تم إضافة المنتج إلى السلة بنجاح");
             });
             fetchCart();
-            showCartPopupAfterAdd();
+            
             if (onCompleted) {
                 onCompleted();
             }
@@ -717,7 +717,7 @@ function renderQuickViewOptions(p){
     var html = `
       <div class="option-block">
         <p class="main-text large-text-mobile option-title">
-          ${optionObj.name} 
+          ${optionObj.name}                    
           <span style="font-weight:300">${(selectedAttributes[optionObj.name] || '').split(',')[0]}</span>
         </p>
         <ul class="variants-options" data-option-name="${optionObj.name}">
