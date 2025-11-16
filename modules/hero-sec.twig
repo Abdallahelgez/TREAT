@@ -158,6 +158,7 @@
     color: #ffffff;
 }
 
+
 .shop-button:hover .button-icon {
     opacity: 1;
     width: 20px; /* عرض الأيقونة عند hover */
@@ -179,6 +180,20 @@
     .shop-button{
         padding: 4px 10px;
     }   
+}
+
+
+
+
+
+
+
+
+
+
+.slider-hero .slider-hero-inner img{
+  height: auto;
+  width: 100%;
 }
 </style>
 
@@ -219,7 +234,8 @@
                 slidesToScroll: 1,
                 infinite: true,
                 autoplay: true,
-                speed:10000,
+                autoplaySpeed:10000,
+                speed:300,
                 arrows: false,
                 dots: true,
                 rtl: !(window.appDirection === 'ltr'),
