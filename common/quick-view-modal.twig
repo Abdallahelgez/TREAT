@@ -1,0 +1,29 @@
+<div id="quickViewSidebar" class="qv-sidebar">
+	<div class="qv-header">
+		<h5 class="qv-title">Select</h5>
+		<button class="qv-close" id="qv-close">
+			<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
+				<path d="M18 6L6.00081 17.9992M17.9992 18L6 6.00085" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+			</svg>
+		</button>
+	</div>
+	<div class="qv-body">
+		<div class="qv-image-box">
+			<img id="qv-image" alt=""/>
+		</div>
+		<h3 class="qv-name" id="qv-name"></h3>
+		<div class="qv-price-box">
+			<h4 id="qv-price"></h4>
+			<del id="qv-price-old" style="display:none"></del>
+		</div>
+		<form class="qv-form" id="qv-form">
+			<input type="hidden" name="product_id" id="qv-product-id"/>
+			<div class="qv-variants" id="qv-variants"></div>
+			<button class="qv-add-to-cart" type="button" id="qv-add-to-cart">
+				<img class="add-to-cart-progress d-none" src="{{ asset_url }}spinner.gif" width="20" height="20"/>
+				{{ locals.add_to_cart }}
+			</button>
+		</form>
+	</div>
+</div>
+<div id="qv-overlay" class="qv-overlay"></div>

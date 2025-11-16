@@ -618,6 +618,290 @@ function scrollToSubMenu(ele) {
     }
 }
 
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function(){
+(function(){
+  function on(evt, sel, handler){ document.addEventListener(evt, function(e){ var t=e.target.closest(sel); if(t){ handler(e, t); } }); }
+  function set(el, sel, text){ var n = el.querySelector(sel); if(n){ n.textContent = text; } }
+  function html(el, sel, markup){ var n = el.querySelector(sel); if(n){ n.innerHTML = markup; } }
+
+  // Map productId -> original product card element (for animation/badge via productCartAddToCart)
+  window.__qvSourceElmById = window.__qvSourceElmById || {};
+
+  function openQuickView(data){
+    // ملء البيانات
+    document.getElementById('qv-name').textContent = data.name || '';
+    document.getElementById('qv-image').src = data.image || '';
+    document.getElementById('qv-price').textContent = data.sale_price || data.price || '';
+    var old = document.getElementById('qv-price-old');
+    if(data.sale_price && data.price){
+      old.style.display = '';
+      old.textContent = data.price;
+    } else old.style.display = 'none';
+    document.getElementById('qv-product-id').value = data.id;
+  
+    // فتح sidebar
+    document.getElementById('quickViewSidebar').classList.add('open');
+    document.getElementById('qv-overlay').classList.add('open');
+  }
+  
+  document.getElementById('qv-close').addEventListener('click', function(){
+    document.getElementById('quickViewSidebar').classList.remove('open');
+    document.getElementById('qv-overlay').classList.remove('open');
+  });
+  
+  document.getElementById('qv-overlay').addEventListener('click', function(){
+    document.getElementById('quickViewSidebar').classList.remove('open');
+    this.classList.remove('open');
+  });
+  
+function renderQuickViewOptions(p){
+  var box = document.getElementById('qv-variants');
+  if(!box){ return; }
+  if(!p || !p.has_options || !p.options || !p.variants){
+    box.innerHTML = '';
+    return;
+  }
+
+  var selectedAttributes = {};
+  var defaultVariant = (p.variants || []).find(v => !v.unavailable) || p.variants[0];
+
+  if(defaultVariant && defaultVariant.attributes){
+    defaultVariant.attributes.forEach(attr => selectedAttributes[attr.name] = attr.value);
+    var idEl = document.getElementById('qv-product-id');
+    if(idEl && defaultVariant.id) idEl.value = defaultVariant.id;
+  }
+
+  function findMatchingVariant(){
+    return (p.variants || []).find(v => {
+      if(!v.attributes) return false;
+      return v.attributes.every(a => {
+        var name = (a.name||'').toLowerCase().trim();
+        var val = (a.value||'').split(',')[0].trim().toLowerCase();
+        var selEntry = Object.keys(selectedAttributes).find(k => k.toLowerCase().trim() === name);
+        if(!selEntry) return true;
+        var selVal = (selectedAttributes[selEntry]||'').split(',')[0].trim().toLowerCase();
+        return selVal === val;
+      });
+    });
+  }
+
+  function applyVariant(v){
+    if(!v) return;
+    document.getElementById('qv-product-id').value = v.id;
+    document.getElementById('qv-price').textContent = v.formatted_sale_price || v.formatted_price || v.sale_price || v.price;
+
+    var oldEl = document.getElementById('qv-price-old');
+    if(v.sale_price){
+      oldEl.style.display = '';
+      oldEl.textContent = v.formatted_price || v.price;
+    } else {
+      oldEl.style.display='none';
+    }
+
+    var imgEl = document.getElementById('qv-image');
+    if(v.images?.length){
+      imgEl.src = v.images[0].image?.full_size || v.images[0].image?.medium || imgEl.src;
+    }
+  }
+
+  // 🔥 يبني خيار واحد (لون / حجم / أي شيء)
+  function buildOption(optionObj){
+    var html = `
+      <div class="option-block">
+        <p class="main-text large-text-mobile option-title">
+          ${optionObj.name} 
+          <span style="font-weight:300">${(selectedAttributes[optionObj.name] || '').split(',')[0]}</span>
+        </p>
+        <ul class="variants-options" data-option-name="${optionObj.name}">
+    `;
+
+    (optionObj.choices || []).forEach(choice => {
+      var parts = choice.split(',');
+      var name = parts[0].trim();
+      var color = parts[1]?.trim();
+      var current = (selectedAttributes[optionObj.name] || '').split(',')[0];
+
+      var active = name === current ? 'active' : '';
+
+      // لو فيه لون → رجّع زر بصبغة لون
+      if(color){
+        html += `
+          <li class="variant-item-li ${active}" data-value="${choice}"  onclick="qvOptionClicked(event)" >
+            <button class="variant-item" type="button">
+              <span style="background-color:${color}"></span>
+            </button>
+          </li>`;
+      } else {
+        // لو مش لون → رجّع زر نصّي
+        html += `
+          <li class="variant-item-li ${active}" data-value="${choice}" onclick="qvOptionClicked(event)" >
+            <button class="variant-item" type="button">
+              ${name}
+            </button>
+          </li>`;
+      }
+    });
+
+    html += `</ul></div>`;
+    return html;
+  }
+
+  // 🔥 بناء كل الـ options
+  box.innerHTML = (p.options || [])
+      .map(opt => buildOption(opt))
+      .join('');
+
+  // حدث عند الضغط على أي خيار
+  window.qvOptionClicked = function(ev){
+    var li = ev.target.closest('li');
+    var ul = li.closest('ul');
+    var optName = ul.getAttribute('data-option-name');
+    var value = li.getAttribute('data-value');
+
+    selectedAttributes[optName] = value;
+
+    // فعّل العنصر
+    ul.querySelectorAll('li').forEach(li => li.classList.remove('active'));
+    li.classList.add('active');
+
+    // تحديث الاسم بجانب العنوان
+    ul.parentNode.querySelector('span').textContent = value.split(',')[0];
+
+    var variant = findMatchingVariant();
+    applyVariant(variant);
+  };
+
+  // تطبيق أول variant
+  applyVariant(findMatchingVariant() || defaultVariant);
+}
+
+  
+
+  on('click', '.quick-view-btn', function(e, btn){
+    e.preventDefault();
+    var data = {
+      id: btn.getAttribute('data-product-id'),
+      slug: btn.getAttribute('data-product-slug'),
+      name: btn.getAttribute('data-product-name'),
+      price: btn.getAttribute('data-product-price'),
+      sale_price: btn.getAttribute('data-product-sale-price'),
+      discount: btn.getAttribute('data-product-discount'),
+      currency: btn.getAttribute('data-product-currency'),
+      image: btn.getAttribute('data-product-image'),
+      has_options: btn.getAttribute('data-product-has-options') === '1'
+    };
+    // remember source product card for animation/badge
+    var sourceCard = btn.closest('.product-item') || null;
+    if(data.id && sourceCard){ window.__qvSourceElmById[data.id] = sourceCard; }
+
+    openQuickView(data);
+
+    var qvBox = document.getElementById('qv-variants');
+    if(qvBox){ qvBox.innerHTML = ''; }
+    if(data.has_options && window.zid && zid.store && zid.store.product && zid.store.product.fetch){
+      zid.store.product.fetch(data.id).then(function(resp){
+        if(resp && resp.status === 'success' && resp.data && (resp.data.product || resp.data)){
+          var p = resp.data.product || resp.data;
+          renderQuickViewOptions(p);
+        }
+      }).catch(function(){});
+    }
+  });
+
+  on('click', '#qv-add-to-cart', function(e){
+    e.preventDefault();
+    var btn = e.target.closest('button');
+    var prog = btn.querySelector('.add-to-cart-progress');
+    var productId = document.getElementById('qv-product-id').value;
+    if(!productId) return;
+    if(prog) prog.classList.remove('d-none');
+  
+    var sourceElm = (productId && window.__qvSourceElmById) ? window.__qvSourceElmById[productId] : null;
+    var sourceBtn = sourceElm ? sourceElm.querySelector('.product-card-add-to-cart') : null;
+  
+    function closeSidebar() {
+      document.getElementById('quickViewSidebar').classList.remove('open');
+      document.getElementById('qv-overlay').classList.remove('open');
+    }
+
+  
+    function handleSuccess(cart) {
+      if(prog) prog.classList.add('d-none');
+      window.loadToasterScriptIfNotLoaded(function () {
+        toastr.success(window.i18n.add_to_cart_success);
+      });
+      closeSidebar();
+      if(cart){
+        if(typeof setCartTotalAndBadge === 'function') setCartTotalAndBadge(cart);
+      }
+    }
+  
+    if(typeof window.productCartAddToCart === 'function' && sourceBtn){
+      try {
+        window.productCartAddToCart(sourceBtn, productId);
+        // بعد نجاح الإضافة، نفترض أن الدالة ترجع Cart object
+        var cart = window.zid.store.cart.current; // مثال إذا عندك current cart object
+        handleSuccess(cart);
+        return;
+      } catch(err) {
+        window.loadToasterScriptIfNotLoaded(function () {
+          toastr.error(window.i18n.add_to_cart_fail);
+        });
+        if(prog) prog.classList.add('d-none');
+        return;
+      }
+    }
+  
+    if(window.zid && zid.store && zid.store.cart && zid.store.cart.addProduct){
+      zid.store.cart.addProduct({ productId: productId, quantity: 1 }).then(function(resp){
+        if(prog) prog.classList.add('d-none');
+        if(resp && resp.status === 'success'){
+          var cart = resp.data.cart || resp.data; // حسب شكل الـ API
+          handleSuccess(cart);
+        } else {
+          if(window.toastr){ toastr.error((resp && resp.data && resp.data.message) || 'حدث خطأ'); }
+        }
+      }).catch(function(){
+        if(prog) prog.classList.add('d-none');
+        if(window.toastr){ toastr.error('حدث خطأ'); }
+      });
+    } else {
+      if(prog) prog.classList.add('d-none');
+    }
+  });
+  
+  
+})(); 
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class ProductsQuestions {
   constructor() {
     this.emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;

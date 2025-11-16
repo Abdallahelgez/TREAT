@@ -215,6 +215,7 @@
             {% if settings.colors_background_image %} style="background-repeat: repeat; background-image: url('{{ settings.colors_background_image }}');" {% endif %}>
             {% block main_content %}{% endblock %}
     </div>
+    {% include 'quick-view-modal.twig' %}
     <div class="footer">
         {% block footer %}{% endblock %}
     </div>
@@ -281,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <script src="{{ asset_url ~ 'slide-menu.ie.js?v=1.06' }}" ></script>
 <script src="{{ asset_url ~ 'slick.min.js' }}" ></script>
 
-<script type="text/javascript" src="{{ asset_url ~ 'main.js?v=1.120' }}" ></script>
+<script type="text/javascript" src="{{ assetUrl('main.js?v=1.101010') }}" ></script>
 
 {% block footer_scripts %}{% endblock %}
 
