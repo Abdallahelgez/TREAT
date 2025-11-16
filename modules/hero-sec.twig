@@ -195,6 +195,22 @@
 .slick-dots{
   bottom: 30px;
 }
+.slick-dots li button{ 
+  display: flex;
+}
+.slick-dots li button:before{
+    height: 10px;
+    line-height: 10px;
+    font-size: 10px;
+    color: #000000;
+}
+.slick-dots li button:hover:before{
+   color: #000;
+}
+.slick-dots li.slick-active button:before{
+
+}
+                           
 </style>
 
 <section section-id="{{ sectionId }}"
