@@ -4347,6 +4347,7 @@ body.rtl {
                                 white-space: pre-line;
                                 display: flex;
                                 flex-direction: column;
+                                margin-bottom: 16px;
                                 * {
                                     all: unset;
                                 }
@@ -4436,7 +4437,7 @@ body.rtl {
 
                             &.random-number{
                                 margin-right: 5px;
-                                display: block;
+                                display: flex;
                             }
                             @media (max-width: 768px) {
                                 font-size: 12px;

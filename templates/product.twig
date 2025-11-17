@@ -292,34 +292,25 @@
                                         </section>
                                     {% endif %}
                                 
-                             
-                               
-                                <div class="d-flex flex-column flex-lg-row product-features">
-                                    
-
-                                    
-
-
-                                   
-
-                                    {% if product.bundle_offer %}
-                                    <div class="bundle-offer-section">
-                                        <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
-                                        <span class="bundle-offer-title">{{ product.bundle_offer.name }}</span>
-                                    </div>
-                                    {% endif %}
-                                    
-                                    {% if product.extra_bundle_offers %}
-                                        {% for key, bundle_offer in product.extra_bundle_offers %}
+                                    {% if product.bundle_offer and product.extra_bundle_offers %}
+                                        <div class="d-flex flex-column flex-lg-row product-features">
+                                            {% if product.bundle_offer %}
                                             <div class="bundle-offer-section">
                                                 <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
-                                                <span class="bundle-offer-title">{{ bundle_offer.name }}</span>
+                                                <span class="bundle-offer-title">{{ product.bundle_offer.name }}</span>
                                             </div>
-                                        {% endfor %}
+                                            {% endif %}
+                                            
+                                            {% if product.extra_bundle_offers %}
+                                                {% for key, bundle_offer in product.extra_bundle_offers %}
+                                                    <div class="bundle-offer-section">
+                                                        <span class="icon-gift" style="color: red; font-size: 14px"></span>&nbsp;
+                                                        <span class="bundle-offer-title">{{ bundle_offer.name }}</span>
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </div>
                                     {% endif %}
-                                </div>
-
-                                
                                 
 
                                 <div>
