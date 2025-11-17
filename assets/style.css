@@ -6703,3 +6703,7 @@ body.ltr .mon-price {
 .tapi-cart {
   padding: 0 15px;
 }
+
+.main.app-content-padded {
+  padding-top: 0px;
+}
