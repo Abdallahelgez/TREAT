@@ -867,11 +867,12 @@ function renderQuickViewOptions(p){
           var cart = resp.data.cart || resp.data; // حسب شكل الـ API
           handleSuccess(cart);
         } else {
-          if(window.toastr){ toastr.error((resp && resp.data && resp.data.message) || 'حدث خطأ'); }
+          if(window.toastr){ toastr.error((resp && resp.data && resp.data.message) || 'حدث 2خطأ'); }
         }
       }).catch(function(){
         if(prog) prog.classList.add('d-none');
-        if(window.toastr){ toastr.error('حدث خطأ'); }
+       
+        closeSidebar();
       });
     } else {
       if(prog) prog.classList.add('d-none');

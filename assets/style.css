@@ -4120,12 +4120,12 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   border-radius: 12px;
   align-items: center;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 16px;
 }
 @media (max-width: 768px) {
   .custom-products-details .products-details .products-details-inner .row .details-container .btn-add-to-cart {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 16px;
     height: 44px;
   }
 }
@@ -6690,4 +6690,16 @@ body.ltr .mon-price {
   padding: 12px 10px !important;
   opacity: 1 !important;
   box-shadow: unset !important;
+}
+
+.tapi-box {
+  margin-top: 16px;
+}
+
+.tabby-cart-widget {
+  margin-bottom: 15px;
+}
+
+.tapi-cart {
+  padding: 0 15px;
 }

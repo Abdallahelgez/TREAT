@@ -4452,10 +4452,10 @@ body.rtl {
                         border-radius: 12px;
                         align-items: center;
                         justify-content: center;
-                        margin-top: 32px;
+                        margin-top: 16px;
                         @media (max-width: 768px) {
                             width: 100%;
-                            margin-top: 20px;
+                            margin-top: 16px;
                             height: 44px;
                             
                         }
@@ -7294,4 +7294,14 @@ $text-color: #4a4a4a; // لون النص الأساسي
     padding: 12px 10px !important;
     opacity: 1 !important;
     box-shadow: unset !important;
+}
+
+.tapi-box{
+    margin-top: 16px;
+}
+.tabby-cart-widget{
+    margin-bottom: 15px;
+}
+.tapi-cart{
+    padding: 0 15px;
 }
