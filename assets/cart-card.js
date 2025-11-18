@@ -86,8 +86,8 @@
         const priceAfterElement = totalsDiv.querySelector('.cart-product-total-price');
 
         // استخراج رمز العملة
-        const currencyHTML = extractCurrency(priceAfterElement);
-
+        let currencyHTML = extractCurrency(priceAfterElement) === 'جم' ? 'ج.م' : extractCurrency(priceAfterElement);
+        console.log(currencyHTML);
         let unitPrice = 0;
         let unitPriceOriginal = 0;
         let hasDiscount = false;
@@ -125,21 +125,21 @@
 
         // تحديث العرض
         if (priceInfo.hasDiscount && priceInfo.unitPriceOriginal > 0) {
-            priceEachElement.innerHTML = `<span class="price-original">${priceInfo.currencyHTML} ${priceInfo.unitPriceOriginal.toLocaleString('en-US', {
+            priceEachElement.innerHTML = `<span class="price-original">${priceInfo.unitPriceOriginal.toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
-                })}</span>
-                <span class="price-discounted">${priceInfo.currencyHTML} ${priceInfo.unitPrice.toLocaleString('en-US', {
+                })} ${priceInfo.currencyHTML}</span>
+                <span class="price-discounted">${priceInfo.unitPrice.toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
-                })}</span>
+                })} ${priceInfo.currencyHTML}</span>
                 
             `;
         } else {
-            priceEachElement.innerHTML = `<span class="price-original">${priceInfo.currencyHTML} ${priceInfo.unitPrice.toLocaleString('en-US', {
+            priceEachElement.innerHTML = `<span class="price-original">${priceInfo.unitPrice.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
-            })}</span>`;
+            })} ${priceInfo.currencyHTML}</span>`;
         }
     }
 
@@ -175,21 +175,21 @@
         if (priceInfo.hasDiscount && priceInfo.unitPriceOriginal > 0) {
             // عرض السعر الأصلي والسعر بعد الخصم
             priceEach.innerHTML = `
-                <span class="price-original">${priceInfo.currencyHTML} ${priceInfo.unitPriceOriginal.toLocaleString('en-US', {
+                <span class="price-original"> ${priceInfo.unitPriceOriginal.toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
-                })}</span>
-                <span class="price-discounted">${priceInfo.currencyHTML} ${priceInfo.unitPrice.toLocaleString('en-US', {
+                })} ${priceInfo.currencyHTML}</span>
+                <span class="price-discounted"> ${priceInfo.unitPrice.toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
-                })}</span>
+                })} ${priceInfo.currencyHTML}</span>
             `;
         } else {
             // عرض السعر العادي فقط
-            priceEach.innerHTML = `${priceInfo.currencyHTML} ${priceInfo.unitPrice.toLocaleString('en-US', {
+            priceEach.innerHTML = `${priceInfo.unitPrice.toLocaleString('en-US', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
-            })}`;
+            })} ${priceInfo.currencyHTML}`;
         }
 
         // الحصول على النصوص حسب اللغة

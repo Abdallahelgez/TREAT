@@ -836,7 +836,10 @@ function renderQuickViewOptions(p){
     function handleSuccess(cart) {
       if(prog) prog.classList.add('d-none');
       window.loadToasterScriptIfNotLoaded(function () {
-        toastr.success(window.i18n.add_to_cart_success);
+        const msg = (window.i18n && window.i18n.add_to_cart_success) 
+            ? window.i18n.add_to_cart_success 
+            : (document.documentElement.lang === 'ar' ? 'تمت إضافة المنتج إلى السلة' : 'Product added to cart');
+toastr.success(msg);
       });
       closeSidebar();
       if(cart){
@@ -867,12 +870,11 @@ function renderQuickViewOptions(p){
           var cart = resp.data.cart || resp.data; // حسب شكل الـ API
           handleSuccess(cart);
         } else {
-          if(window.toastr){ toastr.error((resp && resp.data && resp.data.message) || 'حدث 2خطأ'); }
+          if(window.toastr){ toastr.error((resp && resp.data && resp.data.message) || 'حدث خطأ'); }
         }
-      }).catch(function(){
-        if(prog) prog.classList.add('d-none');
-       
-        closeSidebar();
+      }).catch(err => {
+    console.error('Error adding product:', err);
+    if(window.toastr) toastr.error('حدث خطأ');
       });
     } else {
       if(prog) prog.classList.add('d-none');
@@ -882,6 +884,9 @@ function renderQuickViewOptions(p){
   
 })(); 
 });
+
+
+
 
 
 
