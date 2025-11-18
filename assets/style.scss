@@ -4201,13 +4201,13 @@ body.rtl {
                                 span {
                                     &::before {
                                         color: #ffa439;
-                                        font-size: 18px;
+                                        font-size: 14px;
                                     }
                                 }
                                 p {
                                     margin: 0;
                                     color: #141414;
-                                    font-size: 20px;
+                                    font-size: 15px;
                                     font-style: normal;
                                     font-weight: 400;
                                     line-height: 100%;
@@ -4866,7 +4866,7 @@ body.rtl {
             span{
                 font-size: 14px;
                 @media (max-width: 768px) {
-                    font-size: 12px;
+                    font-size: 12px !important;
                 }
             }
             @media (max-width: 768px) {
