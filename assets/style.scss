@@ -4839,18 +4839,38 @@ body.rtl {
             align-items: start;
             color: #ebedf0;
             text-align: start;
-            font-size: 14px;
+            font-size: 14px!important;
             font-weight: 400;
             line-height: 173.1%;
             grid-template-columns: repeat(1, 1fr); 
             &.two-columns{
                 grid-template-columns: repeat(2, 1fr);
             }
+            *{
+                 
+                   body.rtl & {
+                   font-family: "MyFontar" !important;
+
+                   }
+                   body.ltr & {
+                    font-family: "MyFonten" !important;
+                   }
+            }
             p{
                 margin-bottom: 0;
+                font-size: 14px!important;
+                @media (max-width: 768px) {
+                    font-size: 12px!important;
+                }
+            }
+            span{
+                font-size: 14px;
+                @media (max-width: 768px) {
+                    font-size: 12px;
+                }
             }
             @media (max-width: 768px) {
-                font-size: 12px;
+                font-size: 12px!important;
             }
            
         }
@@ -5425,6 +5445,9 @@ body.rtl {
                     &:hover {
                         transform: rotate(180deg);
                     }
+                }
+                .image-logo {
+                    max-height: 55px;
                 }
             }
             .slide-menu-ul-li {
@@ -7318,6 +7341,10 @@ body.ltr .qv-sidebar.open {
     box-shadow: unset !important;
 }
 
+.ltr .toast-top-right{
+    right: unset !important;
+    left: 12px !important;
+}
 .tapi-box{
     margin-top: 16px;
 }

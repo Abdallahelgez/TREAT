@@ -4166,7 +4166,7 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
   align-items: start;
   color: #ebedf0;
   text-align: start;
-  font-size: 14px;
+  font-size: 14px !important;
   font-weight: 400;
   line-height: 173.1%;
   grid-template-columns: repeat(1, 1fr);
@@ -4174,12 +4174,32 @@ body.ltr .custom-products-details .products-details .products-details-inner .row
 .tick-all .tick-all-inner .feature-div.two-columns {
   grid-template-columns: repeat(2, 1fr);
 }
+body.rtl .tick-all .tick-all-inner .feature-div * {
+  font-family: "MyFontar" !important;
+}
+body.ltr .tick-all .tick-all-inner .feature-div * {
+  font-family: "MyFonten" !important;
+}
 .tick-all .tick-all-inner .feature-div p {
   margin-bottom: 0;
+  font-size: 14px !important;
+}
+@media (max-width: 768px) {
+  .tick-all .tick-all-inner .feature-div p {
+    font-size: 12px !important;
+  }
+}
+.tick-all .tick-all-inner .feature-div span {
+  font-size: 14px;
+}
+@media (max-width: 768px) {
+  .tick-all .tick-all-inner .feature-div span {
+    font-size: 12px;
+  }
 }
 @media (max-width: 768px) {
   .tick-all .tick-all-inner .feature-div {
-    font-size: 12px;
+    font-size: 12px !important;
   }
 }
 body.rtl .tick-all .tick-all-inner .feature-en {
@@ -4761,6 +4781,9 @@ body.ltr .menu-header-slider-custom .slide-menu__slider .custom-sliding-menu .lo
 }
 .menu-header-slider-custom .slide-menu__slider .custom-sliding-menu .logo-sliding-menu .close-menu:hover {
   transform: rotate(180deg);
+}
+.menu-header-slider-custom .slide-menu__slider .custom-sliding-menu .logo-sliding-menu .image-logo {
+  max-height: 55px;
 }
 .menu-header-slider-custom .slide-menu__slider .custom-sliding-menu .slide-menu-ul-li {
   color: var(--green-color);
@@ -6713,6 +6736,11 @@ body.ltr .qv-sidebar.open {
   padding: 12px 10px !important;
   opacity: 1 !important;
   box-shadow: unset !important;
+}
+
+.ltr .toast-top-right {
+  right: unset !important;
+  left: 12px !important;
 }
 
 .tapi-box {
