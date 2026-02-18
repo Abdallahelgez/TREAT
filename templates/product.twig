@@ -185,14 +185,14 @@
                                         <h2 class="product-formatted-price ">{% if product.selected_product.formatted_sale_price %}{{ product.selected_product.formatted_sale_price }}{% else %}{{ product.selected_product.formatted_price }}{% endif %}</h2>
                                         <del class="product-formatted-price-old">{% if product.selected_product.formatted_sale_price %} {{ product.selected_product.formatted_price }}{% endif %}</del>
                                     {% if product_tags %}
-                                {% for tag in product_tags %}
-                                    {% if tag.product.id == product.id %}
-                                        {% if tag.vattext %}
-                                            <div class="vat-text" >{{tag.vattext}}</div>
-                                        {% endif %}
+                                        {% for tag in product_tags %}
+                                            {% if tag.product.id == product.id %}
+                                                {% if tag.vattext %}
+                                                    <div class="vat-text" >{{tag.vattext}}</div>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endif %}
-                                {% endfor %}
-                            {% endif %}
                                     </div>
                                     {% if product.rating %}
                                         <div class="rate-in-price"> <span class="icon-star1"></span> <p>{{ product.rating.average|round(1, 'common') }}</p></div>
